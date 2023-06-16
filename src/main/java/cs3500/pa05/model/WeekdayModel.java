@@ -69,4 +69,13 @@ public class WeekdayModel implements Model {
   public List<Category> getCategories() {
     return this.categories;
   }
+
+  /**
+   * get all activities on a specific day
+   * @param weekday day of the activities
+   * @return list of activity
+   */
+  public List<Activity> getActivitiesFor(Weekday weekday){
+    return this.activities.get(weekday);
+  }
 }

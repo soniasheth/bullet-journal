@@ -51,6 +51,30 @@ public abstract class Activity implements Comparable<Activity> {
   }
 
   /**
+   * getter for name
+   * @return name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * getter for description
+   * @return description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * getter for category
+   * @return category
+   */
+  public Category getCategory() {
+    return category;
+  }
+
+  /**
    * compare the current activity to given activity based on priority
    *
    * @param that the object to be compared.
