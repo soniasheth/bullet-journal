@@ -5,10 +5,13 @@
 - Persistence
 
 ## Section 2: Headlining Features
-
+- Categories
+- Task Queue
 
 ## Section 3: Power Ups
-
+- Filter by Category
+- Takesies-Backsies
+- Weekly Overview
 
 ## Section 3: Power Ups
 
