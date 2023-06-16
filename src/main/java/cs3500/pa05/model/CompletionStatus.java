@@ -10,11 +10,21 @@ public enum CompletionStatus {
 
   private final int priority;
 
-  private CompletionStatus(int priority){
+  /**
+   * default constructor for completion status
+   *
+   * @param priority the priority in integer
+   */
+  private CompletionStatus(int priority) {
     this.priority = priority;
   }
 
-  public int getPriority(){
+  /**
+   * getter for priority
+   *
+   * @return priority
+   */
+  public int getPriority() {
     return this.priority;
   }
 }

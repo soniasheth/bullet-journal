@@ -9,6 +9,9 @@ import java.util.Queue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * represents a testing class for WeekdayModel
+ */
 public class WeekdayModelTest {
 
   private WeekdayModel model;
@@ -20,6 +23,9 @@ public class WeekdayModelTest {
   private Activity event1;
   private Activity event2;
 
+  /**
+   * helper methods to set up fields before each test
+   */
   @BeforeEach
   public void setUp() {
     this.model = new WeekdayModel();
@@ -43,12 +49,15 @@ public class WeekdayModelTest {
     this.model.addActivity(this.event2);
   }
 
+  /**
+   * testing getTaskQueue
+   */
   @Test
   public void testGetTaskQueue() {
     Queue<Activity> queue = this.model.getTaskQueue();
     assertEquals(queue.size(), 4);
     List<Activity> ranked = List.of(this.task1, this.task4, this.task2, this.task3);
-    for(Activity activity: ranked){
+    for (Activity activity : ranked) {
       assertEquals(activity, queue.remove());
     }
     assertTrue(queue.isEmpty());

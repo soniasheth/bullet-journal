@@ -14,12 +14,18 @@ public enum Weekday {
 
   private final String representation;
 
-  private Weekday(String representation){
+  /**
+   * default constructor for Weekday
+   *
+   * @param representation string representation
+   */
+  private Weekday(String representation) {
     this.representation = representation;
   }
 
   /**
    * get the String representation of the enum
+   *
    * @return String representation
    */
   public String getRepresentation() {

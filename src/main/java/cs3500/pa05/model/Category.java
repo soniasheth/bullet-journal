@@ -11,7 +11,8 @@ public class Category {
 
   /**
    * default constructor for category
-   * @param name name of the category
+   *
+   * @param name  name of the category
    * @param color color associated with the category
    */
   public Category(String name, Color color) {

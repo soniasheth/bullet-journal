@@ -31,7 +31,6 @@ public class WeekdayModel implements Model {
   /**
    * add an activity to a specific week
    *
-   * @param weekday  weekday the activity belongs
    * @param activity activity to add
    */
   public void addActivity(Activity activity) {
@@ -64,9 +63,10 @@ public class WeekdayModel implements Model {
 
   /**
    * get all categories including default ones and user defined ones
+   *
    * @return a list of category
    */
-  public List<Category> getCategories(){
+  public List<Category> getCategories() {
     return this.categories;
   }
 }
