@@ -17,6 +17,18 @@ public class WeekdayComboBox extends ComboBox {
   }
 
   public Weekday getSelectedWeekDay() {
+    if (!validateAnswer()) {
+      return null;
+    }
     return Weekday.valueOf(this.getValue().toString().toUpperCase());
+  }
+
+  private boolean validateAnswer() {
+    if (this.getValue() == null) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }
