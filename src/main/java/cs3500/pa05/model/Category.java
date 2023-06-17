@@ -19,4 +19,8 @@ public class Category {
     this.name = name;
     this.color = color;
   }
+
+  public String getName() {
+    return this.name;
+  }
 }
