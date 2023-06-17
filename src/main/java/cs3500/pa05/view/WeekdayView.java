@@ -1,5 +1,6 @@
 package cs3500.pa05.view;
 
+import cs3500.pa05.model.Weekday;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -19,13 +20,7 @@ public class WeekdayView extends GridPane implements TableView {
   @Override
   public void setDelegate(TableViewDelegate delegate) {
     this.delegate = delegate;
-    this.getChildren().clear();
-    for(int i = 0; i < this.delegate.numberOfColumns(this); i++){
-      this.add(new Label(this.delegate.titleForColumn(this, i)), i, 0);
-      for(int j = 0; j < this.delegate.numberOfRowFor(this, i); j++){
-        this.renderCell(i, j);
-      }
-    }
+    this.reloadAll();
   }
 
 
@@ -38,10 +33,21 @@ public class WeekdayView extends GridPane implements TableView {
 
   @Override
   public void reloadAt(int colIndex, int rowIndex) throws IllegalArgumentException {
-    if(colIndex < 0 || colIndex >= this.delegate.numberOfColumns(this) || rowIndex < 0
+    if(colIndex < 0 || colIndex >= Weekday.values().length || rowIndex < 0
         || rowIndex >= this.delegate.numberOfRowFor(this, colIndex)){
       throw new IllegalArgumentException("given indices are out of bounds!");
     }
     this.renderCell(colIndex, rowIndex);
+  }
+
+  @Override
+  public void reloadAll() {
+    this.getChildren().clear();
+    for(int i = 0; i < Weekday.values().length; i++){
+      this.add(new Label(this.delegate.titleForColumn(this, i)), i, 0);
+      for(int j = 0; j < this.delegate.numberOfRowFor(this, i); j++){
+        this.renderCell(i, j);
+      }
+    }
   }
 }

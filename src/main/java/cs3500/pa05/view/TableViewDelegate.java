@@ -8,14 +8,6 @@ import cs3500.pa05.model.Activity;
  * the delegatee provides data and handle events
  */
 public interface TableViewDelegate {
-  /**
-   * get how many column should the table display
-   * @param tableView reference to delegator
-   * @return delegatee return the number of column
-   */
-  default int numberOfColumns(TableView tableView){
-    return 0;
-  }
 
   /**
    * get the title for each column

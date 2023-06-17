@@ -5,15 +5,21 @@ import cs3500.pa05.view.TableView;
 import cs3500.pa05.view.TableViewDelegate;
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * my controller playground to test stuff
  */
 public class JeffreyWangController implements Controller, TableViewDelegate {
 
   private WeekdayModel model;
-  private TableView view;
+  private List<Activity> taskQueue;
+  private TableView weekendView;
+  private TableView taskQueueView;
 
-  public JeffreyWangController(TableView view, Button btn) {
+  public JeffreyWangController(TableView weekendView, TableView taskQueueView, Button btn) {
     this.model = new WeekdayModel();
     this.model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, null, null, null));
     this.model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, null, null, null));
@@ -21,24 +27,20 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
         CompletionStatus.NOT_STARTED));
     this.model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, null,
         CompletionStatus.NOT_STARTED));
-    this.view = view;
-    this.view.setDelegate(this);
+    this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
+    this.weekendView = weekendView;
+    this.weekendView.setDelegate(this);
+    this.taskQueueView = taskQueueView;
+    this.taskQueueView.setDelegate(this);
     btn.setOnAction(event -> {
       Weekday newEventDay = Weekday.MONDAY;
-      this.model.addActivity(new Task("something new", "new", newEventDay, null, null));
-      this.view.reloadAt(newEventDay.ordinal(), this.model.getActivitiesFor(newEventDay).size() - 1);
+      this.model.addActivity(new Task("something new", "new", newEventDay, null,
+          CompletionStatus.NOT_STARTED));
+      this.weekendView.reloadAt(newEventDay.ordinal(),
+          this.model.getActivitiesFor(newEventDay).size() - 1);
+      this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
+      this.taskQueueView.reloadAll();
     });
-  }
-
-  /**
-   * get how many column should the table display
-   *
-   * @param tableView reference to delegator
-   * @return delegatee return the number of column
-   */
-  @Override
-  public int numberOfColumns(TableView tableView) {
-    return Weekday.values().length;
   }
 
   /**
@@ -50,7 +52,10 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
    */
   @Override
   public String titleForColumn(TableView tableView, int columnIndex) {
-    return Weekday.values()[columnIndex].getRepresentation();
+    if(tableView == this.weekendView){
+      return Weekday.values()[columnIndex].getRepresentation();
+    }
+    return String.format("your queue: (%d)", this.taskQueue.size());
   }
 
   /**
@@ -62,7 +67,10 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
    */
   @Override
   public int numberOfRowFor(TableView tableView, int columnIndex) {
-    return this.model.getActivitiesFor(Weekday.values()[columnIndex]).size();
+    if (tableView == this.weekendView) {
+      return this.model.getActivitiesFor(Weekday.values()[columnIndex]).size();
+    }
+    return this.taskQueue.size();
   }
 
   /**
@@ -75,6 +83,9 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
    */
   @Override
   public Activity dataForActivityOn(TableView tableView, int columnIndex, int rowIndex) {
-    return this.model.getActivitiesFor(Weekday.values()[columnIndex]).get(rowIndex);
+    if (tableView == this.weekendView) {
+      return this.model.getActivitiesFor(Weekday.values()[columnIndex]).get(rowIndex);
+    }
+    return this.taskQueue.get(rowIndex);
   }
 }
