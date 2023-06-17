@@ -1,4 +1,6 @@
-package cs3500.pa05.view;
+package cs3500.pa05.view.tables;
+
+import cs3500.pa05.view.delegates.TableViewDelegate;
 
 /**
  * represents a TableView interface

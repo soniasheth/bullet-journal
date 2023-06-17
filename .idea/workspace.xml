@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d3f1836-5671-4610-9fa7-52862d89b39c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/JeffreyWangController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/ActivitySelectionView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/CategoriesView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/EventSelectionView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/TasksSelectionView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/delegates/FormDelegate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/BujoMainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/BujoMainStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/MainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/MainStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/model/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/model/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/CategoriesView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/EventSelectionView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/tables/TableView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableViewDelegate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/delegates/TableViewDelegate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TaskQueueView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/tables/TaskQueueView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TimeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/TimeView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/WeekdayComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/tables/WeekdayView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

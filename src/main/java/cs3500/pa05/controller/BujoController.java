@@ -1,8 +1,9 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
-import cs3500.pa05.view.TableView;
-import cs3500.pa05.view.TableViewDelegate;
+import cs3500.pa05.view.delegates.FormDelegate;
+import cs3500.pa05.view.tables.TableView;
+import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * represents the main controller class
  */
-public class BujoController implements Controller, TableViewDelegate{
+public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
   private WeekdayModel model;
   private List<Activity> taskQueue;
@@ -80,5 +81,10 @@ public class BujoController implements Controller, TableViewDelegate{
       return this.model.getActivitiesFor(Weekday.values()[columnIndex]).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
+  }
+
+  @Override
+  public void submit(Activity activity) {
+    this.model.addActivity(activity);
   }
 }

@@ -1,6 +1,8 @@
-package cs3500.pa05.view;
+package cs3500.pa05.view.tables;
 
 import cs3500.pa05.model.Weekday;
+import cs3500.pa05.view.ActivityView;
+import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

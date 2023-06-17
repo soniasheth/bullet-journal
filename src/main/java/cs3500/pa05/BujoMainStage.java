@@ -2,8 +2,8 @@ package cs3500.pa05;
 
 import cs3500.pa05.controller.BujoController;
 import cs3500.pa05.model.*;
-import cs3500.pa05.view.TaskQueueView;
-import cs3500.pa05.view.WeekdayView;
+import cs3500.pa05.view.tables.TaskQueueView;
+import cs3500.pa05.view.tables.WeekdayView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

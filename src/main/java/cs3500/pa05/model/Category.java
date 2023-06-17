@@ -23,4 +23,9 @@ public class Category {
   public String getName() {
     return this.name;
   }
+
+  public Color getColor() {
+    return this.color;
+  }
+
 }
