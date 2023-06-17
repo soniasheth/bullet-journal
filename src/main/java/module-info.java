@@ -10,5 +10,7 @@ module cs3500.pa05 {
     exports cs3500.pa05.model;
     exports cs3500.pa05.view;
     opens cs3500.pa05.controller to javafx.fxml;
-    exports cs3500.pa05.view.Activities;
+    exports cs3500.pa05.view.activities;
+    exports cs3500.pa05.view.delegates;
+    exports cs3500.pa05.view.tables;
 }

@@ -1,4 +1,4 @@
-package cs3500.pa05.view;
+package cs3500.pa05.view.delegates;
 
 import cs3500.pa05.model.Activity;
 

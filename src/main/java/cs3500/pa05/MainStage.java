@@ -5,7 +5,8 @@ import cs3500.pa05.model.Category;
 
 import java.util.ArrayList;
 
-import cs3500.pa05.view.Activities.ActivitySelectionView;
+
+import cs3500.pa05.view.activities.ActivitySelectionView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
