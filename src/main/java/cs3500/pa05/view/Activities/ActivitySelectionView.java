@@ -129,6 +129,7 @@ public class ActivitySelectionView extends VBox {
                 validated = false;
             }
         }
+
         return validated;
     }
 
