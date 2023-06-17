@@ -11,7 +11,6 @@ import javafx.application.Application;
 public class Driver {
 
   public static void main(String[] args) {
-    Application.launch(MainStage.class, args);
-
+    Application.launch(JeffreyWangMainStage.class, args);
   }
 }
