@@ -3,7 +3,7 @@ package cs3500.pa05.view;
 import cs3500.pa05.model.Activity;
 
 /**
- * represent a delegate interface for WeekdayView
+ * represent a delegate interface for TableView
  * the delegator ask for data of each activity
  * the delegatee provides data and handle events
  */

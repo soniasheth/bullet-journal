@@ -16,6 +16,7 @@ public class WeekdayView extends GridPane implements TableView {
     this.setAlignment(Pos.CENTER);
   }
 
+  @Override
   public void setDelegate(TableViewDelegate delegate) {
     this.delegate = delegate;
     this.getChildren().clear();

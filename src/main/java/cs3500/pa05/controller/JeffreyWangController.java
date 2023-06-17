@@ -1,9 +1,7 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
-import cs3500.pa05.view.ClickableView;
 import cs3500.pa05.view.TableView;
-import cs3500.pa05.view.WeekdayView;
 import cs3500.pa05.view.TableViewDelegate;
 import javafx.scene.control.Button;
 
@@ -13,9 +11,9 @@ import javafx.scene.control.Button;
 public class JeffreyWangController implements Controller, TableViewDelegate {
 
   private WeekdayModel model;
-  private WeekdayView view;
+  private TableView view;
 
-  public JeffreyWangController(WeekdayView view, Button btn) {
+  public JeffreyWangController(TableView view, Button btn) {
     this.model = new WeekdayModel();
     this.model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, null, null, null));
     this.model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, null, null, null));
