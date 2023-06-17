@@ -1,17 +1,18 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
-import cs3500.pa05.view.TableView;
-import cs3500.pa05.view.TableViewDelegate;
+import cs3500.pa05.view.*;
 import javafx.scene.control.Button;
 
 /**
  * my controller playground to test stuff
  */
-public class JeffreyWangController implements Controller, TableViewDelegate {
+public class JeffreyWangController implements Controller, TableViewDelegate, FormDelegate {
 
   private WeekdayModel model;
   private TableView view;
+
+  //private ClickableView eventSelectionView;
 
   public JeffreyWangController(TableView view, Button btn) {
     this.model = new WeekdayModel();
@@ -28,6 +29,11 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
       this.model.addActivity(new Task("something new", "new", newEventDay, null, null));
       this.view.reloadAt(newEventDay.ordinal(), this.model.getActivitiesFor(newEventDay).size() - 1);
     });
+
+//    this.eventSelectionView = new EventSelectionView(null);
+//    this.eventSelectionView.setOnAction(event -> {
+//      this.model.addActivity(this.eventSelectionView.g);
+//    });
   }
 
   /**
@@ -76,5 +82,10 @@ public class JeffreyWangController implements Controller, TableViewDelegate {
   @Override
   public Activity dataForActivityOn(TableView tableView, int columnIndex, int rowIndex) {
     return this.model.getActivitiesFor(Weekday.values()[columnIndex]).get(rowIndex);
+  }
+
+  @Override
+  public void submit(Activity activity) {
+    this.model.addActivity(activity);
   }
 }
