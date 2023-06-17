@@ -1,12 +1,9 @@
-package cs3500.pa05.view.Activities;
+package cs3500.pa05.view.activities;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
 import java.time.LocalTime;
 
-/**
- * Represents the view of a time: hour, minutes, AM / PM
- */
 public class TimeView extends HBox {
 
   private ComboBox hour;

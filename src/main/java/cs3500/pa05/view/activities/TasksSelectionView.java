@@ -1,7 +1,7 @@
-package cs3500.pa05.view.Activities;
+package cs3500.pa05.view.activities;
 
 import cs3500.pa05.model.*;
-import cs3500.pa05.view.FormDelegate;
+import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

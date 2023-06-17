@@ -1,4 +1,4 @@
-package cs3500.pa05.view.Activities;
+package cs3500.pa05.view.activities;
 
 import javafx.scene.layout.VBox;
 
