@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4d3f1836-5671-4610-9fa7-52862d89b39c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/ClickableView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableViewDelegate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableViewDelegate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TaskQueueView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TaskQueueView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/JeffreyWangController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +92,20 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.JeffreyWangMainStage">
+  <component name="RunManager" selected="Application.Driver">
+    <configuration name="BujoMainStage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cs3500.pa05.BujoMainStage" />
+      <module name="pa05-template.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cs3500.pa05.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cs3500.pa05.Driver" />
       <module name="pa05-template.main" />
@@ -157,6 +168,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BujoMainStage" />
         <item itemvalue="Application.JeffreyWangMainStage" />
         <item itemvalue="Gradle.pa05-t-checkexpect [build]" />
         <item itemvalue="Application.Driver" />

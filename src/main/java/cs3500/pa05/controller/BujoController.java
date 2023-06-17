@@ -9,23 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * my controller playground to test stuff
+ * represents the main controller class
  */
-public class JeffreyWangController implements Controller, TableViewDelegate{
+public class BujoController implements Controller, TableViewDelegate{
 
   private WeekdayModel model;
   private List<Activity> taskQueue;
   private TableView weekendView;
   private TableView taskQueueView;
 
-  public JeffreyWangController(TableView weekendView, TableView taskQueueView, Button btn) {
-    this.model = new WeekdayModel();
-    this.model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, null, null, null));
-    this.model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, null, null, null));
-    this.model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, null,
-        CompletionStatus.NOT_STARTED));
-    this.model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, null,
-        CompletionStatus.NOT_STARTED));
+  public BujoController(WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
+    this.model = model;
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
     this.weekendView = weekendView;
     this.weekendView.setDelegate(this);
