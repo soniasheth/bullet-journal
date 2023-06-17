@@ -7,12 +7,11 @@ import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * my controller playground to test stuff
  */
-public class JeffreyWangController implements Controller, TableViewDelegate {
+public class JeffreyWangController implements Controller, TableViewDelegate{
 
   private WeekdayModel model;
   private List<Activity> taskQueue;

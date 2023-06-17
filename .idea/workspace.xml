@@ -8,9 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/JeffreyWangMainStage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/JeffreyWangController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/JeffreyWangController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableViewDelegate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/TableViewDelegate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/WeekdayView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
