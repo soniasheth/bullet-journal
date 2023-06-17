@@ -1,54 +1,46 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.Activity;
-import cs3500.pa05.model.Weekday;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
-public class WeekdayView extends HBox implements TableView {
+public class WeekdayView extends GridPane implements TableView {
 
-  private WeekdayViewDelegate delegate;
+  private TableViewDelegate delegate;
 
-  public WeekdayView(){
-    super(100);
+  public WeekdayView() {
+    super();
+    this.setPadding(new Insets(10));
+    this.setHgap(10);
+    this.setAlignment(Pos.CENTER);
   }
 
-  public void setDelegate(WeekdayViewDelegate delegate){
+  public void setDelegate(TableViewDelegate delegate) {
     this.delegate = delegate;
     this.getChildren().clear();
-    List<Node> nodes = new ArrayList<>();
-    for(Weekday weekday: Weekday.values()){
-      nodes.add(this.renderColumn(weekday));
+    for(int i = 0; i < this.delegate.numberOfColumns(this); i++){
+      this.add(new Label(this.delegate.titleForColumn(this, i)), i, 0);
+      for(int j = 0; j < this.delegate.numberOfRowFor(this, i); j++){
+        this.renderCell(i, j);
+      }
     }
-    this.getChildren().addAll(nodes);
   }
 
 
-  private VBox renderColumn(Weekday weekday){
-    VBox ret = new VBox(50);
-    List<Node> nodes = new ArrayList<>();
-    nodes.add(new Label(weekday.getRepresentation()));
-    for(int i = 0; i < this.delegate.numberOfActivitiesOnDay(weekday); i++){
-      Activity data = this.delegate.dataForActivityOn(weekday, i);
-      Button button = new Button(data.getName());
-      this.delegate.setEventHandlerFor(button, weekday, i);
-      nodes.add(button);
-    }
-    ret.getChildren().addAll(nodes);
-    return ret;
+  private void renderCell(int colIndex, int rowIndex) {
+    ActivityView v = new ActivityView(this.delegate.dataForActivityOn(this,
+        colIndex, rowIndex));
+    this.add(v, colIndex, rowIndex + 1);
   }
 
 
   @Override
-  public void reloadAt(int index) throws IndexOutOfBoundsException {
-    if(index < 0 || index >= Weekday.values().length){
-      throw new IndexOutOfBoundsException("in WeekendView, index can only be [0, 7)!");
+  public void reloadAt(int colIndex, int rowIndex) throws IllegalArgumentException {
+    if(colIndex < 0 || colIndex >= this.delegate.numberOfColumns(this) || rowIndex < 0
+        || rowIndex >= this.delegate.numberOfRowFor(this, colIndex)){
+      throw new IllegalArgumentException("given indices are out of bounds!");
     }
-    this.getChildren().set(index, this.renderColumn(Weekday.values()[index]));
+    this.renderCell(colIndex, rowIndex);
   }
 }

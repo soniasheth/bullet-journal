@@ -5,6 +5,8 @@ import cs3500.pa05.controller.JeffreyWangController;
 import cs3500.pa05.view.WeekdayView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -15,8 +17,10 @@ public class JeffreyWangMainStage extends Application {
     public void start(Stage primaryStage) {
         try {
             WeekdayView view = new WeekdayView();
-            Controller controller = new JeffreyWangController(view);
-            Scene scene = new Scene(view);
+            Button btn = new Button("add new task");
+            JeffreyWangController controller = new JeffreyWangController(view, btn);
+            view.setDelegate(controller);
+            Scene scene = new Scene(new VBox(btn, view));
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch(Exception e) {
