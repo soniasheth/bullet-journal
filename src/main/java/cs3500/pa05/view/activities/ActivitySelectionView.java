@@ -2,6 +2,10 @@ package cs3500.pa05.view.activities;
 
 import cs3500.pa05.Utils;
 import cs3500.pa05.model.*;
+import cs3500.pa05.model.Activities.Event;
+import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.enums.ActivityType;
+import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

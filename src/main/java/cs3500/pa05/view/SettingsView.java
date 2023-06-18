@@ -24,8 +24,8 @@ public class SettingsView extends VBox {
   TextField nameInput;
   TextField emailInput;
   TextField eventInput;
-
   TextField taskInput;
+
 
   SettingsView(Settings setting, boolean welcome, Stage settingStage) {
 
@@ -67,7 +67,6 @@ public class SettingsView extends VBox {
 
     this.setAlignment(Pos.CENTER);
     this.setPadding(new Insets(10));
-
     this.getChildren().addAll(hboxs);
     this.getChildren().addAll(button);
 
@@ -76,7 +75,6 @@ public class SettingsView extends VBox {
 
   private void getUserInput(Settings setting) {
     setting.setName(nameInput.getText());
-
     String events = eventInput.getText();
     if (Utils.isValidNumber(events)) {
       int eventMax = Integer.parseInt(events);
