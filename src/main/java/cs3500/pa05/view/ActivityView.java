@@ -17,6 +17,7 @@ import java.util.List;
 public class ActivityView extends VBox implements View {
   Label title;
   Label description;
+  Label category;
 
   public ActivityView(Activity activity) {
     super(5);
@@ -24,8 +25,9 @@ public class ActivityView extends VBox implements View {
     this.setAlignment(Pos.CENTER);
     this.title = new Label(activity.getName());
     this.description = new Label(activity.getDescription());
+    this.category = new Label("<" + activity.getCategory().getName() + ">");
 
-    this.getChildren().addAll(List.of(this.title, this.description));
+    this.getChildren().addAll(List.of(this.category, this.title, this.description));
 
     CornerRadii cornerRadii = new CornerRadii(10);
     BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,

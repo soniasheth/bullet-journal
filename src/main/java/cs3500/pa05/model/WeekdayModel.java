@@ -1,11 +1,11 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.enums.ActivityType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.paint.Color;
@@ -14,8 +14,10 @@ import javafx.scene.paint.Color;
  * represents a weekday model class for bullet journal
  */
 public class WeekdayModel implements Model {
+
   private final Map<Weekday, List<Activity>> activities;
   private final List<Category> categories;
+  private final Settings settings;
 
   /**
    * default constructor that initialize an empty map of activities
@@ -28,6 +30,7 @@ public class WeekdayModel implements Model {
 
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
+    this.settings = new Settings();
   }
 
   /**
@@ -37,21 +40,6 @@ public class WeekdayModel implements Model {
    */
   public void addActivity(Activity activity) {
     this.activities.get(activity.getWeekday()).add(activity);
-  }
-
-  /**
-   * get a queue of all tasks in activities, ranked by priority
-   *
-   * @return a queue of tasks
-   */
-  public Queue<Activity> getTaskQueue() {
-    Queue<Activity> ret = new PriorityQueue<>();
-    for (List<Activity> dayActivities : this.activities.values()) {
-      for (Activity activity : dayActivities) {
-        activity.addToTaskQueue(ret);
-      }
-    }
-    return ret;
   }
 
   /**
@@ -73,11 +61,68 @@ public class WeekdayModel implements Model {
   }
 
   /**
-   * get all activities on a specific day
-   * @param weekday day of the activities
-   * @return list of activity
+   * get all activities of a specific category
+   *
+   * @param category category to filter, or null
+   * @return activities
    */
-  public List<Activity> getActivitiesFor(Weekday weekday){
-    return this.activities.get(weekday);
+  public Map<Weekday, List<Activity>> getActivities(Category category) {
+    if (category == null) {
+      return this.activities;
+    }
+
+    Map<Weekday, List<Activity>> ret = new HashMap<>();
+    for (Weekday weekday : Weekday.values()) {
+      ret.put(weekday, this.activities.get(weekday).stream()
+          .filter(element -> element.getCategory().equals(category)).toList());
+    }
+    return ret;
+  }
+
+  /**
+   * get a queue of all tasks of a specific category, ranked by priority
+   *
+   * @param category category to filter, or null
+   * @return a queue of tasks
+   */
+  public List<Activity> getTaskQueue(Category category) {
+    List<Activity> ret = new ArrayList<>();
+    for (List<Activity> dayActivities : this.activities.values()) {
+      for (Activity activity : dayActivities) {
+        if (activity.getType() == ActivityType.TASK) {
+          ret.add(activity);
+        }
+      }
+    }
+    Collections.sort(ret);
+    if (category == null) {
+      return ret;
+    }
+    return ret.stream().filter(element -> element.getCategory().equals(category)).toList();
+  }
+
+  /**
+   * iterate through the current activities and see if user exceed any limit
+   *
+   * @return true if user exceeds the limit
+   */
+  public boolean shouldDisplayCommitmentWarning() {
+    int maxTask = this.settings.getTaskMax();
+    int maxEvent = this.settings.getEventMax();
+    int curTask = 0;
+    int curEvent = 0;
+    for (Weekday weekday : Weekday.values()) {
+      for (Activity activity : this.activities.get(weekday)) {
+        if (activity.getType() == ActivityType.EVENT) {
+          curEvent += 1;
+        } else {
+          curTask += 1;
+        }
+        if (curTask > maxTask || curEvent > maxEvent) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

@@ -65,8 +65,6 @@ public class ActivitySelectionView extends VBox implements View {
         HBox.setHgrow(submit, Priority.ALWAYS);
         this.getChildren().add(hbox);
 
-        this.popupStage = popupStage;
-        this.popupStage.setTitle("New Activity");
         //when the submit button is pressed
         submit.setOnAction(event -> {
             try {
@@ -150,10 +148,6 @@ public class ActivitySelectionView extends VBox implements View {
         }
 
         return validated;
-    }
-
-    private void setPopupStage(Stage popupStage) {
-        this.popup = popupStage;
     }
 
 }
