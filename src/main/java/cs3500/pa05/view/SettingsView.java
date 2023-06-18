@@ -31,6 +31,7 @@ public class SettingsView extends VBox implements View {
     this.settings = setting;
     this.endMessage = new Text("");
     this.setSpacing(10);
+    
     if (welcome) {
       this.submitButton = new Button("Submit");
     } else {

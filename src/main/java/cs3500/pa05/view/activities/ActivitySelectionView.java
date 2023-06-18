@@ -33,7 +33,7 @@ public class ActivitySelectionView extends VBox implements View {
     private FormDelegate submitDelegate;
     private ActivityType activityType;
 
-    private Stage popup;
+
 
     public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         //elements on the event pop up
@@ -65,13 +65,17 @@ public class ActivitySelectionView extends VBox implements View {
         HBox.setHgrow(submit, Priority.ALWAYS);
         this.getChildren().add(hbox);
 
+        this.popupStage = popupStage;
+        this.popupStage.setTitle("New Activity");
         //when the submit button is pressed
         submit.setOnAction(event -> {
             try {
                 submitHandling();
+
                 popupStage.close();
             } catch (IllegalArgumentException e) {
                 Utils.showAlert("Warning", e.getMessage());
+
             }
         });
     }
@@ -106,7 +110,9 @@ public class ActivitySelectionView extends VBox implements View {
     public void submitHandling() {
         Activity activity;
         if (!validateAnswers()) {
-            throw new IllegalStateException("Fill out all the info!");
+
+            throw new IllegalArgumentException("You must fill out all the information!");
+
         }
         else {
             if (this.activityType.equals(ActivityType.EVENT)) {
@@ -126,18 +132,17 @@ public class ActivitySelectionView extends VBox implements View {
                         this.categories.getChosenCategory(),
                         CompletionStatus.NOT_STARTED);
             }
+
             //calls the submit method of the delegate and then adds it to the model
+
             this.submitDelegate.submit(activity);
         }
 
     }
 
     private boolean validateAnswers() {
-        boolean validated = true;
-        if (this.name.equals("") || this.weekdays.getSelectedWeekDay() == null ||
-                this.categories.getChosenCategory() == null) {
-            validated = false;
-        }
+        boolean validated = !this.name.equals("") && this.weekdays.getSelectedWeekDay() != null &&
+                this.categories.getChosenCategory() != null;
         if (this.activityType.equals(ActivityType.EVENT)) {
             if (this.startTime == null || this.endTime == null) {
                 validated = false;
