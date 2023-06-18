@@ -1,5 +1,7 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.Activities.Activity;
+import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,12 +87,12 @@ public class WeekdayModel implements Model {
    * @param category category to filter, or null
    * @return a queue of tasks
    */
-  public List<Activity> getTaskQueue(Category category) {
-    List<Activity> ret = new ArrayList<>();
+  public List<Task> getTaskQueue(Category category) {
+    List<Task> ret = new ArrayList<>();
     for (List<Activity> dayActivities : this.activities.values()) {
       for (Activity activity : dayActivities) {
         if (activity.getType() == ActivityType.TASK) {
-          ret.add(activity);
+          ret.add((Task)activity); //casting because we are checking to ensure it is a task beforehand
         }
       }
     }

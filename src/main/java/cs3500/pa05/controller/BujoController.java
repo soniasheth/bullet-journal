@@ -1,6 +1,8 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
+import cs3500.pa05.model.Activities.Activity;
+import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.SettingsView;
@@ -23,13 +25,13 @@ import java.util.List;
  */
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
-  private Stage mainStage;
-  private WeekdayModel model;
-  private Map<Weekday, List<Activity>> activities;
-  private List<Activity> taskQueue;
-  private Category filterCategory = null;
-  private TableView weekendView;
-  private TableView taskQueueView;
+  private final Stage mainStage;
+  private final WeekdayModel model;
+  private final Map<Weekday, List<Activity>> activities;
+  private List<Task> taskQueue;
+  private final Category filterCategory = null;
+  private final TableView weekendView;
+  private final TableView taskQueueView;
 
   public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings) {
