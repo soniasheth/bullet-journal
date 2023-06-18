@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class ActivitySelectionView extends VBox {
     private FormDelegate submitDelegate;
     private ActivityType activityType;
 
-    public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate) {
+    private Stage popupStage;
+
+    public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         //elements on the event pop up
         this.activityType = type;
         this.name = new TextField();
@@ -57,8 +60,17 @@ public class ActivitySelectionView extends VBox {
         HBox.setHgrow(submit, Priority.ALWAYS);
         this.getChildren().add(hbox);
 
+        this.popupStage = popupStage;
+        this.popupStage.setTitle("New Activity");
         //when the submit button is pressed
-        submit.setOnAction(e -> submitHandling());
+        submit.setOnAction(event -> {
+            try {
+                submitHandling();
+                this.popupStage.close();
+            } catch (IllegalArgumentException e) {
+                Utils.showAlert("Warning!", e.getMessage());
+            }
+        });
     }
 
     private GridPane eventPopUp() {
@@ -91,7 +103,7 @@ public class ActivitySelectionView extends VBox {
     public void submitHandling() {
         Activity activity;
         if (!validateAnswers()) {
-            Utils.showAlert("Alert!", "You must fill out all info!");
+            throw new IllegalArgumentException("You must fill out all the information!");
         }
         else {
             if (this.activityType.equals(ActivityType.EVENT)) {
@@ -111,20 +123,15 @@ public class ActivitySelectionView extends VBox {
                         this.categories.getChosenCategory(),
                         CompletionStatus.NOT_STARTED);
             }
-            //calls the submit method of the delegate and then adds it to the model
-            //this.submitDelegate.submit(activity);
-            //System.out.println(activity.toString());
+
             this.submitDelegate.submit(activity);
         }
 
     }
 
     private boolean validateAnswers() {
-        boolean validated = true;
-        if (this.name.equals("") || this.weekdays.getSelectedWeekDay() == null ||
-                this.categories.getChosenCategory() == null) {
-            validated = false;
-        }
+        boolean validated = !this.name.equals("") && this.weekdays.getSelectedWeekDay() != null &&
+                this.categories.getChosenCategory() != null;
         if (this.activityType.equals(ActivityType.EVENT)) {
             if (this.startTime == null || this.endTime == null) {
                 validated = false;

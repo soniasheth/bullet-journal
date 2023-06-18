@@ -27,7 +27,7 @@ public class SettingsView extends VBox {
 
   TextField taskInput;
 
-  SettingsView(Settings setting, boolean welcome, Stage primaryStage) {
+  SettingsView(Settings setting, boolean welcome, Stage settingStage) {
 
     nameInput = new TextField();
     emailInput = new TextField();
@@ -53,11 +53,12 @@ public class SettingsView extends VBox {
     hboxs.get(3).getChildren().addAll(taskLabel, taskInput);
 
 
-    Text text = new Text("");
+
     button.setOnAction(event -> {
       try {
-        getUserInput(setting, text);
-        primaryStage.close();
+        getUserInput(setting);
+
+        settingStage.close();
       } catch (IllegalArgumentException e) {
         Utils.showAlert("Warning", e.getMessage());
       }
@@ -68,12 +69,12 @@ public class SettingsView extends VBox {
     this.setPadding(new Insets(10));
 
     this.getChildren().addAll(hboxs);
-    this.getChildren().addAll(button, text);
+    this.getChildren().addAll(button);
 
 
   }
 
-  private void getUserInput(Settings setting, Text text) {
+  private void getUserInput(Settings setting) {
     setting.setName(nameInput.getText());
 
     String events = eventInput.getText();
@@ -98,8 +99,6 @@ public class SettingsView extends VBox {
     } else {
       throw new IllegalArgumentException("Please enter a valid email");
     }
-
-    text.setText("Hello " + setting.getName() + ". Welcome to your Bullet Journal.");
 
   }
 
