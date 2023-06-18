@@ -11,4 +11,18 @@ public class Utils {
     alert.setContentText(message);
     alert.showAndWait();
   }
+
+
+  public static boolean isValidNumber(String input) {
+    try {
+      int num = Integer.parseInt(input);
+      return num >= 0;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
+  public static boolean isValidEmail(String input) {
+    return input.endsWith(".com") && input.contains("@");
+  }
 }
