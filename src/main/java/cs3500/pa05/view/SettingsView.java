@@ -2,102 +2,104 @@ package cs3500.pa05.view;
 
 import cs3500.pa05.Utils;
 import cs3500.pa05.model.Settings;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
-public class SettingsView extends VBox {
+public class SettingsView extends VBox implements View {
   TextField nameInput;
   TextField emailInput;
   TextField eventInput;
   TextField taskInput;
+  Button submitButton;
+  Settings settings;
+  Text endMessage;
 
-
-  SettingsView(Settings setting, boolean welcome, Stage settingStage) {
-
-    nameInput = new TextField();
-    emailInput = new TextField();
-    eventInput = new TextField();
-    taskInput = new TextField();
-
-    Button button;
+  public SettingsView(Settings setting, boolean welcome, Stage primaryStage) {
+    this.nameInput = new TextField();
+    this.emailInput = new TextField();
+    this.eventInput = new TextField();
+    this.taskInput = new TextField();
+    this.settings = setting;
+    this.endMessage = new Text("");
+    this.setSpacing(10);
+    
     if (welcome) {
-      button = new Button("Submit");
+      this.submitButton = new Button("Submit");
     } else {
-      button = new Button("Save");
+      this.submitButton = new Button("Save");
     }
 
-    Label nameLabel = new Label("Name: ");
-    Label emailLabel = new Label("Email: ");
-    Label eventLabel = new Label("Max Events: ");
-    Label taskLabel = new Label("Max Tasks: ");
+    //set default text
+    this.nameInput.setText(this.settings.getName());
+    this.emailInput.setText(this.settings.getEmail());
+    this.eventInput.setText(Integer.toString(this.settings.getEventMax()));
+    this.taskInput.setText(Integer.toString(this.settings.getTaskMax()));
 
-    ArrayList<HBox> hboxs = new ArrayList<>(Arrays.asList(new HBox(10), new HBox(10), new HBox(10), new HBox(10)));
-    hboxs.get(0).getChildren().addAll(nameLabel, nameInput);
-    hboxs.get(1).getChildren().addAll(emailLabel, emailInput);
-    hboxs.get(2).getChildren().addAll(eventLabel, eventInput);
-    hboxs.get(3).getChildren().addAll(taskLabel, taskInput);
-
-
-
-    button.setOnAction(event -> {
-      try {
-        getUserInput(setting);
-
-        settingStage.close();
-      } catch (IllegalArgumentException e) {
-        Utils.showAlert("Warning", e.getMessage());
-      }
-
-    });
+    //add the type boxes to the vbox
+    GridPane settings = new GridPane();
+    settings.addRow(0, new Label("Name: "), nameInput);
+    settings.addRow(1, new Label("Email: "), emailInput);
+    settings.addRow(2, new Label("Max Events: "), eventInput);
+    settings.addRow(3, new Label("Max Tasks: "), taskInput);
 
     this.setAlignment(Pos.CENTER);
     this.setPadding(new Insets(10));
-    this.getChildren().addAll(hboxs);
-    this.getChildren().addAll(button);
+    this.getChildren().addAll(settings);
+    this.getChildren().addAll(submitButton, endMessage);
 
+    Text text = new Text("");
 
+    //set an on action event
+    submitButton.setOnAction(event -> {
+      try {
+        getUserInput();
+        primaryStage.close();
+      } catch (IllegalArgumentException e) {
+        Utils.showAlert("Warning!", e.getMessage());
+      }
+    });
   }
 
-  private void getUserInput(Settings setting) {
-    setting.setName(nameInput.getText());
+  private void getUserInput() {
+    //gets the user's name
+    this.settings.setName(nameInput.getText());
+
+    //gets the user entered max event
     String events = eventInput.getText();
     if (Utils.isValidNumber(events)) {
       int eventMax = Integer.parseInt(events);
-      setting.setEventMax(eventMax);
+      this.settings.setEventMax(eventMax);
     } else {
-      throw new IllegalArgumentException("Please enter a valid event number");
+      throw new IllegalArgumentException("Please enter a valid event number.");
     }
 
+    //get user's entered max tasks
     String tasks = taskInput.getText();
     if (Utils.isValidNumber(tasks)) {
       int taskMax = Integer.parseInt(tasks);
-      setting.setTaskMax(taskMax);
+      this.settings.setTaskMax(taskMax);
     } else {
-      throw new IllegalArgumentException("Please enter a valid task number");
+      throw new IllegalArgumentException("Please enter a valid task number.");
     }
 
+    //gets user's email
     String email = emailInput.getText();
     if (Utils.isValidEmail(email)) {
-      setting.setEmail(email);
+      this.settings.setEmail(email);
     } else {
-      throw new IllegalArgumentException("Please enter a valid email");
+      throw new IllegalArgumentException("Please enter a valid email.");
     }
 
+    this.endMessage.setText("Hello, " + this.settings.getName() + "! Welcome to your Bullet Journal!");
   }
 
 

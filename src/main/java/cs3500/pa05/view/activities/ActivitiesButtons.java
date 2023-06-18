@@ -5,11 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class AddButton extends VBox {
+public class ActivitiesButtons extends VBox {
     Button event;
     Button task;
 
-    public AddButton() {
+    public ActivitiesButtons() {
         this.event = new Button("Event +");
         this.task = new Button("Task +");
         this.setPrefSize(100, 100);

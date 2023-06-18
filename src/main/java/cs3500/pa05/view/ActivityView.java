@@ -14,8 +14,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
-public class ActivityView extends VBox {
-
+public class ActivityView extends VBox implements View {
   Label title;
   Label description;
 
