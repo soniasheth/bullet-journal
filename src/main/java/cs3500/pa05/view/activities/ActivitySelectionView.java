@@ -6,7 +6,7 @@ import cs3500.pa05.model.Activities.Event;
 import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
-import cs3500.pa05.view.View;
+import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class ActivitySelectionView extends VBox implements View {
+public class ActivitySelectionView extends VBox implements FormView {
     private Label event;
     private TextField name;
     private TextField description;
@@ -68,9 +68,9 @@ public class ActivitySelectionView extends VBox implements View {
         //when the submit button is pressed
         submit.setOnAction(event -> {
             try {
-                submitHandling();
-
+                Activity activity = submitHandling();
                 popupStage.close();
+                this.submitDelegate.submit(this, activity);
             } catch (IllegalArgumentException e) {
                 Utils.showAlert("Warning", e.getMessage());
 
@@ -105,7 +105,7 @@ public class ActivitySelectionView extends VBox implements View {
         return info;
     }
 
-    public void submitHandling() {
+    public Activity submitHandling() {
         Activity activity;
         if (!validateAnswers()) {
 
@@ -133,7 +133,7 @@ public class ActivitySelectionView extends VBox implements View {
 
             //calls the submit method of the delegate and then adds it to the model
 
-            this.submitDelegate.submit(activity);
+            return activity;
         }
 
     }

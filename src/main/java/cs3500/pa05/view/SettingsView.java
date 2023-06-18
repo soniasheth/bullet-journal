@@ -2,19 +2,18 @@ package cs3500.pa05.view;
 
 import cs3500.pa05.Utils;
 import cs3500.pa05.model.Settings;
+import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SettingsView extends VBox implements View {
+public class SettingsView extends VBox implements FormView {
   TextField nameInput;
   TextField emailInput;
   TextField eventInput;
@@ -22,14 +21,16 @@ public class SettingsView extends VBox implements View {
   Button submitButton;
   Settings settings;
   Text endMessage;
+  FormDelegate submitDelegate;
 
-  public SettingsView(Settings setting, boolean welcome, Stage primaryStage) {
+  public SettingsView(Settings setting, boolean welcome, FormDelegate delegate, Stage primaryStage) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
     this.eventInput = new TextField();
     this.taskInput = new TextField();
     this.settings = setting;
     this.endMessage = new Text("");
+    this.submitDelegate = delegate;
     this.setSpacing(10);
     
     if (welcome) {
@@ -63,6 +64,7 @@ public class SettingsView extends VBox implements View {
       try {
         getUserInput();
         primaryStage.close();
+        this.submitDelegate.submit(this, Settings.getInstance());
       } catch (IllegalArgumentException e) {
         Utils.showAlert("Warning!", e.getMessage());
       }

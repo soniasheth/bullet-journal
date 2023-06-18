@@ -1,8 +1,11 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.Utils;
 import cs3500.pa05.model.*;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
+import cs3500.pa05.view.ActivityView;
+import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
@@ -63,7 +66,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), false, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
@@ -116,17 +119,20 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   }
 
   @Override
-  public void submit(Activity activity) {
-    if (!Settings.getInstance().getCategories().contains(activity.getCategory())) {
-      Settings.getInstance().getCategories()
-          .add(new Category(activity.getCategory().getName(), null));
+  public void submit(FormView formView, Object object) {
+    if (formView instanceof ActivitySelectionView) {
+      Activity activity = (Activity) object;
+      if (!Settings.getInstance().getCategories().contains(activity.getCategory())) {
+        Settings.getInstance().getCategories()
+            .add(new Category(activity.getCategory().getName(), null));
+      }
+      this.model.addActivity(activity);
+      this.taskQueue = this.model.getTaskQueue(this.filterCategory);
+      this.weekendView.reloadAt(activity.getWeekday().ordinal(),
+          this.activities.get(activity.getWeekday()).size() - 1);
+      this.taskQueueView.reloadAll();
     }
-    this.model.addActivity(activity);
-    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
-    this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-        this.activities.get(activity.getWeekday()).size() - 1);
-    this.taskQueueView.reloadAll();
-
+    this.showCommitmentWarning();
   }
 
   private void showPopup(Stage ownerStage, Stage popupStage, Parent popUp, String title) {
@@ -138,4 +144,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     popupStage.showAndWait();
   }
 
+  private void showCommitmentWarning() {
+    if (this.model.shouldDisplayCommitmentWarning()) {
+      Utils.showAlert("Commitment Warning!", "haha");
+    }
+  }
 }

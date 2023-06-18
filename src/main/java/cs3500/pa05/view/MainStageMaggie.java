@@ -29,7 +29,7 @@ public class MainStageMaggie extends Application {
     settingsPopup.initOwner(primaryStage);
     settingsPopup.initModality(Modality.APPLICATION_MODAL);
     settingsPopup.setTitle("Settings");
-    SettingsView v = new SettingsView(Settings.getInstance(), true, settingsPopup);
+    SettingsView v = new SettingsView(Settings.getInstance(), true, null, settingsPopup);
     Scene popupScene = new Scene(v);
     settingsPopup.setScene(popupScene);
     settingsPopup.showAndWait();
