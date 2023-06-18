@@ -42,4 +42,13 @@ public class Task extends Activity {
   void addToTaskQueue(Queue<Activity> queue) {
     queue.add(this);
   }
+
+  public String toString() {
+    String task =
+            "Name: " + this.name + "\n"
+                    + "Category" + this.category.getName() + "\n"
+                    + "Weekday:" + this.weekday.getRepresentation() + "\n"
+                    + "Description:" + this.description + "\n";
+    return task;
+  }
 }

@@ -10,6 +10,7 @@ public class Event extends Activity {
   private final LocalTime startTime;
   private final LocalTime endTime;
 
+
   /**
    * default constructor for event
    *
@@ -45,5 +46,17 @@ public class Event extends Activity {
   @Override
   void addToTaskQueue(Queue<Activity> queue) {
     // does nothing because an event should not be added to queue
+  }
+
+  @Override
+  public String toString() {
+    String event =
+            "Name: " + this.name + "\n"
+            + "Category" + this.category.getName() + "\n"
+            + "Weekday:" + this.weekday.getRepresentation() + "\n"
+            + "Description:" + this.description + "\n"
+            + "Start Time" + this.startTime.toString() + "\n"
+            + "End Time" + this.endTime.toString();
+    return event;
   }
 }

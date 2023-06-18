@@ -1,9 +1,12 @@
 package cs3500.pa05;
 
+import cs3500.pa05.model.ActivityType;
 import cs3500.pa05.model.Category;
-import cs3500.pa05.view.EventSelectionView;
-import java.io.IOException;
+
 import java.util.ArrayList;
+
+
+import cs3500.pa05.view.activities.ActivitySelectionView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -19,10 +22,11 @@ public class MainStage extends Application {
       ArrayList<Category> list = new ArrayList<>();
       list.add(c1);
       list.add(c2);
-      EventSelectionView v = new EventSelectionView(list);
+      ActivitySelectionView v = new ActivitySelectionView(ActivityType.TASK, list, null);
       Scene scene = new Scene(v);
       primaryStage.setScene(scene);
       primaryStage.show();
+
     } catch(Exception e) {
       e.printStackTrace();
     }
