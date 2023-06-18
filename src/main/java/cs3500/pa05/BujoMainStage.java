@@ -6,7 +6,7 @@ import cs3500.pa05.model.Activities.Event;
 import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
-import cs3500.pa05.view.activities.AddButton;
+import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdayView;
 import javafx.application.Application;
@@ -39,9 +39,10 @@ public class BujoMainStage extends Application {
       this.initDummyData(model);
       WeekdayView weekdayView = new WeekdayView();
       TaskQueueView taskQueueView = new TaskQueueView();
-      AddButton addActivities = new AddButton();
-      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities);
-      Scene scene = new Scene(new VBox(addActivities, weekdayView, taskQueueView));
+      ActivitiesButtons addActivities = new ActivitiesButtons();
+      Button settings = new Button("Settings");
+      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings);
+      Scene scene = new Scene(new VBox(addActivities, settings, weekdayView, taskQueueView));
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (Exception e) {

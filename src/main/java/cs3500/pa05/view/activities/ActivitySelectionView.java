@@ -6,6 +6,7 @@ import cs3500.pa05.model.Activities.Event;
 import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
+import cs3500.pa05.view.View;
 import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,10 +17,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 import java.util.List;
 
-public class ActivitySelectionView extends VBox {
+public class ActivitySelectionView extends VBox implements View {
     private Label event;
     private TextField name;
     private TextField description;
@@ -31,7 +33,9 @@ public class ActivitySelectionView extends VBox {
     private FormDelegate submitDelegate;
     private ActivityType activityType;
 
-    public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate) {
+    private Stage popup;
+
+    public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         //elements on the event pop up
         this.activityType = type;
         this.name = new TextField();
@@ -62,7 +66,14 @@ public class ActivitySelectionView extends VBox {
         this.getChildren().add(hbox);
 
         //when the submit button is pressed
-        submit.setOnAction(e -> submitHandling());
+        submit.setOnAction(event -> {
+            try {
+                submitHandling();
+                popupStage.close();
+            } catch (IllegalArgumentException e) {
+                Utils.showAlert("Warning", e.getMessage());
+            }
+        });
     }
 
     private GridPane eventPopUp() {
@@ -95,7 +106,7 @@ public class ActivitySelectionView extends VBox {
     public void submitHandling() {
         Activity activity;
         if (!validateAnswers()) {
-            Utils.showAlert("Alert!", "You must fill out all info!");
+            throw new IllegalStateException("Fill out all the info!");
         }
         else {
             if (this.activityType.equals(ActivityType.EVENT)) {
@@ -116,8 +127,6 @@ public class ActivitySelectionView extends VBox {
                         CompletionStatus.NOT_STARTED);
             }
             //calls the submit method of the delegate and then adds it to the model
-            //this.submitDelegate.submit(activity);
-            //System.out.println(activity.toString());
             this.submitDelegate.submit(activity);
         }
 
@@ -136,6 +145,10 @@ public class ActivitySelectionView extends VBox {
         }
 
         return validated;
+    }
+
+    private void setPopupStage(Stage popupStage) {
+        this.popup = popupStage;
     }
 
 }

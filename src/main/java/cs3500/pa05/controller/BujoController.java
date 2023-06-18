@@ -3,11 +3,13 @@ package cs3500.pa05.controller;
 import cs3500.pa05.model.*;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
+import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
-import cs3500.pa05.view.activities.AddButton;
+import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -23,13 +25,12 @@ import java.util.List;
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
   private Stage mainStage;
-  private Stage popupStage;
   private WeekdayModel model;
   private List<Activity> taskQueue;
   private TableView weekendView;
   private TableView taskQueueView;
 
-  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, AddButton activities) {
+  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, ActivitiesButtons activities, Button settings) {
     this.mainStage = mainStage;
     this.model = model;
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
@@ -37,10 +38,30 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.weekendView.setDelegate(this);
     this.taskQueueView = taskQueueView;
     this.taskQueueView.setDelegate(this);
+    handleActivities(activities);
+    handleSettings(settings);
 
-    activities.setOnActionEventButton(event -> this.showPopup(this.mainStage, ActivityType.EVENT));
-    activities.setOnActionTaskButton(event -> this.showPopup(this.mainStage, ActivityType.TASK));
   }
+
+  public void handleActivities(ActivitiesButtons activities) {
+    Stage popup1 = new Stage();
+    Stage popup2 = new Stage();
+    //handle pop up for pushing the buttons creating new activities
+    VBox eventView = new ActivitySelectionView(ActivityType.EVENT, this.model.getCategories(), this, popup1);
+    VBox taskView = new ActivitySelectionView(ActivityType.TASK, this.model.getCategories(), this, popup2);
+    activities.setOnActionEventButton(event ->
+            this.showPopup(this.mainStage, popup1, eventView, "New Event"));
+    activities.setOnActionTaskButton(event ->
+            this.showPopup(this.mainStage, popup2, taskView, "New Task"));
+  }
+  public void handleSettings(Button settings) {
+    Stage popup = new Stage();
+    //handles pop up when pushing the settings button
+    Settings settings1 = new Settings();
+    VBox settingsView = new SettingsView(settings1, false, popup);
+    settings.setOnAction(event -> this.showPopup(this.mainStage, popup, settingsView, "Settings"));
+  }
+
 
   /**
    * get the title for each column
@@ -90,7 +111,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   @Override
   public void submit(Activity activity) {
-    this.popupStage.close();
     if(!this.model.getCategories().contains(activity.getCategory())){
       this.model.getCategories().add(new Category(activity.getCategory().getName(), null));
     }
@@ -100,15 +120,14 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.taskQueueView.reloadAll();
   }
 
-  private void showPopup(Stage ownerStage, ActivityType type) {
-    this.popupStage = new Stage();
-    this.popupStage.initOwner(ownerStage);
-    this.popupStage.initModality(Modality.APPLICATION_MODAL);
-    this.popupStage.setTitle("Popup Window");
-    VBox newActivityView = new ActivitySelectionView(type, this.model.getCategories(), this);
-    Scene popupScene = new Scene(newActivityView);
-    this.popupStage.setScene(popupScene);
-    this.popupStage.showAndWait();
+  private void showPopup(Stage ownerStage, Stage popupStage, Parent popUp, String title) {
+    //Stage popupStage = new Stage();
+    popupStage.initOwner(ownerStage);
+    popupStage.initModality(Modality.APPLICATION_MODAL);
+    popupStage.setTitle(title);
+    Scene popupScene = new Scene(popUp);
+    popupStage.setScene(popupScene);
+    popupStage.showAndWait();
   }
 
 }
