@@ -8,6 +8,7 @@ import cs3500.pa05.view.activities.AddButton;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -90,20 +91,23 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   @Override
   public void submit(Activity activity) {
-    if(!this.model.getCategories().contains(activity.getCategory())){
+    if (!this.model.getCategories().contains(activity.getCategory())) {
       this.model.getCategories().add(new Category(activity.getCategory().getName(), null));
     }
     this.model.addActivity(activity);
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
-    this.weekendView.reloadAt(activity.getWeekday().ordinal(), this.model.getActivitiesFor(activity.getWeekday()).size() - 1);
+    this.weekendView.reloadAt(activity.getWeekday().ordinal(),
+        this.model.getActivitiesFor(activity.getWeekday()).size() - 1);
     this.taskQueueView.reloadAll();
 
-  private void showPopup(Stage ownerStage) {
+  }
+
+  private void showPopup(Stage ownerStage, ActivityType type) {
     Stage popupStage = new Stage();
     popupStage.initOwner(ownerStage);
     popupStage.initModality(Modality.APPLICATION_MODAL);
     //popupStage.setTitle("Popup Window");
-    VBox newActivityView = new ActivitySelectionView(ActivityType.TASK, this.model.getCategories(), this, popupStage);
+    VBox newActivityView = new ActivitySelectionView(type, this.model.getCategories(), this, popupStage);
 
     Scene popupScene = new Scene(newActivityView);
     popupStage.setScene(popupScene);
