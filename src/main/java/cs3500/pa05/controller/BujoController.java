@@ -1,10 +1,15 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
+import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,26 +19,24 @@ import java.util.List;
  */
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
+  private Stage mainStage;
+  private Stage popupStage;
   private WeekdayModel model;
   private List<Activity> taskQueue;
   private TableView weekendView;
   private TableView taskQueueView;
 
-  public BujoController(WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
+  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
+    this.mainStage = mainStage;
     this.model = model;
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
     this.weekendView = weekendView;
     this.weekendView.setDelegate(this);
     this.taskQueueView = taskQueueView;
     this.taskQueueView.setDelegate(this);
+
     btn.setOnAction(event -> {
-      Weekday newEventDay = Weekday.MONDAY;
-      this.model.addActivity(new Task("something new", "new", newEventDay, null,
-          CompletionStatus.NOT_STARTED));
-      this.weekendView.reloadAt(newEventDay.ordinal(),
-          this.model.getActivitiesFor(newEventDay).size() - 1);
-      this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
-      this.taskQueueView.reloadAll();
+      this.showPopup(this.mainStage);
     });
   }
 
@@ -85,6 +88,24 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   @Override
   public void submit(Activity activity) {
+    this.popupStage.close();
+    if(!this.model.getCategories().contains(activity.getCategory())){
+      this.model.getCategories().add(new Category(activity.getCategory().getName(), null));
+    }
     this.model.addActivity(activity);
+    this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
+    this.weekendView.reloadAt(activity.getWeekday().ordinal(), this.model.getActivitiesFor(activity.getWeekday()).size() - 1);
+    this.taskQueueView.reloadAll();
+  }
+
+  private void showPopup(Stage ownerStage) {
+    this.popupStage = new Stage();
+    this.popupStage.initOwner(ownerStage);
+    this.popupStage.initModality(Modality.APPLICATION_MODAL);
+    this.popupStage.setTitle("Popup Window");
+    VBox newActivityView = new ActivitySelectionView(ActivityType.TASK, this.model.getCategories(), this);
+    Scene popupScene = new Scene(newActivityView);
+    this.popupStage.setScene(popupScene);
+    this.popupStage.showAndWait();
   }
 }

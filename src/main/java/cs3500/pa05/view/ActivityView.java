@@ -7,7 +7,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
@@ -24,5 +27,11 @@ public class ActivityView extends VBox {
     this.description = new Label(activity.getDescription());
 
     this.getChildren().addAll(List.of(this.title, this.description));
+
+    CornerRadii cornerRadii = new CornerRadii(10);
+    BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+        cornerRadii, new BorderWidths(2));
+    Border border = new Border(borderStroke);
+    this.setBorder(border);
   }
 }

@@ -6,7 +6,9 @@ import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  * represents a weekday view class
@@ -26,6 +28,11 @@ public class WeekdayView extends GridPane implements TableView {
     this.setPadding(new Insets(10));
     this.setHgap(10);
     this.setAlignment(Pos.CENTER);
+    for(int i = 0; i < Weekday.values().length; i++){
+      ColumnConstraints cons = new ColumnConstraints();
+      cons.setPrefWidth(100);
+      this.getColumnConstraints().add(cons);
+    }
   }
 
   /**
