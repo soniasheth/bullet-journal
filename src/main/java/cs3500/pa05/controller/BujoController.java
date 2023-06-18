@@ -5,6 +5,7 @@ import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private Stage mainStage;
   private Stage popupStage;
   private WeekdayModel model;
+  private Map<Weekday, List<Activity>> activities;
   private List<Activity> taskQueue;
   private TableView weekendView;
   private TableView taskQueueView;
@@ -29,6 +31,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
     this.mainStage = mainStage;
     this.model = model;
+    this.activities = this.model.getActivities();
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
     this.weekendView = weekendView;
     this.weekendView.setDelegate(this);
@@ -65,7 +68,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public int numberOfRowFor(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return this.model.getActivitiesFor(Weekday.values()[columnIndex]).size();
+      return this.activities.get(Weekday.values()[columnIndex]).size();
     }
     return this.taskQueue.size();
   }
@@ -81,7 +84,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public Activity dataForActivityOn(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
-      return this.model.getActivitiesFor(Weekday.values()[columnIndex]).get(rowIndex);
+      return this.activities.get(Weekday.values()[columnIndex]).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }
@@ -94,7 +97,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     }
     this.model.addActivity(activity);
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
-    this.weekendView.reloadAt(activity.getWeekday().ordinal(), this.model.getActivitiesFor(activity.getWeekday()).size() - 1);
+    this.weekendView.reloadAt(activity.getWeekday().ordinal(), this.activities.get(activity.getWeekday()).size() - 1);
     this.taskQueueView.reloadAll();
   }
 

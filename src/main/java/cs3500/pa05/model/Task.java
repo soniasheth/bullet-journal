@@ -19,7 +19,7 @@ public class Task extends Activity {
    */
   public Task(String name, String description, Weekday weekday, Category category,
               CompletionStatus status) {
-    super(name, description, weekday, category);
+    super(name, description, weekday, category, ActivityType.TASK);
     this.status = status;
   }
 

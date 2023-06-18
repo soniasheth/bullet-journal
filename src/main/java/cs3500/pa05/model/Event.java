@@ -1,5 +1,7 @@
 package cs3500.pa05.model;
 
+import javafx.event.EventType;
+
 import java.time.LocalTime;
 import java.util.Queue;
 
@@ -23,7 +25,7 @@ public class Event extends Activity {
    */
   public Event(String name, String description, Weekday weekday, Category category,
                LocalTime startTime, LocalTime endTime) {
-    super(name, description, weekday, category);
+    super(name, description, weekday, category, ActivityType.EVENT);
     this.startTime = startTime;
     this.endTime = endTime;
   }

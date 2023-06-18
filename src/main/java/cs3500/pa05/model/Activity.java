@@ -1,6 +1,5 @@
 package cs3500.pa05.model;
 
-import java.util.HashMap;
 import java.util.Queue;
 
 /**
@@ -11,6 +10,7 @@ public abstract class Activity implements Comparable<Activity> {
   protected String description;
   protected Weekday weekday;
   protected Category category;
+  protected ActivityType type;
 
   /**
    * default constructor for activity
@@ -20,11 +20,12 @@ public abstract class Activity implements Comparable<Activity> {
    * @param weekday     weekday the activity belongs
    * @param category    category the activity belongs
    */
-  public Activity(String name, String description, Weekday weekday, Category category) {
+  public Activity(String name, String description, Weekday weekday, Category category, ActivityType type) {
     this.name = name;
     this.description = description;
     this.weekday = weekday;
     this.category = category;
+    this.type = type;
   }
 
   /**
@@ -72,6 +73,14 @@ public abstract class Activity implements Comparable<Activity> {
    */
   public Category getCategory() {
     return category;
+  }
+
+  /**
+   * getter for type
+   * @return type
+   */
+  public ActivityType getType() {
+    return type;
   }
 
   /**

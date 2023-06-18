@@ -6,14 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
 import javafx.scene.paint.Color;
 
 /**
  * represents a weekday model class for bullet journal
  */
 public class WeekdayModel implements Model {
+
   private final Map<Weekday, List<Activity>> activities;
   private final List<Category> categories;
+  private final Settings settings;
 
   /**
    * default constructor that initialize an empty map of activities
@@ -26,6 +29,7 @@ public class WeekdayModel implements Model {
 
     this.categories = new ArrayList<>();
     this.categories.add(new Category("N/A", Color.WHITE));
+    this.settings = new Settings();
   }
 
   /**
@@ -71,11 +75,44 @@ public class WeekdayModel implements Model {
   }
 
   /**
-   * get all activities on a specific day
-   * @param weekday day of the activities
-   * @return list of activity
+   * getter for activities
+   * @return activities
    */
-  public List<Activity> getActivitiesFor(Weekday weekday){
-    return this.activities.get(weekday);
+  public Map<Weekday, List<Activity>> getActivities() {
+    return activities;
+  }
+
+  /**
+   * getter for settings
+   *
+   * @return instance of setting
+   */
+  public Settings getSettings() {
+    return settings;
+  }
+
+  /**
+   * iterate through the current activities and see if user exceed any limit
+   *
+   * @return true if user exceeds the limit
+   */
+  public boolean shouldDisplayCommitmentWarning() {
+    int maxTask = this.settings.getTaskMax();
+    int maxEvent = this.settings.getEventMax();
+    int curTask = 0;
+    int curEvent = 0;
+    for (Weekday weekday : Weekday.values()) {
+      for (Activity activity : this.activities.get(weekday)) {
+        if (activity.getType() == ActivityType.EVENT) {
+          curEvent += 1;
+        } else {
+          curTask += 1;
+        }
+        if (curTask > maxTask || curEvent > maxEvent) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
