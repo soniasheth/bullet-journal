@@ -1,5 +1,9 @@
 package cs3500.pa05;
 
+
+import static javafx.application.Application.launch;
+
+import cs3500.pa05.view.MainStageMaggie;
 import javafx.application.Application;
 
 /**
@@ -8,6 +12,7 @@ import javafx.application.Application;
 public class Driver {
 
   public static void main(String[] args) {
+
     Application.launch(BujoMainStage.class, args);
   }
 }
