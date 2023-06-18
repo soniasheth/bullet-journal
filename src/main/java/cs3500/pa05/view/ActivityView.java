@@ -1,6 +1,6 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.Activity;
+import cs3500.pa05.model.activities.Activity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

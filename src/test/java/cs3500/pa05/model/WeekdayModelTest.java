@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Queue;
 
-import cs3500.pa05.model.Activities.Event;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Event;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,12 +20,12 @@ public class WeekdayModelTest {
 
   private WeekdayModel model;
 
-  private Activity task1;
-  private Activity task2;
-  private Activity task3;
-  private Activity task4;
-  private Activity event1;
-  private Activity event2;
+  private Task task1;
+  private Task task2;
+  private Task task3;
+  private Task task4;
+  private Event event1;
+  private Event event2;
 
   /**
    * helper methods to set up fields before each test
@@ -59,9 +58,9 @@ public class WeekdayModelTest {
    */
   @Test
   public void testGetTaskQueue() {
-    List<Activity> items = this.model.getTaskQueue(null);
+    List<Task> items = this.model.getTaskQueue(null);
     assertEquals(items.size(), 4);
-    List<Activity> ranked = List.of(this.task1, this.task4, this.task2, this.task3);
+    List<Task> ranked = List.of(this.task1, this.task4, this.task2, this.task3);
     for(int i = 0; i < items.size(); i++){
       assertEquals(items.get(i), ranked.get(i));
     }

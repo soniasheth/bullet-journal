@@ -2,8 +2,9 @@ package cs3500.pa05.view.activities;
 
 import cs3500.pa05.Utils;
 import cs3500.pa05.model.*;
-import cs3500.pa05.model.Activities.Event;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Activity;
+import cs3500.pa05.model.activities.Event;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.view.FormView;
