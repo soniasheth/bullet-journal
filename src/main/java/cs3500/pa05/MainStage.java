@@ -12,7 +12,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+/*
 public class MainStage extends Application {
   @Override
   public void start(Stage primaryStage) {
@@ -35,3 +35,5 @@ public class MainStage extends Application {
 
   }
 }
+
+ */

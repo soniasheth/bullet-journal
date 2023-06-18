@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d3f1836-5671-4610-9fa7-52862d89b39c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/model/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/SmallButtonsView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/MainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/MainStageMaggie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/MainStage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/MainStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/controller/BujoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/SettingsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/SettingsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/ActivitySelectionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cs3500/pa05/view/activities/ActivitySelectionView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +91,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Driver">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cs3500.pa05.Driver" />
       <module name="pa05-template.main" />
@@ -174,6 +172,7 @@
       <workItem from="1686933346701" duration="13005000" />
       <workItem from="1686955558048" duration="13421000" />
       <workItem from="1687022679597" duration="17933000" />
+      <workItem from="1687047120261" duration="5920000" />
     </task>
     <servers />
   </component>
