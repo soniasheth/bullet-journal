@@ -42,7 +42,7 @@ public class WeekdayView extends GridPane implements TableView {
   @Override
   public void setDelegate(TableViewDelegate delegate) {
     this.delegate = delegate;
-    this.reloadAll();
+    this.reloadAll();//
   }
 
   /**
