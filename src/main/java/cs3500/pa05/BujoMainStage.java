@@ -12,17 +12,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 /**
  * my playground to test stuff
  */
 public class BujoMainStage extends Application {
 
   private void initDummyData(WeekdayModel model) {
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, null, null, null));
-    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, null, null, null));
-    model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, null,
+    model.getCategories().addAll(List.of(new Category("Work", null), new Category("School", null), new Category("Other", null)));
+    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, model.getCategories().get(2), null, null));
+    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, model.getCategories().get(2), null, null));
+    model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, model.getCategories().get(1),
         CompletionStatus.NOT_STARTED));
-    model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, null,
+    model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, model.getCategories().get(0),
         CompletionStatus.NOT_STARTED));
   }
 
@@ -34,23 +37,12 @@ public class BujoMainStage extends Application {
       WeekdayView weekdayView = new WeekdayView();
       TaskQueueView taskQueueView = new TaskQueueView();
       Button btn = new Button("add new task");
-      BujoController controller = new BujoController(model, weekdayView, taskQueueView, btn);
+      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, btn);
       Scene scene = new Scene(new VBox(btn, weekdayView, taskQueueView));
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  private void showPopup(Stage ownerStage) {
-    Stage popupStage = new Stage();
-    popupStage.initOwner(ownerStage);
-    popupStage.initModality(Modality.APPLICATION_MODAL);
-    popupStage.setTitle("Popup Window");
-    Label l = new Label("haha");
-    Scene popupScene = new Scene(new VBox(l));
-    popupStage.setScene(popupScene);
-    popupStage.showAndWait();
   }
 }

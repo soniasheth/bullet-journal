@@ -113,7 +113,8 @@ public class ActivitySelectionView extends VBox {
             }
             //calls the submit method of the delegate and then adds it to the model
             //this.submitDelegate.submit(activity);
-            System.out.println(activity.toString());
+            //System.out.println(activity.toString());
+            this.submitDelegate.submit(activity);
         }
 
     }
