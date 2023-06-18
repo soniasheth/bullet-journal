@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Queue;
 
-import cs3500.pa05.model.Activities.Event;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Event;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,17 +34,17 @@ public class WeekdayModelTest {
   public void setUp() {
     this.model = new WeekdayModel();
     this.task1 = new Task("shower", "very important", Weekday.FRIDAY,
-        this.model.getCategories().get(0), CompletionStatus.NOT_STARTED);
+        new Category("haha", null), CompletionStatus.NOT_STARTED);
     this.task2 = new Task("sleep", "sleeping now", Weekday.FRIDAY,
-        this.model.getCategories().get(0), CompletionStatus.IN_PROGRESS);
+        new Category("haha", null), CompletionStatus.IN_PROGRESS);
     this.task3 = new Task("essay", "don't wanna write", Weekday.MONDAY,
-        this.model.getCategories().get(0), CompletionStatus.COMPLETED);
+        new Category("haha", null), CompletionStatus.COMPLETED);
     this.task4 = new Task("prep exam", "no", Weekday.MONDAY,
-        this.model.getCategories().get(0), CompletionStatus.IN_PROGRESS);
+        new Category("haha", null), CompletionStatus.IN_PROGRESS);
     this.event1 = new Event("date night", "yeah", Weekday.TUESDAY,
-        this.model.getCategories().get(0), LocalTime.of(20, 0), LocalTime.of(22, 0));
+        new Category("haha", null), LocalTime.of(20, 0), LocalTime.of(22, 0));
     this.event2 = new Event("IRS audit", "crap", Weekday.SATURDAY,
-        this.model.getCategories().get(0), LocalTime.of(8, 0), LocalTime.of(8, 30));
+        new Category("haha", null), LocalTime.of(8, 0), LocalTime.of(8, 30));
     this.model.addActivity(this.task1);
     this.model.addActivity(this.task2);
     this.model.addActivity(this.task3);

@@ -1,4 +1,4 @@
-package cs3500.pa05.model.Activities;
+package cs3500.pa05.model.activities;
 
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;

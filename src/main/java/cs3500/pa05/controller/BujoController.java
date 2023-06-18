@@ -1,10 +1,12 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.Utils;
 import cs3500.pa05.model.*;
-import cs3500.pa05.model.Activities.Activity;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Activity;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
+import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
@@ -52,12 +54,12 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     activities.setOnActionEventButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.EVENT,
-          this.model.getCategories(), this, s), "New Event");
+          Settings.getInstance().getCategories(), this, s), "New Event");
     });
     activities.setOnActionTaskButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.TASK,
-          this.model.getCategories(), this, s), "New Task");
+          Settings.getInstance().getCategories(), this, s), "New Task");
     });
   }
 
@@ -65,8 +67,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      Settings settings1 = new Settings();
-      VBox settingsView = new SettingsView(settings1, false, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
@@ -119,20 +120,23 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   }
 
   @Override
-  public void submit(Activity activity) {
-    if (!this.model.getCategories().contains(activity.getCategory())) {
-      this.model.getCategories().add(new Category(activity.getCategory().getName(), null));
+  public void submit(FormView formView, Object object) {
+    if (formView instanceof ActivitySelectionView) {
+      Activity activity = (Activity) object;
+      if (!Settings.getInstance().getCategories().contains(activity.getCategory())) {
+        Settings.getInstance().getCategories()
+            .add(new Category(activity.getCategory().getName(), null));
+      }
+      this.model.addActivity(activity);
+      this.taskQueue = this.model.getTaskQueue(this.filterCategory);
+      this.weekendView.reloadAt(activity.getWeekday().ordinal(),
+          this.activities.get(activity.getWeekday()).size() - 1);
+      this.taskQueueView.reloadAll();
     }
-    this.model.addActivity(activity);
-    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
-    this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-        this.activities.get(activity.getWeekday()).size() - 1);
-    this.taskQueueView.reloadAll();
-
+    this.showCommitmentWarning();
   }
 
   private void showPopup(Stage ownerStage, Stage popupStage, Parent popUp, String title) {
-    //Stage popupStage = new Stage();
     popupStage.initOwner(ownerStage);
     popupStage.initModality(Modality.APPLICATION_MODAL);
     popupStage.setTitle(title);
@@ -141,4 +145,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     popupStage.showAndWait();
   }
 
+  private void showCommitmentWarning() {
+    if (this.model.shouldDisplayCommitmentWarning()) {
+      Utils.showAlert("Commitment Warning!", "haha");
+    }
+  }
 }

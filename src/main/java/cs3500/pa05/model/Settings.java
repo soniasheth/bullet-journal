@@ -1,56 +1,68 @@
 package cs3500.pa05.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.paint.Color;
+
 public class Settings {
 
-    String name;
-    String email;
-    int eventMax;
-    int taskMax;
+  private String name;
+  private String email;
+  private int eventMax;
+  private int taskMax;
+  private List<Category> categories;
 
-    public Settings() {
-        this.name = "John Doe";
-        this.email = "JohnDoe@fakeEmail.com";
-        this.eventMax = 0;
-        this.taskMax = 0;
+  private Settings() {
+    this.name = "John Doe";
+    this.email = "JohnDoe@fakeEmail.com";
+    this.eventMax = 0;
+    this.taskMax = 0;
+    this.categories = new ArrayList<>();
+    this.categories.add(new Category("None", Color.WHITE));
+  }
+
+  private static Settings instance;
+
+  public static Settings getInstance() {
+    if (instance == null) {
+      instance = new Settings();
     }
+    return instance;
+  }
 
-    public Settings(String name, String email, int eventMax, int taskMax) {
-        this.name = name;
-        this.email = email;
-        this.eventMax = eventMax;
-        this.taskMax = taskMax;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEventMax(int eventMax) {
+    this.eventMax = eventMax;
+  }
 
-    public void setEventMax(int eventMax) {
-        this.eventMax = eventMax;
-    }
+  public void setTaskMax(int taskMax) {
+    this.taskMax = taskMax;
+  }
 
-    public void setTaskMax(int taskMax) {
-        this.taskMax = taskMax;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public int getEventMax() {
+    return eventMax;
+  }
 
-    public int getEventMax() {
-        return eventMax;
-    }
+  public int getTaskMax() {
+    return taskMax;
+  }
 
-    public int getTaskMax() {
-        return taskMax;
-    }
-
+  public List<Category> getCategories(){
+    return this.categories;
+  }
 }

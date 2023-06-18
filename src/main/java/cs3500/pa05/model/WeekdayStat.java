@@ -1,13 +1,12 @@
 package cs3500.pa05.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-import cs3500.pa05.model.Activities.Activity;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Activity;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
@@ -39,7 +38,7 @@ public class WeekdayStat {
     public WeekdayStat(WeekdayModel weeklyModel) {
         this.weeklyModel = weeklyModel;
         this.activities =  weeklyModel.getActivities(null);
-        this.categories = weeklyModel.getCategories();
+        this.categories = Settings.getInstance().getCategories();
         //initialize maxEvents and maxTasks
 
         this.eventCategoryValues = categoryValues(ActivityType.EVENT);

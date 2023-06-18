@@ -1,7 +1,7 @@
 package cs3500.pa05.model;
 
-import cs3500.pa05.model.Activities.Activity;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Activity;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import cs3500.pa05.model.enums.Weekday;
-import javafx.scene.paint.Color;
 
 /**
  * represents a weekday model class for bullet journal
@@ -18,8 +17,6 @@ import javafx.scene.paint.Color;
 public class WeekdayModel implements Model {
 
   private final Map<Weekday, List<Activity>> activities;
-  private final List<Category> categories;
-  private final Settings settings;
 
   /**
    * default constructor that initialize an empty map of activities
@@ -29,10 +26,6 @@ public class WeekdayModel implements Model {
     for (Weekday day : Weekday.values()) {
       this.activities.put(day, new ArrayList<>());
     }
-
-    this.categories = new ArrayList<>();
-    this.categories.add(new Category("None", Color.WHITE));
-    this.settings = new Settings();
   }
 
   /**
@@ -51,15 +44,6 @@ public class WeekdayModel implements Model {
    */
   public WeekdayStat getStats() {
     throw new UnsupportedOperationException("not yet implemented");
-  }
-
-  /**
-   * get all categories including default ones and user defined ones
-   *
-   * @return a list of category
-   */
-  public List<Category> getCategories() {
-    return this.categories;
   }
 
   /**
@@ -109,8 +93,8 @@ public class WeekdayModel implements Model {
    * @return true if user exceeds the limit
    */
   public boolean shouldDisplayCommitmentWarning() {
-    int maxTask = this.settings.getTaskMax();
-    int maxEvent = this.settings.getEventMax();
+    int maxTask = Settings.getInstance().getTaskMax();
+    int maxEvent = Settings.getInstance().getEventMax();
     int curTask = 0;
     int curEvent = 0;
     for (Weekday weekday : Weekday.values()) {
