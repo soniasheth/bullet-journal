@@ -23,12 +23,13 @@ import java.util.List;
 public class BujoMainStage extends Application {
 
   private void initDummyData(WeekdayModel model) {
-    model.getCategories().addAll(List.of(new Category("Work", null), new Category("School", null), new Category("Fun", null)));
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, model.getCategories().get(3), null, null));
-    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, model.getCategories().get(3), null, null));
-    model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, model.getCategories().get(2),
+    List<Category> c = Settings.getInstance().getCategories();
+    c.addAll(List.of(new Category("Work", null), new Category("School", null), new Category("Fun", null)));
+    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), null, null));
+    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), null, null));
+    model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, c.get(2),
         CompletionStatus.NOT_STARTED));
-    model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, model.getCategories().get(1),
+    model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, c.get(1),
         CompletionStatus.NOT_STARTED));
   }
 
