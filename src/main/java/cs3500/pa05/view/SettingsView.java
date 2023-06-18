@@ -24,11 +24,9 @@ public class SettingsView extends VBox {
   TextField nameInput;
   TextField emailInput;
   TextField eventInput;
-
   TextField taskInput;
 
   SettingsView(Settings setting, boolean welcome, Stage primaryStage) {
-
     nameInput = new TextField();
     emailInput = new TextField();
     eventInput = new TextField();
@@ -66,16 +64,12 @@ public class SettingsView extends VBox {
 
     this.setAlignment(Pos.CENTER);
     this.setPadding(new Insets(10));
-
     this.getChildren().addAll(hboxs);
     this.getChildren().addAll(button, text);
-
-
   }
 
   private void getUserInput(Settings setting, Text text) {
     setting.setName(nameInput.getText());
-
     String events = eventInput.getText();
     if (Utils.isValidNumber(events)) {
       int eventMax = Integer.parseInt(events);
@@ -98,9 +92,7 @@ public class SettingsView extends VBox {
     } else {
       throw new IllegalArgumentException("Please enter a valid email");
     }
-
     text.setText("Hello " + setting.getName() + ". Welcome to your Bullet Journal.");
-
   }
 
 

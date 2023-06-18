@@ -1,6 +1,6 @@
 package cs3500.pa05.view.activities;
 
-import cs3500.pa05.model.Weekday;
+import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.control.ComboBox;
 
 public class WeekdayComboBox extends ComboBox {

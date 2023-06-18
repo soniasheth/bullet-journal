@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.paint.Color;
 
 /**
@@ -25,7 +27,7 @@ public class WeekdayModel implements Model {
     }
 
     this.categories = new ArrayList<>();
-    this.categories.add(new Category("N/A", Color.WHITE));
+    this.categories.add(new Category("None", Color.WHITE));
   }
 
   /**

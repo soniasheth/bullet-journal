@@ -1,6 +1,6 @@
 package cs3500.pa05.view.tables;
 
-import cs3500.pa05.model.Weekday;
+import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
@@ -8,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 
 /**
  * represents a weekday view class

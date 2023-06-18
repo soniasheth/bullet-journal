@@ -1,7 +1,10 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.*;
+import cs3500.pa05.model.enums.ActivityType;
+import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.activities.ActivitySelectionView;
+import cs3500.pa05.view.activities.AddButton;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
@@ -26,7 +29,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private TableView weekendView;
   private TableView taskQueueView;
 
-  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
+  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, AddButton activities) {
     this.mainStage = mainStage;
     this.model = model;
     this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
@@ -35,9 +38,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.taskQueueView = taskQueueView;
     this.taskQueueView.setDelegate(this);
 
-    btn.setOnAction(event -> {
-      this.showPopup(this.mainStage);
-    });
+    activities.setOnActionEventButton(event -> this.showPopup(this.mainStage, ActivityType.EVENT));
+    activities.setOnActionTaskButton(event -> this.showPopup(this.mainStage, ActivityType.TASK));
   }
 
   /**
@@ -98,14 +100,15 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.taskQueueView.reloadAll();
   }
 
-  private void showPopup(Stage ownerStage) {
+  private void showPopup(Stage ownerStage, ActivityType type) {
     this.popupStage = new Stage();
     this.popupStage.initOwner(ownerStage);
     this.popupStage.initModality(Modality.APPLICATION_MODAL);
     this.popupStage.setTitle("Popup Window");
-    VBox newActivityView = new ActivitySelectionView(ActivityType.TASK, this.model.getCategories(), this);
+    VBox newActivityView = new ActivitySelectionView(type, this.model.getCategories(), this);
     Scene popupScene = new Scene(newActivityView);
     this.popupStage.setScene(popupScene);
     this.popupStage.showAndWait();
   }
+
 }
