@@ -1,4 +1,10 @@
-package cs3500.pa05.model;
+package cs3500.pa05.model.Activities;
+
+import cs3500.pa05.model.Activity;
+import cs3500.pa05.model.Category;
+import cs3500.pa05.model.enums.ActivityType;
+import cs3500.pa05.model.enums.CompletionStatus;
+import cs3500.pa05.model.enums.Weekday;
 
 import java.util.Queue;
 
@@ -29,7 +35,7 @@ public class Task extends Activity {
    * @return priority in int
    */
   @Override
-  int getPriority() {
+  public int getPriority() {
     return this.status.getPriority() + this.weekday.ordinal();
   }
 
@@ -39,7 +45,7 @@ public class Task extends Activity {
    * @param queue given queue
    */
   @Override
-  void addToTaskQueue(Queue<Activity> queue) {
+  public void addToTaskQueue(Queue<Activity> queue) {
     queue.add(this);
   }
 

@@ -1,5 +1,7 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.enums.ActivityType;
+import cs3500.pa05.model.enums.Weekday;
 import java.util.Queue;
 
 /**
@@ -33,14 +35,14 @@ public abstract class Activity implements Comparable<Activity> {
    *
    * @return priority in int
    */
-  abstract int getPriority();
+  public abstract int getPriority();
 
   /**
    * add the current activity to given queue
    *
    * @param queue given queue
    */
-  abstract void addToTaskQueue(Queue<Activity> queue);
+  public abstract void addToTaskQueue(Queue<Activity> queue);
 
   /**
    * getter for weekday

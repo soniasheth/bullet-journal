@@ -1,11 +1,13 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.enums.ActivityType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.paint.Color;
 
 /**

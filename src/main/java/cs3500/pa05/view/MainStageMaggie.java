@@ -18,13 +18,10 @@ public class MainStageMaggie extends Application {
 
     Button settingsButton = new Button("settings");
     settingsButton.setOnAction(e -> settingsPopUp(primaryStage));
-
     VBox root = new VBox();
     root.getChildren().add(settingsButton);
-
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
-
     primaryStage.show();
 
   }
@@ -34,18 +31,11 @@ public class MainStageMaggie extends Application {
     settingsPopup.initOwner(primaryStage);
     settingsPopup.initModality(Modality.APPLICATION_MODAL);
     settingsPopup.setTitle("Settings");
-
     Settings setting = new Settings();
-    SettingsView v = new SettingsView(setting, false, settingsPopup);
-
-
-
+    SettingsView v = new SettingsView(setting, true, settingsPopup);
     Scene popupScene = new Scene(v);
-
     settingsPopup.setScene(popupScene);
-
     settingsPopup.showAndWait();
-
   }
 
 }
