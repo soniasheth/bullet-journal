@@ -54,12 +54,11 @@ public class WeekdayModelTest {
    */
   @Test
   public void testGetTaskQueue() {
-    Queue<Activity> queue = this.model.getTaskQueue();
-    assertEquals(queue.size(), 4);
+    List<Activity> items = this.model.getTaskQueue(null);
+    assertEquals(items.size(), 4);
     List<Activity> ranked = List.of(this.task1, this.task4, this.task2, this.task3);
-    for (Activity activity : ranked) {
-      assertEquals(activity, queue.remove());
+    for(int i = 0; i < items.size(); i++){
+      assertEquals(items.get(i), ranked.get(i));
     }
-    assertTrue(queue.isEmpty());
   }
 }

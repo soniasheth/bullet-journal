@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,14 +23,15 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private WeekdayModel model;
   private Map<Weekday, List<Activity>> activities;
   private List<Activity> taskQueue;
+  private Category filterCategory = null;
   private TableView weekendView;
   private TableView taskQueueView;
 
   public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView, TableView taskQueueView, Button btn) {
     this.mainStage = mainStage;
     this.model = model;
-    this.activities = this.model.getActivities();
-    this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
+    this.activities = this.model.getActivities(this.filterCategory);
+    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
     this.weekendView = weekendView;
     this.weekendView.setDelegate(this);
     this.taskQueueView = taskQueueView;
@@ -96,7 +95,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       this.model.getCategories().add(new Category(activity.getCategory().getName(), null));
     }
     this.model.addActivity(activity);
-    this.taskQueue = new ArrayList<>(this.model.getTaskQueue());
+    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
     this.weekendView.reloadAt(activity.getWeekday().ordinal(), this.activities.get(activity.getWeekday()).size() - 1);
     this.taskQueueView.reloadAll();
   }
