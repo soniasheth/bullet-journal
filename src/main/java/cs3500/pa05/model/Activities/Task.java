@@ -1,6 +1,5 @@
 package cs3500.pa05.model.Activities;
 
-import cs3500.pa05.model.Activity;
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
@@ -12,7 +11,7 @@ import java.util.Queue;
  * represents a Task class
  */
 public class Task extends Activity {
-  private CompletionStatus status;
+  private final CompletionStatus status;
 
   /**
    * default constructor for a task
@@ -50,11 +49,13 @@ public class Task extends Activity {
   }
 
   public String toString() {
-    String task =
-            "Name: " + this.name + "\n"
-                    + "Category" + this.category.getName() + "\n"
-                    + "Weekday:" + this.weekday.getRepresentation() + "\n"
-                    + "Description:" + this.description + "\n";
-    return task;
+    return "Name: " + this.name + "\n"
+            + "Category" + this.category.getName() + "\n"
+            + "Weekday:" + this.weekday.getRepresentation() + "\n"
+            + "Description:" + this.description + "\n";
+  }
+
+  public CompletionStatus getStatus() {
+    return status;
   }
 }

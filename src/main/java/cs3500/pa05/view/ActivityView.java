@@ -1,16 +1,11 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.Activity;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import cs3500.pa05.model.Activities.Activity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
