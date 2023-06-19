@@ -30,6 +30,7 @@ public class BujoMainStage extends Application {
   private int width = 1000;
 
   private void initDummyData(WeekdayModel model) {
+    Settings.reset();
     List<Category> c = Settings.getInstance().getCategories();
     c.addAll(List.of(new Category("Work", null), new Category("School", null), new Category("Fun", null)));
     model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), null, null));

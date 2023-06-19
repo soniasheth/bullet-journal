@@ -27,7 +27,7 @@ public class TaskQueueView extends GridPane implements TableView {
   public TaskQueueView() {
     super();
     this.setPadding(new Insets(10));
-    this.setHgap(10);
+    this.setVgap(7);
     this.setAlignment(Pos.CENTER);
     this.setPrefWidth(width);
 

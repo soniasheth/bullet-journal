@@ -132,6 +132,11 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     Utils.showAlert("clicked on", this.getActivityForCellAt(tableView, columnIndex, rowIndex).getName());
   }
 
+  /**
+   * submit the data to the delegatee for handling
+   * @param formView reference to the formView
+   * @param object the newly created object
+   */
   @Override
   public void submit(FormView formView, Object object) {
     if (formView instanceof ActivitySelectionView) {

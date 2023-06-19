@@ -34,16 +34,26 @@ public class WeekdayModel implements Model {
    * @param activity activity to add
    */
   public void addActivity(Activity activity) {
-    this.activities.get(activity.getWeekday()).add(activity);
+    if (!this.contains(activity)) {
+      this.activities.get(activity.getWeekday()).add(activity);
+    }
   }
 
   /**
-   * calculate and return stats of current activities
+   * private method to see if the instance of activity already exists
    *
-   * @return a WeekdayStat instance
+   * @param activity activity instance
+   * @return true if already exist in the model
    */
-  public WeekdayStat getStats() {
-    throw new UnsupportedOperationException("not yet implemented");
+  private boolean contains(Activity activity) {
+    for (Weekday weekday : Weekday.values()) {
+      for (Activity item : this.activities.get(weekday)) {
+        if (activity == item) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
@@ -76,7 +86,8 @@ public class WeekdayModel implements Model {
     for (List<Activity> dayActivities : this.activities.values()) {
       for (Activity activity : dayActivities) {
         if (activity.getType() == ActivityType.TASK) {
-          ret.add((Task)activity); //casting because we are checking to ensure it is a task beforehand
+          ret.add(
+              (Task) activity); //casting because we are checking to ensure it is a task beforehand
         }
       }
     }
