@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Queue;
 
+import cs3500.pa05.model.Activities.Activity;
 import cs3500.pa05.model.Activities.Event;
 import cs3500.pa05.model.Activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
