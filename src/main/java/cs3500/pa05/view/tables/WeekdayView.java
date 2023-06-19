@@ -6,14 +6,17 @@ import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * represents a weekday view class
  */
 public class WeekdayView extends GridPane implements TableView {
 
+  private final int columnWidth = 200;
   /**
    * delegate for the delegate
    */
@@ -26,12 +29,17 @@ public class WeekdayView extends GridPane implements TableView {
     super();
     this.setPadding(new Insets(10));
     this.setHgap(10);
-    this.setAlignment(Pos.CENTER);
+    this.setAlignment(Pos.TOP_LEFT);
     for(int i = 0; i < Weekday.values().length; i++){
       ColumnConstraints cons = new ColumnConstraints();
-      cons.setPrefWidth(100);
+      cons.setPrefWidth(columnWidth);
       this.getColumnConstraints().add(cons);
     }
+    CornerRadii cornerRadii = new CornerRadii(7);
+    BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+            cornerRadii, new BorderWidths(1));
+    Border border = new Border(borderStroke);
+    this.setBorder(border);
   }
 
   /**
@@ -82,7 +90,9 @@ public class WeekdayView extends GridPane implements TableView {
     for (int i = 0; i < Weekday.values().length; i++) {
       Label l = new Label(this.delegate.titleForColumn(this, i));
       l.setAlignment(Pos.CENTER);
-      l.setPrefWidth(100);
+      l.setPrefWidth(columnWidth);
+
+      l.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
       this.add(l, i, 0);
       for (int j = 0; j < this.delegate.numberOfRowFor(this, i); j++) {
         this.renderCell(i, j);
