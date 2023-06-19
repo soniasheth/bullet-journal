@@ -15,6 +15,7 @@ public class Settings {
   private int eventMax;
   private int taskMax;
   private final List<Category> categories;
+  private int week;
 
   /**
    * default constructor
@@ -26,6 +27,8 @@ public class Settings {
     this.taskMax = 0;
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
+
+   this.week = 0;
   }
 
   private static Settings instance;
@@ -85,6 +88,10 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
+  public void setWeek(int week) {this.week = week;}
+
+  public int getWeek() {return week;}
+
   /**
    * getter for name
    *
@@ -124,7 +131,7 @@ public class Settings {
   /**
    * getter for list of categories
    *
-   * @return
+   * @return list of categories
    */
   public List<Category> getCategories() {
     return this.categories;

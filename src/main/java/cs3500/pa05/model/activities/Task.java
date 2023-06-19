@@ -11,7 +11,7 @@ import java.util.Queue;
  * represents a Task class
  */
 public class Task extends Activity {
-  private final CompletionStatus status;
+  private CompletionStatus status;
 
   /**
    * default constructor for a task
@@ -26,6 +26,10 @@ public class Task extends Activity {
               CompletionStatus status) {
     super(name, description, weekday, category, ActivityType.TASK);
     this.status = status;
+  }
+
+  public Task() {
+    this.status = null;
   }
 
   /**
@@ -57,5 +61,9 @@ public class Task extends Activity {
 
   public CompletionStatus getStatus() {
     return status;
+  }
+
+  public void setStatus(CompletionStatus status) {
+    this.status = status;
   }
 }

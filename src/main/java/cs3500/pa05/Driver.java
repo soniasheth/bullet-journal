@@ -3,7 +3,6 @@ package cs3500.pa05;
 
 import static javafx.application.Application.launch;
 
-import cs3500.pa05.view.MainStageMaggie;
 import javafx.application.Application;
 
 /**

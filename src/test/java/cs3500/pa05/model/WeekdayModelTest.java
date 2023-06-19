@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cs3500.pa05.model.activities.Activity;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
+import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;

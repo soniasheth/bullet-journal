@@ -31,4 +31,8 @@ public class WeekdayComboBox extends ComboBox {
       return true;
     }
   }
+
+  public void setDefault(Weekday day) {
+    this.getSelectionModel().select(day.getRepresentation());
+  }
 }

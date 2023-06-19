@@ -91,8 +91,23 @@ public class WeekdayStat {
     }
 
     public double getPercentDone() {
-        return ((double) tasksCompleted / (double) totalTasks) *100;
+        return ((double) tasksCompleted / (double) totalTasks) ;
     }
 
 
+    public Map<Category, Integer> getEventCategoryValues() {
+        return eventCategoryValues;
+    }
+
+    public Map<Category, Integer> getTaskCategoryValues() {
+        return taskCategoryValues;
+    }
+
+    public int getTotalEvents() {
+        return totalEvents;
+    }
+
+    public int getTotalTasks() {
+        return totalTasks;
+    }
 }

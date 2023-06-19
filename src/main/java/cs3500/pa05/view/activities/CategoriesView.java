@@ -14,8 +14,8 @@ public class CategoriesView extends ComboBox {
   //make sure that the list of categories had none at the end
   public CategoriesView(List<Category> categories) {
     this.existingCategories = categories;
-    for(int i = 0; i < categories.size(); i++) {
-      this.getItems().add(categories.get(i).getName());
+    for (Category category : categories) {
+      this.getItems().add(category.getName());
     }
     this.setEditable(true);
   }
@@ -30,15 +30,15 @@ public class CategoriesView extends ComboBox {
       boolean found = false;
       //as long at the catergory is not null
       // see if its an existing category
-       for (int i = 0; i < existingCategories.size(); i++) {
-         if (category.equals(existingCategories.get(i))) {
-           userChoice = new Category(existingCategories.get(i).getName(), existingCategories.get(i).getColor());
-           found = true;
-         }
-       }
+      for (Category existingCategory : existingCategories) {
+        if (category.equals(existingCategory)) {
+          userChoice = new Category(existingCategory.getName(), existingCategory.getColor());
+          found = true;
+        }
+      }
       // not an existing cat-> create one
       //default color is red for now
-      if (found == false) {
+      if (!found) {
         userChoice = new Category(category, Color.RED);
       }
       return userChoice;
@@ -46,12 +46,11 @@ public class CategoriesView extends ComboBox {
   }
 
   private boolean validateAnswer() {
-    if (this.getValue() == null) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    return this.getValue() != null;
+  }
+
+  public void setDefaultStartValue(Category name) {
+    this.getSelectionModel().select(name.getName());
   }
 
 }

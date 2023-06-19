@@ -34,26 +34,25 @@ public class WeekdayModel implements Model {
    * @param activity activity to add
    */
   public void addActivity(Activity activity) {
-    if (!this.contains(activity)) {
-      this.activities.get(activity.getWeekday()).add(activity);
-    }
+    this.removeIfExist(activity);
+    this.activities.get(activity.getWeekday()).add(activity);
   }
 
   /**
-   * private method to see if the instance of activity already exists
+   * private method to remove an activity if exist
    *
    * @param activity activity instance
-   * @return true if already exist in the model
    */
-  private boolean contains(Activity activity) {
+  private void removeIfExist(Activity activity) {
     for (Weekday weekday : Weekday.values()) {
-      for (Activity item : this.activities.get(weekday)) {
-        if (activity == item) {
-          return true;
+      List<Activity> items = this.activities.get(weekday);
+      for (int i = 0; i < items.size(); i++) {
+        if (activity == items.get(i)) {
+          items.remove(activity);
+          return;
         }
       }
     }
-    return false;
   }
 
   /**
