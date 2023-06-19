@@ -38,6 +38,8 @@ public class BujoMainStage extends Application {
         CompletionStatus.NOT_STARTED));
     model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, c.get(1),
         CompletionStatus.NOT_STARTED));
+    model.addActivity(new Task("cry", "yes", Weekday.TUESDAY, c.get(1), CompletionStatus.COMPLETED));
+    model.addActivity(new Task("pa05", "is hard", Weekday.FRIDAY, c.get(3), CompletionStatus.IN_PROGRESS));
   }
 
   @Override
@@ -61,15 +63,31 @@ public class BujoMainStage extends Application {
       Button settings = new Button("Settings");
       Button save = new Button("Save");
 
+      Button eventStats = new Button("Event Stats");
+      Button taskStats = new Button("Task Stats");
+
       //week of label
       HBox weekOfLabel = new HBox();
-      Text weekOf = new Text("Week of 6/1 - 6/8");
+
+//      weekOfLabel.setBorder
+//              (new Border
+//                      (new BorderStroke
+//                              (Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+      Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
+
       weekOf.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 30));
+
       weekOfLabel.getChildren().add(weekOf);
 
       //larger elements needed
       WeekdayView weekdayView = new WeekdayView();
       TaskQueueView taskQueueView = new TaskQueueView();
+
+
+      //put them all together
+      VBox left = new VBox(addActivities, taskQueueView, eventStats, taskStats);
+      left.setSpacing(20);
+
 
       //set the top
       HBox btn = new HBox(settings, save);
@@ -91,7 +109,7 @@ public class BujoMainStage extends Application {
       bujo.setAlignment(weekdayView, Pos.TOP_CENTER);
 
       //init the controller
-      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings);
+      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
 
       //show the scene
       Scene scene = new Scene(bujo,width,height);
