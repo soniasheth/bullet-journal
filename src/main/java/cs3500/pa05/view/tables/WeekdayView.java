@@ -29,7 +29,7 @@ public class WeekdayView extends GridPane implements TableView {
     super();
     this.setPadding(new Insets(10));
     this.setHgap(10);
-    this.setAlignment(Pos.CENTER);
+    this.setAlignment(Pos.TOP_LEFT);
     for(int i = 0; i < Weekday.values().length; i++){
       ColumnConstraints cons = new ColumnConstraints();
       cons.setPrefWidth(columnWidth);
@@ -89,7 +89,7 @@ public class WeekdayView extends GridPane implements TableView {
     this.getChildren().clear();
     for (int i = 0; i < Weekday.values().length; i++) {
       Label l = new Label(this.delegate.titleForColumn(this, i));
-      //l.setAlignment(Pos.CENTER);
+      l.setAlignment(Pos.CENTER);
       l.setPrefWidth(columnWidth);
 
       l.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
