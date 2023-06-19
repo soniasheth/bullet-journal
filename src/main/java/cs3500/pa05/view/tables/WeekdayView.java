@@ -5,6 +5,7 @@ import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -30,14 +31,14 @@ public class WeekdayView extends GridPane implements TableView {
     this.setPadding(new Insets(10));
     this.setHgap(10);
     this.setAlignment(Pos.TOP_LEFT);
-    for(int i = 0; i < Weekday.values().length; i++){
+    for (int i = 0; i < Weekday.values().length; i++) {
       ColumnConstraints cons = new ColumnConstraints();
       cons.setPrefWidth(columnWidth);
       this.getColumnConstraints().add(cons);
     }
     CornerRadii cornerRadii = new CornerRadii(7);
     BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-            cornerRadii, new BorderWidths(1));
+        cornerRadii, new BorderWidths(1));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }
@@ -60,9 +61,17 @@ public class WeekdayView extends GridPane implements TableView {
    * @param rowIndex row index of the cell
    */
   private void renderCell(int colIndex, int rowIndex) {
-    ActivityView v = new ActivityView(this.delegate.dataForActivityOn(this,
+    VBox v = new ActivityView(this.delegate.getActivityForCellAt(this,
         colIndex, rowIndex));
-    this.add(v, colIndex, rowIndex + 1);
+    Button invisible = new Button();
+    invisible.setOpacity(0.0);
+    invisible.setBackground(null);
+    invisible.setPrefWidth(this.columnWidth);
+    invisible.setPrefHeight(100);
+    invisible.setOnAction(event -> {
+      this.delegate.didClickOn(this, colIndex, rowIndex);
+    });
+    this.add(new StackPane(v, invisible), colIndex, rowIndex + 1);
   }
 
   /**
