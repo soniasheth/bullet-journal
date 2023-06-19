@@ -11,8 +11,8 @@ import java.util.Queue;
  * represents an event
  */
 public class Event extends Activity {
-  private final LocalTime startTime;
-  private final LocalTime endTime;
+  private LocalTime startTime;
+  private LocalTime endTime;
 
 
   /**
@@ -30,6 +30,12 @@ public class Event extends Activity {
     super(name, description, weekday, category, ActivityType.EVENT);
     this.startTime = startTime;
     this.endTime = endTime;
+  }
+
+  public Event() {
+    super();
+    this.startTime = null;
+    this.endTime = null;
   }
 
   /**
@@ -63,4 +69,24 @@ public class Event extends Activity {
             + "End Time" + this.endTime.toString();
     return event;
   }
+
+  public LocalTime getStartTime() {
+    return this.startTime;
+  }
+
+  public LocalTime getEndTime() {
+    return this.endTime;
+  }
+
+  public void setStartTime(LocalTime startTime) {
+    this.startTime = startTime;
+  }
+
+  public void setEndTime(LocalTime endTime) {
+    this.endTime = endTime;
+  }
+
+
+
+
 }

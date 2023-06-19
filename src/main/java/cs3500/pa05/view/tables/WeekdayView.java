@@ -35,9 +35,11 @@ public class WeekdayView extends GridPane implements TableView {
       cons.setPrefWidth(columnWidth);
       this.getColumnConstraints().add(cons);
     }
+
+    //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
     BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-            cornerRadii, new BorderWidths(1));
+            cornerRadii, new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }

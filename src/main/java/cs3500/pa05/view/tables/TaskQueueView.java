@@ -31,9 +31,10 @@ public class TaskQueueView extends GridPane implements TableView {
     this.setAlignment(Pos.CENTER);
     this.setPrefWidth(width);
 
+    //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
     BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-            cornerRadii, new BorderWidths(1));
+            cornerRadii, new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }

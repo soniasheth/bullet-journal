@@ -54,4 +54,8 @@ public class CategoriesView extends ComboBox {
     }
   }
 
+  public void setDefaultStartValue(Category name) {
+    this.getSelectionModel().select(name.getName());
+  }
+
 }
