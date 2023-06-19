@@ -95,11 +95,6 @@ public class WeekdayModel implements Model {
   public boolean shouldDisplayCommitmentWarning() {
     int maxTask = Settings.getInstance().getTaskMax();
     int maxEvent = Settings.getInstance().getEventMax();
-
-    if(maxTask == 0 && maxEvent == 0){
-      return false;
-    }
-
     int curTask = 0;
     int curEvent = 0;
     for (Weekday weekday : Weekday.values()) {
