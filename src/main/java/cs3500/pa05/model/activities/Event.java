@@ -60,14 +60,12 @@ public class Event extends Activity {
 
   @Override
   public String toString() {
-    String event =
-            "Name: " + this.name + "\n"
-            + "Category" + this.category.getName() + "\n"
-            + "Weekday:" + this.weekday.getRepresentation() + "\n"
-            + "Description:" + this.description + "\n"
-            + "Start Time" + this.startTime.toString() + "\n"
-            + "End Time" + this.endTime.toString();
-    return event;
+    return "Name: " + this.name + "\n"
+    + "Category" + this.category.getName() + "\n"
+    + "Weekday:" + this.weekday.getRepresentation() + "\n"
+    + "Description:" + this.description + "\n"
+    + "Start Time" + this.startTime.toString() + "\n"
+    + "End Time" + this.endTime.toString();
   }
 
   public LocalTime getStartTime() {

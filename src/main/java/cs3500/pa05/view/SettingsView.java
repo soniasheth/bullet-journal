@@ -6,12 +6,17 @@ import cs3500.pa05.view.delegates.FormDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 public class SettingsView extends VBox implements FormView {
   TextField nameInput;
@@ -23,6 +28,8 @@ public class SettingsView extends VBox implements FormView {
   Text endMessage;
   FormDelegate submitDelegate;
 
+  private final DatePicker datePicker;
+
   public SettingsView(Settings setting, boolean welcome, FormDelegate delegate, Stage primaryStage) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
@@ -30,6 +37,7 @@ public class SettingsView extends VBox implements FormView {
     this.taskInput = new TextField();
     this.settings = setting;
     this.endMessage = new Text("");
+    this.datePicker = new DatePicker();
     this.submitDelegate = delegate;
     this.setSpacing(10);
     
@@ -51,13 +59,14 @@ public class SettingsView extends VBox implements FormView {
     settings.addRow(1, new Label("Email: "), emailInput);
     settings.addRow(2, new Label("Max Events: "), eventInput);
     settings.addRow(3, new Label("Max Tasks: "), taskInput);
+    settings.addRow(4, new Label("Select a week: "), datePicker);
 
     this.setAlignment(Pos.CENTER);
     this.setPadding(new Insets(10));
     this.getChildren().addAll(settings);
     this.getChildren().addAll(submitButton, endMessage);
 
-    Text text = new Text("");
+
 
     //set an on action event
     submitButton.setOnAction(event -> {
@@ -99,6 +108,15 @@ public class SettingsView extends VBox implements FormView {
       this.settings.setEmail(email);
     } else {
       throw new IllegalArgumentException("Please enter a valid email.");
+    }
+
+
+    LocalDate selectedDate = datePicker.getValue();
+    if (selectedDate != null) {
+      int selectedWeek = selectedDate.get(WeekFields.of(Locale.getDefault()).weekOfYear());
+      this.settings.setWeek(selectedWeek);
+    } else {
+      throw new IllegalArgumentException("Select a week!");
     }
 
     this.endMessage.setText("Hello, " + this.settings.getName() + "! Welcome to your Bullet Journal!");

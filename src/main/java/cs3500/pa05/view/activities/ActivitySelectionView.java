@@ -134,6 +134,7 @@ public class ActivitySelectionView extends VBox implements FormView {
                 CompletionStatus.COMPLETED.getName());
         //default value is always to not started when first creating a task
         this.completion.getSelectionModel().select(CompletionStatus.NOT_STARTED.getName());
+        //this.label = new Label("New Task");
         GridPane info = new GridPane();
         info.addRow(0, new Label("Task Name: "), this.name);
         info.addRow(1, new Label("Category: "), this.categories);
