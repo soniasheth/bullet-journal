@@ -98,9 +98,6 @@ public class BujoMainStage extends Application {
       bujo.setTop(top);
       bujo.setMargin(top, new Insets(10, 10, 10, 10));
 
-      //set the left
-      VBox left = new VBox(addActivities, taskQueueView);
-      left.setSpacing(20);
       bujo.setLeft(left);
       BorderPane.setMargin(left, new Insets(20, 20, 20, 20));
 
