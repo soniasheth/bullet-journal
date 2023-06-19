@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class ActivitySelectionView extends VBox implements FormView {
-    private Label event;
+    private Label label;
     private TextField name;
     private TextField description;
     private CategoriesView categories;
@@ -54,9 +54,9 @@ public class ActivitySelectionView extends VBox implements FormView {
             info = taskPopUp();
         }
         //change font
-        this.event.setFont(Font.font("verdana", FontWeight.BOLD, 15));
+        this.label.setFont(Font.font("verdana", FontWeight.BOLD, 15));
         //add the title
-        this.getChildren().add(this.event);
+        this.getChildren().add(this.label);
         //add gridpane
         this.getChildren().add(info);
         //add submit button
@@ -81,7 +81,7 @@ public class ActivitySelectionView extends VBox implements FormView {
 
     private GridPane eventPopUp() {
         //event specific calls
-        this.event = new Label("New Event");
+        this.label = new Label("New Event");
         this.startTime = new TimeView();
         this.endTime = new TimeView();
 
@@ -97,7 +97,7 @@ public class ActivitySelectionView extends VBox implements FormView {
     }
 
     private GridPane taskPopUp() {
-        this.event = new Label("New Task");
+        this.label = new Label("New Task");
         GridPane info = new GridPane();
         info.addRow(0, new Label("Task Name: "), this.name);
         info.addRow(1, new Label("Category: "), this.categories);

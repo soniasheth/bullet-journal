@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalTime;
 import java.util.List;
 
-import cs3500.pa05.model.Activities.Activity;
-import cs3500.pa05.model.Activities.Event;
-import cs3500.pa05.model.Activities.Task;
+import cs3500.pa05.model.activities.Activity;
+import cs3500.pa05.model.activities.Event;
+import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
 import org.junit.jupiter.api.BeforeEach;

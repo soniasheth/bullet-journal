@@ -2,6 +2,8 @@ package cs3500.pa05.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.DatePicker;
 import javafx.scene.paint.Color;
 
 public class Settings {
@@ -12,6 +14,8 @@ public class Settings {
   private int taskMax;
   private List<Category> categories;
 
+  private int week;
+
   private Settings() {
     this.name = "John Doe";
     this.email = "JohnDoe@fakeEmail.com";
@@ -19,6 +23,8 @@ public class Settings {
     this.taskMax = 0;
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
+
+   this.week = 0;
   }
 
   private static Settings instance;
@@ -46,6 +52,8 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
+  public void setWeek(int week) {this.week = week;}
+
   public String getName() {
     return name;
   }
@@ -61,6 +69,8 @@ public class Settings {
   public int getTaskMax() {
     return taskMax;
   }
+
+  public int getWeek() {return week;}
 
   public List<Category> getCategories(){
     return this.categories;

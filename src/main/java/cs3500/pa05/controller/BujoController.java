@@ -8,6 +8,7 @@ import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
+import cs3500.pa05.view.WeeklyStatsView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
@@ -36,7 +37,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private final TableView taskQueueView;
 
   public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView,
-      TableView taskQueueView, ActivitiesButtons activities, Button settings) {
+      TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats, Button taskStats) {
     this.mainStage = mainStage;
     this.model = model;
     this.activities = this.model.getActivities(this.filterCategory);
@@ -47,6 +48,10 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.taskQueueView.setDelegate(this);
     handleActivities(activities);
     handleSettings(settings);
+
+    handleEventStats(eventStats);
+    handleTaskStats(taskStats);
+
   }
 
   public void handleActivities(ActivitiesButtons activities) {
@@ -60,6 +65,22 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.TASK,
           Settings.getInstance().getCategories(), this, s), "New Task");
+    });
+  }
+
+  public void handleEventStats(Button b) {
+    b.setOnAction(event -> {
+      Stage s = new Stage();
+      WeekdayStat stats = new WeekdayStat(model);
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
+    });
+  }
+
+  public void handleTaskStats(Button b) {
+    b.setOnAction(event -> {
+      Stage s = new Stage();
+      WeekdayStat stats = new WeekdayStat(model);
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
     });
   }
 
