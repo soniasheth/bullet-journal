@@ -106,7 +106,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     if (tableView == this.weekendView) {
       return Weekday.values()[columnIndex].getRepresentation();
     }
-    return String.format("your queue: (%d)", this.taskQueue.size());
+    return String.format("Weekly Tasks: (%d)", this.taskQueue.size());
   }
 
   /**
