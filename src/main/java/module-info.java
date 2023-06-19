@@ -14,5 +14,5 @@ module cs3500.pa05 {
     exports cs3500.pa05.view.delegates;
     exports cs3500.pa05.view.tables;
     exports cs3500.pa05.model.enums;
-    exports cs3500.pa05.model.Activities;
+    exports cs3500.pa05.model.activities;
 }

@@ -1,6 +1,6 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.Activities.Activity;
+import cs3500.pa05.model.activities.Activity;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class ActivityView extends VBox implements View {
+public class ActivityView extends VBox{
   Label title;
   Label description;
   Label category;
