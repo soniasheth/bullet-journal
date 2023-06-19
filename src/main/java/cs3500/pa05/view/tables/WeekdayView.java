@@ -29,7 +29,8 @@ public class WeekdayView extends GridPane implements TableView {
   public WeekdayView() {
     super();
     this.setPadding(new Insets(10));
-    this.setHgap(10);
+    this.setHgap(7);
+    this.setVgap(7);
     this.setAlignment(Pos.TOP_LEFT);
     for (int i = 0; i < Weekday.values().length; i++) {
       ColumnConstraints cons = new ColumnConstraints();
