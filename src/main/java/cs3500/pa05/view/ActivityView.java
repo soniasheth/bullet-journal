@@ -22,17 +22,29 @@ public class ActivityView extends VBox {
     this.setPadding(new Insets(10));
     this.setAlignment(Pos.CENTER);
     this.title = new Label(activity.getName());
-    title.setFont(Font.font("verdana", FontWeight.BOLD, 15));
+    title.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, 15));
     this.description = new Label(activity.getDescription());
     this.category = new Label("<" + activity.getCategory().getName() + ">");
-    this.setPrefWidth(width);
     this.getChildren().addAll(this.title, this.category, this.description);
 
+//    HBox categoryBox = new HBox(new Label(activity.getCategory().getName()));
+//    //add a border
+//    CornerRadii cornerRadii = new CornerRadii(10);
+//    BorderStroke borderStroke = new BorderStroke(null, null,
+//            cornerRadii, null);
+//    Border border = new Border(borderStroke);
+//    categoryBox.setBorder(border);
+//    categoryBox.setPrefWidth(category.getWidth());
+//    categoryBox.setAlignment(Pos.CENTER);
+//    categoryBox.setStyle("-fx-background-color: #00FF00");
+
+    //this.setPrefWidth(width);
 
     CornerRadii cornerRadii = new CornerRadii(7);
     BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-        cornerRadii, new BorderWidths(1));
+            cornerRadii, new BorderWidths(1));
     Border border = new Border(borderStroke);
     this.setBorder(border);
+
   }
 }

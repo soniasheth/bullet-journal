@@ -31,6 +31,14 @@ public abstract class Activity implements Comparable<Activity> {
     this.type = type;
   }
 
+  public Activity() {
+    this.name = null;
+    this.description = null;
+    this.weekday = null;
+    this.category = null;
+    this.type = null;
+  }
+
   /**
    * get the priority of the activity
    *
@@ -95,5 +103,25 @@ public abstract class Activity implements Comparable<Activity> {
   @Override
   public int compareTo(Activity that) {
     return this.getPriority() - that.getPriority();
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setDescription (String description) {
+    this.description = description;
+  }
+
+  public void setWeekday (Weekday weekday) {
+    this.weekday = weekday;
+  }
+
+  public void setCategory (Category cat) {
+    this.category = cat;
+  }
+
+  public void setType (ActivityType type) {
+    this.type = type;
   }
 }

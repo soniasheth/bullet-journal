@@ -7,9 +7,12 @@ import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
+import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.delegates.FormDelegate;
+import cs3500.pa05.view.tables.TaskQueueView;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -23,18 +26,18 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class ActivitySelectionView extends VBox implements FormView {
-    private Label label;
+    private Label event;
     private TextField name;
     private TextField description;
     private CategoriesView categories;
     private WeekdayComboBox weekdays;
     private TimeView startTime;
     private TimeView endTime;
+    private ComboBox completion;
     private Button submit;
     private FormDelegate submitDelegate;
     private ActivityType activityType;
-
-
+    private Activity activity;
 
     public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         //elements on the event pop up
@@ -49,14 +52,16 @@ public class ActivitySelectionView extends VBox implements FormView {
 
         GridPane info;
         if (type.equals(ActivityType.EVENT)) {
+            this.activity = new Event();
             info = eventPopUp();
         } else {
             info = taskPopUp();
+            this.activity = new Task();
         }
         //change font
-        this.label.setFont(Font.font("verdana", FontWeight.BOLD, 15));
+        this.event.setFont(Font.font("verdana", FontWeight.BOLD, 15));
         //add the title
-        this.getChildren().add(this.label);
+        this.getChildren().add(this.event);
         //add gridpane
         this.getChildren().add(info);
         //add submit button
@@ -79,9 +84,32 @@ public class ActivitySelectionView extends VBox implements FormView {
         });
     }
 
+    //use this constructor if you want to update an event
+   public ActivitySelectionView(Activity activity, List<Category> categories, FormDelegate delegate, Stage popupStage) {
+        this(activity.getType(), categories, delegate, popupStage);
+
+        //update the pop up to the current values
+        this.name.setText(activity.getName());
+        this.description.setText(activity.getDescription());
+        this.categories.setDefaultStartValue(activity.getCategory());
+        this.weekdays.setDefault(activity.getWeekday());
+
+        if (activity.getType().equals(ActivityType.EVENT)) {
+            Event event = (Event) activity;
+           this.startTime.setDefault(event.getStartTime());
+           this.endTime.setDefault(event.getEndTime());
+        } else {
+            Task task = (Task) activity;
+            this.completion.getSelectionModel().select(task.getStatus().getName());
+        }
+        this.activity = activity;
+        //this.event = new Label("Edit");
+
+   }
+
     private GridPane eventPopUp() {
         //event specific calls
-        this.label = new Label("New Event");
+        this.event = new Label("New Event");
         this.startTime = new TimeView();
         this.endTime = new TimeView();
 
@@ -97,43 +125,44 @@ public class ActivitySelectionView extends VBox implements FormView {
     }
 
     private GridPane taskPopUp() {
-        this.label = new Label("New Task");
+        this.event = new Label("New Task");
+        //completion status combo box
+        this.completion = new ComboBox<>();
+        this.completion.getItems().addAll(
+                CompletionStatus.NOT_STARTED.getName(),
+                CompletionStatus.IN_PROGRESS.getName(),
+                CompletionStatus.COMPLETED.getName());
+        //default value is always to not started when first creating a task
+        this.completion.getSelectionModel().select(CompletionStatus.NOT_STARTED.getName());
+        //this.label = new Label("New Task");
         GridPane info = new GridPane();
         info.addRow(0, new Label("Task Name: "), this.name);
         info.addRow(1, new Label("Category: "), this.categories);
         info.addRow(2, new Label("Weekday:"), this.weekdays);
-        info.addRow(5, new Label("Description: "), this.description);
+        info.addRow(3, new Label("Status:"), this.completion);
+        info.addRow(4, new Label("Description: "), this.description);
         return info;
     }
 
     public Activity submitHandling() {
-        Activity activity;
+        //Activity activity;
         if (!validateAnswers()) {
-
             throw new IllegalArgumentException("You must fill out all the information!");
-
         }
         else {
+            this.activity.setName(this.name.getText());
+            this.activity.setDescription(this.description.getText());
+            this.activity.setWeekday(this.weekdays.getSelectedWeekDay());
+            this.activity.setCategory(categories.getChosenCategory());
             if (this.activityType.equals(ActivityType.EVENT)) {
-                activity = new Event(
-                        this.name.getText(),
-                        this.description.getText(),
-                        this.weekdays.getSelectedWeekDay(),
-                        this.categories.getChosenCategory(),
-                        this.startTime.getTime(),
-                        this.endTime.getTime());
+                Event event = (Event) this.activity;
+                event.setStartTime(this.startTime.getTime());
+                event.setEndTime(this.endTime.getTime());
             }
             else {
-                activity = new Task(
-                        this.name.getText(),
-                        this.description.getText(),
-                        this.weekdays.getSelectedWeekDay(),
-                        this.categories.getChosenCategory(),
-                        CompletionStatus.NOT_STARTED);
+                Task task = (Task) this.activity;
+                task.setStatus(CompletionStatus.valueOf(this.completion.getValue().toString().toUpperCase()));
             }
-
-            //calls the submit method of the delegate and then adds it to the model
-
             return activity;
         }
 

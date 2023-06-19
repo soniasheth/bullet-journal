@@ -16,7 +16,7 @@ public class TimeView extends HBox {
     this.amPm = new ComboBox<>();
 
     this.hour.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-    this.minute.getItems().addAll("00", 15, 30, 45);
+    this.minute.getItems().addAll(00, 15, 30, 45);
     this.amPm.getItems().addAll("AM", "PM");
 
     this.getChildren().addAll(this.hour, this.minute, this.amPm);
@@ -29,5 +29,17 @@ public class TimeView extends HBox {
       hour+=12;
     }
     return LocalTime.of(hour, minutes);
+  }
+
+  public void setDefault(LocalTime time) {
+    if (time.getHour() > 12) {
+      this.hour.getSelectionModel().select(time.getHour() - 12);
+      this.amPm.getSelectionModel().select("PM");
+    } else {
+      this.hour.getSelectionModel().select(time.getHour());
+      this.amPm.getSelectionModel().select("AM");
+    }
+    System.out.println(time.getMinute());
+    this.minute.getSelectionModel().select(time.getMinute());
   }
 }

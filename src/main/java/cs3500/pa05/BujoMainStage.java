@@ -6,6 +6,7 @@ import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
+import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdayView;
@@ -15,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 public class BujoMainStage extends Application {
   private int height = 1000;
-  private int width = 1000;
+  private int width = 2000;
 
   private void initDummyData(WeekdayModel model) {
     List<Category> c = Settings.getInstance().getCategories();
@@ -44,72 +46,41 @@ public class BujoMainStage extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    List<String> fontFamilies = Font.getFamilies();
-
-    // Print all the font families
-    for (String fontFamily : fontFamilies) {
-      System.out.println(fontFamily);
-    }
     try {
       WeekdayModel model = new WeekdayModel();
       this.initDummyData(model);
 
-      //elements needed for the whole grid
-      BorderPane bujo = new BorderPane();
-      bujo.setPadding(new Insets(20, 20, 20, 20));
-
-      //buttons needed
+      //int views needed for the bujo
       ActivitiesButtons addActivities = new ActivitiesButtons();
       Button settings = new Button("Settings");
       Button save = new Button("Save");
-
+      WeekdayView weekdayView = new WeekdayView();
+      TaskQueueView taskQueueView = new TaskQueueView();
       Button eventStats = new Button("Event Stats");
       Button taskStats = new Button("Task Stats");
-
+      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView);
       //week of label
-      HBox weekOfLabel = new HBox();
+      //HBox weekOfLabel = new HBox();
 
 //      weekOfLabel.setBorder
 //              (new Border
 //                      (new BorderStroke
 //                              (Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-      Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
+      //Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
 
-      weekOf.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 30));
+      //weekOf.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 30));
 
-      weekOfLabel.getChildren().add(weekOf);
+      //weekOfLabel.getChildren().add(weekOf);
 
       //larger elements needed
-      WeekdayView weekdayView = new WeekdayView();
-      TaskQueueView taskQueueView = new TaskQueueView();
+      //put all together in the bujo view
 
-
-      //put them all together
-      VBox left = new VBox(addActivities, taskQueueView, eventStats, taskStats);
-      left.setSpacing(20);
-
-
-      //set the top
-      HBox btn = new HBox(settings, save);
-      btn.setSpacing(15);
-      HBox top = new HBox(weekOfLabel, btn);
-      top.setPrefWidth(width);
-      btn.setAlignment(Pos.TOP_RIGHT);
-      bujo.setTop(top);
-      bujo.setMargin(top, new Insets(10, 10, 10, 10));
-
-      bujo.setLeft(left);
-      BorderPane.setMargin(left, new Insets(20, 20, 20, 20));
-
-      //set the center
-      bujo.setCenter(weekdayView);
-      bujo.setAlignment(weekdayView, Pos.TOP_CENTER);
 
       //init the controller
       BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
 
       //show the scene
-      Scene scene = new Scene(bujo,width,height);
+      Scene scene = new Scene(bujo, width, height);
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (Exception e) {
