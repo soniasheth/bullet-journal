@@ -161,7 +161,7 @@ public class ActivitySelectionView extends VBox implements FormView {
             }
             else {
                 Task task = (Task) this.activity;
-                task.setStatus(CompletionStatus.valueOf(this.completion.getValue().toString().toUpperCase()));
+                task.setStatus(CompletionStatus.valueOf(this.completion.getValue().toString().toUpperCase().replace(" ", "_")));
             }
             return activity;
         }

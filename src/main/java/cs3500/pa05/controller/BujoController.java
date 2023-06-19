@@ -133,13 +133,34 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
    * @return an instance of event/task
    */
   @Override
-  public Activity dataForActivityOn(TableView tableView, int columnIndex, int rowIndex) {
+  public Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
       return this.activities.get(Weekday.values()[columnIndex]).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }
 
+  /**
+   * delegator calls the method when user clicks a cell at a specific index. delegatee handles the
+   * user action
+   *
+   * @param tableView   reference to the delegator
+   * @param columnIndex column index of the cell
+   * @param rowIndex    row index of the cell
+   */
+  @Override
+  public void didClickOn(TableView tableView, int columnIndex, int rowIndex) {
+    Activity activity = this.getActivityForCellAt(tableView, columnIndex, rowIndex);
+    Stage s = new Stage();
+    Parent v = new ActivitySelectionView(activity, Settings.getInstance().getCategories(), this, s);
+    this.showPopup(this.mainStage, s, v, "Advanced Mini Viewer");
+  }
+
+  /**
+   * submit the data to the delegatee for handling
+   * @param formView reference to the formView
+   * @param object the newly created object
+   */
   @Override
   public void submit(FormView formView, Object object) {
     if (formView instanceof ActivitySelectionView) {
@@ -150,8 +171,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       }
       this.model.addActivity(activity);
       this.taskQueue = this.model.getTaskQueue(this.filterCategory);
-      this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-          this.activities.get(activity.getWeekday()).size() - 1);
+      this.weekendView.reloadAll();
+      //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
+          //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
     }
     this.showCommitmentWarning();

@@ -27,7 +27,7 @@ public class TaskQueueView extends GridPane implements TableView {
   public TaskQueueView() {
     super();
     this.setPadding(new Insets(10));
-    this.setHgap(10);
+    this.setVgap(7);
     this.setAlignment(Pos.CENTER);
     this.setPrefWidth(width);
 
@@ -60,7 +60,7 @@ public class TaskQueueView extends GridPane implements TableView {
     title.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
     this.add(title,0, 0);
     for (int i = 0; i < this.delegate.numberOfRowFor(this, 0); i++) {
-      this.add(new ActivityView(this.delegate.dataForActivityOn(this, 0, i)), 0, i + 1);
+      this.add(new ActivityView(this.delegate.getActivityForCellAt(this, 0, i)), 0, i + 1);
     }
   }
 }

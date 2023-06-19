@@ -36,5 +36,16 @@ public interface TableViewDelegate {
    * @param rowIndex    rowIndex of the table
    * @return an instance of event/task
    */
-  Activity dataForActivityOn(TableView tableView, int columnIndex, int rowIndex);
+  Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex);
+
+  /**
+   * delegator calls the method when user clicks a cell at a specific index.
+   * delegatee handles the user action
+   * @param tableView reference to the delegator
+   * @param columnIndex column index of the cell
+   * @param rowIndex row index of the cell
+   */
+  default void didClickOn(TableView tableView, int columnIndex, int rowIndex){
+    // by default, the delegator does not do anything
+  }
 }

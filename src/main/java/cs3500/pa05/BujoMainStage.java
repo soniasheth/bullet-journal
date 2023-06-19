@@ -10,6 +10,7 @@ import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdayView;
+import java.time.LocalTime;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,10 +33,11 @@ public class BujoMainStage extends Application {
   private int width = 2000;
 
   private void initDummyData(WeekdayModel model) {
+    Settings.reset();
     List<Category> c = Settings.getInstance().getCategories();
-    c.addAll(List.of(new Category("Work", null), new Category("School", null), new Category("Fun", null)));
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), null, null));
-    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), null, null));
+    c.addAll(List.of(new Category("Work", Color.RED), new Category("School", Color.CYAN), new Category("Fun", Color.PINK)));
+    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 30), LocalTime.of(18, 00)));
+    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), LocalTime.of(20, 00), LocalTime.of(23, 45)));
     model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, c.get(2),
         CompletionStatus.NOT_STARTED));
     model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, c.get(1),
