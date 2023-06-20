@@ -67,10 +67,15 @@ public class BujoMainStage extends Application {
       Button save = new Button("Save");
       WeekdayView weekdayView = new WeekdayView();
       TaskQueueView taskQueueView = new TaskQueueView();
+
+      //buttons
       Button eventStats = new Button("Event Stats");
+      eventStats.setStyle("-fx-background-color: #8FBC8F;");
       Button taskStats = new Button("Task Stats");
+      taskStats.setStyle("-fx-background-color: #8FBC8F;");
       eventStats.setPrefSize(200, 50);
       taskStats.setPrefSize(200, 50);
+
       BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView,
           eventStats, taskStats);
 

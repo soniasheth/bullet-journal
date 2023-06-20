@@ -12,10 +12,14 @@ public class ActivitiesButtons extends HBox {
 
     public ActivitiesButtons() {
         this.event = new Button("Event +");
-        this.task = new Button("Task +");
-        this.setPrefSize(150, 40);
         this.event.setPrefSize(150,40);
+        this.event.setStyle("-fx-background-color: #8FBC8F;");
+
+        this.task = new Button("Task +");
         this.task.setPrefSize(150, 40);
+        this.task.setStyle("-fx-background-color: #8FBC8F;");
+
+        this.setPrefSize(150, 40);
         this.setSpacing(10);
         this.getChildren().add(event);
         this.getChildren().add(task);

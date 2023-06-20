@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -38,6 +39,7 @@ public class BujoView extends BorderPane {
         HBox weekOfLabel = new HBox();
         Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
         weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
+        weekOf.setFill(Color.valueOf("228B22"));
         weekOfLabel.getChildren().add(weekOf);
 
         //set the top of the border pane with the Week of label and the settings / save button

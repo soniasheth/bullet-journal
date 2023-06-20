@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  * represents a weekday view class
@@ -40,7 +41,7 @@ public class WeekdayView extends GridPane implements TableView {
 
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
-    BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, cornerRadii,
+    BorderStroke borderStroke = new BorderStroke(Color.valueOf( "228B22"), BorderStrokeStyle.SOLID, cornerRadii,
         new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
@@ -100,12 +101,14 @@ public class WeekdayView extends GridPane implements TableView {
   public void reloadAll() {
     this.getChildren().clear();
     for (int i = 0; i < Weekday.values().length; i++) {
-      Label l = new Label(this.delegate.titleForColumn(this, i));
-      l.setAlignment(Pos.CENTER);
-      l.setPrefWidth(columnWidth);
+      Text name = new Text(this.delegate.titleForColumn(this, i));
+      name.setFill(Color.valueOf("228B22"));
+      name.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
+      HBox day = new HBox(name);
+      day.setAlignment(Pos.CENTER);
+      day.setPrefWidth(columnWidth);
 
-      l.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
-      this.add(l, i, 0);
+      this.add(day, i, 0);
       for (int j = 0; j < this.delegate.numberOfRowFor(this, i); j++) {
         this.renderCell(i, j);
       }
