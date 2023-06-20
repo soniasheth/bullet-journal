@@ -27,7 +27,7 @@ public class Event extends Activity {
    */
   public Event(String name, String description, Weekday weekday, Category category,
                LocalTime startTime, LocalTime endTime) {
-    super(name, description, weekday, category, ActivityType.EVENT);
+    super(name, description, weekday, category);
     this.startTime = startTime;
     this.endTime = endTime;
   }
@@ -46,16 +46,6 @@ public class Event extends Activity {
   @Override
   public int getPriority() {
     return Integer.MAX_VALUE; // event has no priority
-  }
-
-  /**
-   * add the current activity to given queue
-   *
-   * @param queue given queue
-   */
-  @Override
-  public void addToTaskQueue(Queue<Activity> queue) {
-    // does nothing because an event should not be added to queue
   }
 
   @Override
@@ -84,7 +74,13 @@ public class Event extends Activity {
     this.endTime = endTime;
   }
 
-
-
-
+  /**
+   * getter for type
+   *
+   * @return type
+   */
+  @Override
+  public ActivityType getType() {
+    return ActivityType.EVENT;
+  }
 }
