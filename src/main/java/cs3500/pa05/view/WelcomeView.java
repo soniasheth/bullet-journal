@@ -41,7 +41,6 @@ public class WelcomeView extends VBox {
 
     public void setOnActionCreate(EventHandler<ActionEvent> createAction) {
         this.create.setOnAction(createAction);
-        System.out.println("Called!");
     }
 
     public void setOnActionLoad(EventHandler<ActionEvent> loadAction) {
