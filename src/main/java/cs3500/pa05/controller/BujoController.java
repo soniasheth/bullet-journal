@@ -9,7 +9,6 @@ import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
-import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
@@ -93,7 +92,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(), this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
