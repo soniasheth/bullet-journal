@@ -9,6 +9,7 @@ import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
+import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
@@ -91,6 +92,17 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
+  }
+
+  public void welcome() {
+    Stage popup = new Stage();
+    WelcomeView welcomeView = new WelcomeView();
+    welcomeView.setOnActionCreate(event -> {
+      Stage s = new Stage();
+      this.showPopup(this.mainStage, s,
+              new SettingsView(Settings.getInstance(), true, this, popup), "New Journal");
+    });
+    this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
   }
 
 

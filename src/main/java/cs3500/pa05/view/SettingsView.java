@@ -119,7 +119,7 @@ public class SettingsView extends VBox implements FormView {
       throw new IllegalArgumentException("Select a week!");
     }
 
-    this.endMessage.setText("Hello, " + this.settings.getName() + "! Welcome to your Bullet Journal!");
+    //this.endMessage.setText("Hello, " + this.settings.getName() + "! Welcome to your Bullet Journal!");
   }
 
 

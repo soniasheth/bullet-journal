@@ -1,5 +1,6 @@
 package cs3500.pa05.view;
 
+import cs3500.pa05.model.Settings;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdayView;
@@ -22,7 +23,8 @@ public class BujoView extends BorderPane {
     WeekdayView weekdayView;
     TaskQueueView taskQueueView;
 
-    public BujoView(ActivitiesButtons activities, Button settings, Button save, WeekdayView weekdayView, TaskQueueView taskQueueView) {
+    public BujoView(ActivitiesButtons activities, Button settings, Button save, WeekdayView weekdayView,
+                    TaskQueueView taskQueueView, Button eventStats, Button tasksStats) {
         this.setPadding(new Insets(20, 20, 20, 20));
 
         //init
@@ -34,7 +36,7 @@ public class BujoView extends BorderPane {
 
         //Create the Week of Label
         HBox weekOfLabel = new HBox();
-        Text weekOf = new Text("Week of 6/1 - 6/8");
+        Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
         weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
         weekOfLabel.getChildren().add(weekOf);
 
@@ -46,8 +48,13 @@ public class BujoView extends BorderPane {
         this.setTop(top);
         this.setMargin(top, new Insets(20, 20, 20, 0));
 
+        //create the stats vbox
+        VBox stats = new VBox(eventStats, tasksStats);
+        stats.setAlignment(Pos.CENTER);
+        stats.setSpacing(20);
+
         //set the left
-        VBox leftPane = new VBox(this.activities, this.taskQueueView);
+        VBox leftPane = new VBox(this.activities, this.taskQueueView, stats);
         leftPane.setSpacing(20);
         this.setLeft(leftPane);
         this.setMargin(leftPane, new Insets(0, 25, 0, 0));

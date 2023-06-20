@@ -60,26 +60,13 @@ public class BujoMainStage extends Application {
       TaskQueueView taskQueueView = new TaskQueueView();
       Button eventStats = new Button("Event Stats");
       Button taskStats = new Button("Task Stats");
-      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView);
-      //week of label
-      //HBox weekOfLabel = new HBox();
-
-//      weekOfLabel.setBorder
-//              (new Border
-//                      (new BorderStroke
-//                              (Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-      //Text weekOf = new Text("Week of " + Settings.getInstance().getWeek());
-
-      //weekOf.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 30));
-
-      //weekOfLabel.getChildren().add(weekOf);
-
-      //larger elements needed
-      //put all together in the bujo view
-
+      eventStats.setPrefSize(200,50);
+      taskStats.setPrefSize(200, 50);
+      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView, eventStats, taskStats);
 
       //init the controller
       BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
+      //controller.welcome();
 
       //show the scene
       Scene scene = new Scene(bujo, width, height);
