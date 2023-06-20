@@ -41,7 +41,7 @@ public class ActivityView extends VBox {
     //this.setPrefWidth(width);
 
     CornerRadii cornerRadii = new CornerRadii(7);
-    BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+    BorderStroke borderStroke = new BorderStroke(Color.valueOf("8FBC8F"), BorderStrokeStyle.SOLID,
             cornerRadii, new BorderWidths(1));
     Border border = new Border(borderStroke);
     this.setBorder(border);

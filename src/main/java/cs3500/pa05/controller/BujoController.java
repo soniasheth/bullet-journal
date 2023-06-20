@@ -38,7 +38,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private final TableView taskQueueView;
 
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
-                        TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats, Button taskStats) {
+      TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
+      Button taskStats, Button save) {
     this.mainStage = mainStage;
     this.model = model;
     this.activities = this.model.getActivities(this.filterCategory);
@@ -89,7 +90,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
@@ -100,7 +101,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     welcomeView.setOnActionCreate(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s,
-              new SettingsView(Settings.getInstance(), true, this, popup), "New Journal");
+              new SettingsView(Settings.getInstance(),  this, popup), "New Journal");
     });
     this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
   }
@@ -187,7 +188,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
           //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
-
     }
     this.showCommitmentWarning();
   }

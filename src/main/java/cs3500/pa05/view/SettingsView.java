@@ -31,7 +31,7 @@ public class SettingsView extends VBox implements FormView {
 
   private final DatePicker datePicker;
 
-  public SettingsView(Settings setting, boolean welcome, FormDelegate delegate, Stage primaryStage) {
+  public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
     this.eventInput = new TextField();
@@ -41,12 +41,8 @@ public class SettingsView extends VBox implements FormView {
     this.datePicker = new DatePicker();
     this.submitDelegate = delegate;
     this.setSpacing(10);
-    
-    if (welcome) {
-      this.submitButton = new Button("Submit");
-    } else {
-      this.submitButton = new Button("Save");
-    }
+    this.submitButton = new Button("Submit");
+
 
     //set default text
     this.nameInput.setText(this.settings.getName());
