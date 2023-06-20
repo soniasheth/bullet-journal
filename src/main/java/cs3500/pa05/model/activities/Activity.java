@@ -13,7 +13,6 @@ public abstract class Activity implements Comparable<Activity> {
   protected String description;
   protected Weekday weekday;
   protected Category category;
-  protected ActivityType type;
 
   /**
    * default constructor for activity
@@ -23,12 +22,11 @@ public abstract class Activity implements Comparable<Activity> {
    * @param weekday     weekday the activity belongs
    * @param category    category the activity belongs
    */
-  public Activity(String name, String description, Weekday weekday, Category category, ActivityType type) {
+  public Activity(String name, String description, Weekday weekday, Category category) {
     this.name = name;
     this.description = description;
     this.weekday = weekday;
     this.category = category;
-    this.type = type;
   }
 
   public Activity() {
@@ -36,7 +34,6 @@ public abstract class Activity implements Comparable<Activity> {
     this.description = null;
     this.weekday = null;
     this.category = null;
-    this.type = null;
   }
 
   /**
@@ -45,13 +42,6 @@ public abstract class Activity implements Comparable<Activity> {
    * @return priority in int
    */
   public abstract int getPriority();
-
-  /**
-   * add the current activity to given queue
-   *
-   * @param queue given queue
-   */
-  public abstract void addToTaskQueue(Queue<Activity> queue);
 
   /**
    * getter for weekday
@@ -90,9 +80,7 @@ public abstract class Activity implements Comparable<Activity> {
    * getter for type
    * @return type
    */
-  public ActivityType getType() {
-    return type;
-  }
+  abstract public ActivityType getType();
 
   /**
    * compare the current activity to given activity based on priority
@@ -119,9 +107,5 @@ public abstract class Activity implements Comparable<Activity> {
 
   public void setCategory (Category cat) {
     this.category = cat;
-  }
-
-  public void setType (ActivityType type) {
-    this.type = type;
   }
 }

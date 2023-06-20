@@ -24,7 +24,7 @@ public class Task extends Activity {
    */
   public Task(String name, String description, Weekday weekday, Category category,
               CompletionStatus status) {
-    super(name, description, weekday, category, ActivityType.TASK);
+    super(name, description, weekday, category);
     this.status = status;
   }
 
@@ -42,16 +42,6 @@ public class Task extends Activity {
     return this.status.getPriority() + this.weekday.ordinal();
   }
 
-  /**
-   * add the current activity to given queue
-   *
-   * @param queue given queue
-   */
-  @Override
-  public void addToTaskQueue(Queue<Activity> queue) {
-    queue.add(this);
-  }
-
   public String toString() {
     return "Name: " + this.name + "\n"
             + "Category" + this.category.getName() + "\n"
@@ -65,5 +55,15 @@ public class Task extends Activity {
 
   public void setStatus(CompletionStatus status) {
     this.status = status;
+  }
+
+  /**
+   * getter for type
+   *
+   * @return type
+   */
+  @Override
+  public ActivityType getType() {
+    return ActivityType.TASK;
   }
 }
