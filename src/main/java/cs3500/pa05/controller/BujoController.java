@@ -30,15 +30,15 @@ import java.util.List;
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
   private final Stage mainStage;
-  private final WeekdayModel model;
+  private final WeekdaysModel model;
   private final Map<Weekday, List<Activity>> activities;
   private List<Task> taskQueue;
   private final Category filterCategory = null;
   private final TableView weekendView;
   private final TableView taskQueueView;
 
-  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView,
-      TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats, Button taskStats) {
+  public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
+                        TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats, Button taskStats) {
     this.mainStage = mainStage;
     this.model = model;
     this.activities = this.model.getActivities(this.filterCategory);
@@ -72,7 +72,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void handleEventStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeekdayStat stats = new WeekdayStat(model);
+      WeeklyStat stats = new WeeklyStat(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
     });
   }
@@ -80,7 +80,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void handleTaskStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeekdayStat stats = new WeekdayStat(model);
+      WeeklyStat stats = new WeeklyStat(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
     });
   }
@@ -187,6 +187,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
           //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
+
     }
     this.showCommitmentWarning();
   }

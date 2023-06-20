@@ -1,5 +1,6 @@
 package cs3500.pa05.model;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -17,6 +18,9 @@ public class Settings {
   private final List<Category> categories;
   private int week;
 
+  private DayOfWeek startDay;
+
+
   /**
    * default constructor
    */
@@ -29,6 +33,7 @@ public class Settings {
     this.categories.add(new Category("None", Color.WHITE));
 
    this.week = 0;
+   this.startDay = DayOfWeek.SUNDAY;
   }
 
   private static Settings instance;
@@ -89,6 +94,21 @@ public class Settings {
   }
 
   public void setWeek(int week) {this.week = week;}
+
+  public void setStartDay(DayOfWeek startDay) {
+    this.startDay = startDay;
+  }
+
+  private List<DayOfWeek> getDaysOfWeek() {
+    List<DayOfWeek> daysOfWeek = new ArrayList<>();
+
+    for (int i = 0; i < DayOfWeek.values().length; i ++) {
+      DayOfWeek day = this.startDay.plus(i);
+      daysOfWeek.add(day);
+    }
+
+    return daysOfWeek;
+  }
 
   public int getWeek() {return week;}
 

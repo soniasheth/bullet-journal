@@ -9,18 +9,12 @@ import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
-import cs3500.pa05.view.tables.WeekdayView;
+import cs3500.pa05.view.tables.WeekdaysView;
 import java.time.LocalTime;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,7 +26,7 @@ public class BujoMainStage extends Application {
   private int height = 1000;
   private int width = 2000;
 
-  private void initDummyData(WeekdayModel model) {
+  private void initDummyData(WeekdaysModel model) {
     Settings.reset();
     List<Category> c = Settings.getInstance().getCategories();
     c.addAll(List.of(new Category("Work", Color.RED), new Category("School", Color.CYAN), new Category("Fun", Color.PINK)));
@@ -49,27 +43,27 @@ public class BujoMainStage extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
-      WeekdayModel model = new WeekdayModel();
+      WeekdaysModel model = new WeekdaysModel();
       this.initDummyData(model);
 
       //int views needed for the bujo
       ActivitiesButtons addActivities = new ActivitiesButtons();
       Button settings = new Button("Settings");
       Button save = new Button("Save");
-      WeekdayView weekdayView = new WeekdayView();
+      WeekdaysView weekdaysView = new WeekdaysView();
       TaskQueueView taskQueueView = new TaskQueueView();
       Button eventStats = new Button("Event Stats");
       Button taskStats = new Button("Task Stats");
       eventStats.setPrefSize(200,50);
       taskStats.setPrefSize(200, 50);
-      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView, eventStats, taskStats);
+      BujoView bujo = new BujoView(addActivities, settings, save, weekdaysView, taskQueueView, eventStats, taskStats);
 
       //init the controller
-      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
+      BujoController controller = new BujoController(primaryStage, model, weekdaysView, taskQueueView, addActivities, settings, eventStats, taskStats);
       //controller.welcome();
 
       //show the scene
-      Scene scene = new Scene(bujo, width, height);
+      Scene scene = new Scene(bujo);
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (Exception e) {
