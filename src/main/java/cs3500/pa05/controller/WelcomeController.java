@@ -7,10 +7,12 @@ import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.delegates.FormDelegate;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,21 +36,27 @@ public class WelcomeController implements Controller, FormDelegate {
     //when create new is pressed, prompt user to enter settings and then it will switch the scene to a the bullet journal
     private void handleCreateNewJournal() {
         welcome.setOnActionCreate(event -> {
-            //let the user customize settings
-            VBox settingsView = new SettingsView(Settings.getInstance(), this, stage);
-            stage.setOnCloseRequest(event1 -> {
-                System.out.print("closed");
-            });
-            showPopup(stage, new Stage(), settingsView, "New Bullet Journal");
-            Scene customJournal = new Scene(bujo);
-            stage.setScene(customJournal);
-            stage.show();
+            //let the user create a new bullet journal
+            Stage settingsPopUP = new Stage();
+            VBox settingsView = new SettingsView(Settings.getInstance(), this, settingsPopUP);
+            ClosingHandler closing = new ClosingHandler(); //if the user closes the pop up
+            settingsPopUP.setOnCloseRequest(closing);
+            showPopup(stage, settingsPopUP, settingsView, "New Bullet Journal");
+            //only show the bullet journal if the user pressed submit and not the closed button
+            if(!closing.getPressed()) {
+                //set the bullet journal screen
+                Scene customJournal = new Scene(bujo);
+                stage.setScene(customJournal);
+                stage.show();
+            }
         });
     }
 
     private void handleLoadCurrent() {
         welcome.setOnActionLoad(event -> {
-            //TODO
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open BUJO File");
+            fileChooser.showOpenDialog(stage);
         });
     }
 
@@ -65,4 +73,16 @@ public class WelcomeController implements Controller, FormDelegate {
     public void submit(FormView formView, Object object) {
         //not really needed
     }
+
+    private class ClosingHandler implements EventHandler {
+        boolean pressed = false;
+        @Override
+        public void handle(Event event) {
+            pressed = true;
+        }
+        public boolean getPressed() {
+            return this.pressed;
+        }
+    }
+
 }
