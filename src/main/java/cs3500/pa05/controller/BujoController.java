@@ -89,18 +89,18 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), false, this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(), this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
 
-  public void welcome() {
+  public void handleWelcome() {
     Stage popup = new Stage();
     WelcomeView welcomeView = new WelcomeView();
     welcomeView.setOnActionCreate(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s,
-              new SettingsView(Settings.getInstance(), true, this, popup), "New Journal");
+              new SettingsView(Settings.getInstance(), this, popup), "New Journal");
     });
     this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
   }

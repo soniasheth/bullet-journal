@@ -1,12 +1,14 @@
 package cs3500.pa05;
 
 import cs3500.pa05.controller.BujoController;
+import cs3500.pa05.controller.WelcomeController;
 import cs3500.pa05.model.*;
 import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.BujoView;
+import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdayView;
@@ -53,6 +55,7 @@ public class BujoMainStage extends Application {
       this.initDummyData(model);
 
       //int views needed for the bujo
+      WelcomeView welcomeView = new WelcomeView();
       ActivitiesButtons addActivities = new ActivitiesButtons();
       Button settings = new Button("Settings");
       Button save = new Button("Save");
@@ -65,13 +68,14 @@ public class BujoMainStage extends Application {
       BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView, eventStats, taskStats);
 
       //init the controller
+      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo);
       BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
-      //controller.welcome();
 
-      //show the scene
-      Scene scene = new Scene(bujo, width, height);
+      //show the welcome scene
+      Scene scene = new Scene(welcomeView);
       primaryStage.setScene(scene);
       primaryStage.show();
+
     } catch (Exception e) {
       e.printStackTrace();
     }
