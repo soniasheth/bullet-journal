@@ -2,7 +2,6 @@ package cs3500.pa05.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.paint.Color;
 
 /**
  * represents a singleton class of Settings there should be one and only one instance of Settings
@@ -14,7 +13,7 @@ public class Settings {
   private String email;
   private int eventMax;
   private int taskMax;
-  private final List<Category> categories;
+  private List<Category> categories;
   private int week;
 
   /**
@@ -26,11 +25,10 @@ public class Settings {
     this.eventMax = 0;
     this.taskMax = 0;
     this.categories = new ArrayList<>();
-    this.categories.add(new Category("None", Color.WHITE));
-
-   this.week = 0;
+    this.week = 0;
   }
 
+  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
   private static Settings instance;
 
   /**
@@ -137,3 +135,4 @@ public class Settings {
     return this.categories;
   }
 }
+

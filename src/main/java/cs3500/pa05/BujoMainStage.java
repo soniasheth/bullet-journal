@@ -31,21 +31,27 @@ import java.util.List;
  * my playground to test stuff
  */
 public class BujoMainStage extends Application {
+
   private int height = 1000;
   private int width = 2000;
 
   private void initDummyData(WeekdayModel model) {
     Settings.reset();
+    PersistenceManager.loadSettingsFrom(Settings.SETTING_FILE_DIR);
     List<Category> c = Settings.getInstance().getCategories();
-    c.addAll(List.of(new Category("Work", Color.RED), new Category("School", Color.CYAN), new Category("Fun", Color.PINK)));
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 30), LocalTime.of(18, 00)));
-    model.addActivity(new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), LocalTime.of(20, 00), LocalTime.of(23, 45)));
+    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 30),
+        LocalTime.of(18, 00)));
+    model.addActivity(
+        new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), LocalTime.of(20, 00),
+            LocalTime.of(23, 45)));
     model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, c.get(2),
         CompletionStatus.NOT_STARTED));
     model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, c.get(1),
         CompletionStatus.NOT_STARTED));
-    model.addActivity(new Task("cry", "yes", Weekday.TUESDAY, c.get(1), CompletionStatus.COMPLETED));
-    model.addActivity(new Task("pa05", "is hard", Weekday.FRIDAY, c.get(3), CompletionStatus.IN_PROGRESS));
+    model.addActivity(
+        new Task("cry", "yes", Weekday.TUESDAY, c.get(1), CompletionStatus.COMPLETED));
+    model.addActivity(
+        new Task("pa05", "is hard", Weekday.FRIDAY, c.get(3), CompletionStatus.IN_PROGRESS));
   }
 
   @Override
@@ -63,13 +69,15 @@ public class BujoMainStage extends Application {
       TaskQueueView taskQueueView = new TaskQueueView();
       Button eventStats = new Button("Event Stats");
       Button taskStats = new Button("Task Stats");
-      eventStats.setPrefSize(200,50);
+      eventStats.setPrefSize(200, 50);
       taskStats.setPrefSize(200, 50);
-      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView, eventStats, taskStats);
+      BujoView bujo = new BujoView(addActivities, settings, save, weekdayView, taskQueueView,
+          eventStats, taskStats);
 
       //init the controller
       WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo);
-      BujoController controller = new BujoController(primaryStage, model, weekdayView, taskQueueView, addActivities, settings, eventStats, taskStats);
+      BujoController controller = new BujoController(primaryStage, model, weekdayView,
+          taskQueueView, addActivities, settings, eventStats, taskStats, save);
 
       //show the welcome scene
       Scene scene = new Scene(welcomeView);

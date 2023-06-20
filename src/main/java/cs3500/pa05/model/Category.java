@@ -1,14 +1,16 @@
 package cs3500.pa05.model;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.paint.Color;
 
 /**
  * represents a Category class
  */
 public class Category {
-  String name;
-  Color color;
+
+  private String name;
+  private Color color;
 
   /**
    * default constructor for category
