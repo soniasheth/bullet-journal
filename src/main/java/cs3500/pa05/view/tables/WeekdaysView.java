@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 /**
  * represents a weekday view class
  */
-public class WeekdayView extends GridPane implements TableView {
+public class WeekdaysView extends GridPane implements TableView {
 
   private final int columnWidth = 200;
   /**
@@ -24,10 +24,11 @@ public class WeekdayView extends GridPane implements TableView {
    */
   private TableViewDelegate delegate;
 
+
   /**
    * default constructor
    */
-  public WeekdayView() {
+  public WeekdaysView() {
     super();
     this.setPadding(new Insets(10));
     this.setHgap(7);

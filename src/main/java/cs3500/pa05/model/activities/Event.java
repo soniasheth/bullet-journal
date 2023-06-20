@@ -5,7 +5,6 @@ import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
 
 import java.time.LocalTime;
-import java.util.Queue;
 
 /**
  * represents an event

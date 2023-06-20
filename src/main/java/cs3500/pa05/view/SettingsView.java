@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -106,11 +107,19 @@ public class SettingsView extends VBox implements FormView {
       throw new IllegalArgumentException("Please enter a valid email.");
     }
 
-
+    /**
+     * THIS SHOULDN'T BE SOMETHING THEY CAN CHANGE
+     */
     LocalDate selectedDate = datePicker.getValue();
     if (selectedDate != null) {
       int selectedWeek = selectedDate.get(WeekFields.of(Locale.getDefault()).weekOfYear());
+
+      DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
       this.settings.setWeek(selectedWeek);
+      this.settings.setStartDay(dayOfWeek);
+
+      System.out.println("selected week: " + selectedWeek);
+      System.out.println("day of week: " + dayOfWeek);
     } else {
       throw new IllegalArgumentException("Select a week!");
     }

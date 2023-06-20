@@ -5,8 +5,6 @@ import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
 
-import java.util.Queue;
-
 /**
  * represents a Task class
  */

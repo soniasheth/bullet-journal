@@ -11,7 +11,6 @@ import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
 import cs3500.pa05.model.enums.Weekday;
-import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import javafx.application.Application;
 import javafx.scene.Scene;

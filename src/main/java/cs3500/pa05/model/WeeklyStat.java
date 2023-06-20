@@ -14,14 +14,14 @@ import cs3500.pa05.model.enums.Weekday;
 /**
  * represents a statistic class for Weekday
  */
-public class WeekdayStat {
+public class WeeklyStat {
     private final Map<Weekday, List<Activity>> activities;
 
     private final List<Category> categories;
 
     private final List<Task> tasks;
 
-    private final WeekdayModel weeklyModel;
+    private final WeekdaysModel weeklyModel;
 
     //int maxEvents;
     //int maxTasks;
@@ -35,7 +35,7 @@ public class WeekdayStat {
 
     Map<Category, Integer> taskCategoryValues;
 
-    public WeekdayStat(WeekdayModel weeklyModel) {
+    public WeeklyStat(WeekdaysModel weeklyModel) {
         this.weeklyModel = weeklyModel;
         this.activities =  weeklyModel.getActivities(null);
         this.categories = Settings.getInstance().getCategories();

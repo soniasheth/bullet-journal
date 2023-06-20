@@ -1,19 +1,16 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.WeekdayStat;
+import cs3500.pa05.model.WeeklyStat;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.Category;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +21,10 @@ public class WeeklyStatsView extends VBox{
 
     private ActivityType type;
 
-    private WeekdayStat stats;
+    private WeeklyStat stats;
 
-    public WeeklyStatsView(WeekdayStat weekdayStat, ActivityType activityType) {
-        this.stats = weekdayStat;
+    public WeeklyStatsView(WeeklyStat weeklyStat, ActivityType activityType) {
+        this.stats = weeklyStat;
         this.type = activityType;
 
         this.setSpacing(5);

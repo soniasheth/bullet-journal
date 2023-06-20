@@ -14,14 +14,14 @@ import cs3500.pa05.model.enums.Weekday;
 /**
  * represents a weekday model class for bullet journal
  */
-public class WeekdayModel implements Model {
+public class WeekdaysModel implements Model {
 
   private final Map<Weekday, List<Activity>> activities;
 
   /**
    * default constructor that initialize an empty map of activities
    */
-  public WeekdayModel() {
+  public WeekdaysModel() {
     this.activities = new HashMap<>();
     for (Weekday day : Weekday.values()) {
       this.activities.put(day, new ArrayList<>());
