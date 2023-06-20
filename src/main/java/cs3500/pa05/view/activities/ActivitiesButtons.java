@@ -19,7 +19,6 @@ public class ActivitiesButtons extends HBox {
         this.setSpacing(10);
         this.getChildren().add(event);
         this.getChildren().add(task);
-
     }
 
     public void setOnActionEventButton(EventHandler<ActionEvent> action) {
