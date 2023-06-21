@@ -7,11 +7,19 @@ import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.delegates.FormDelegate;
+import cs3500.pa05.view.delegates.TableViewDelegate;
+import cs3500.pa05.view.tables.TableView;
+import cs3500.pa05.view.tables.WeekdaysView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,11 +32,18 @@ public class WelcomeController implements Controller, FormDelegate {
     private WelcomeView welcome;
     private Stage stage;
     private BujoView bujo;
-    public WelcomeController(Model model, WelcomeView welcome, Stage stage, BujoView bujo) {
+
+    private TableView weekdaysView;
+
+    HBox weekOfLabel;
+
+    public WelcomeController(Model model, WelcomeView welcome, Stage stage, BujoView bujo, TableView weekdaysView, HBox weekOfLabel) {
         this.model = model;
         this.welcome = welcome;
         this.bujo = bujo;
         this.stage = stage;
+        this.weekdaysView = weekdaysView;
+        this.weekOfLabel = weekOfLabel;
         handleCreateNewJournal();
         handleLoadCurrent();
     }
@@ -71,7 +86,14 @@ public class WelcomeController implements Controller, FormDelegate {
 
     @Override
     public void submit(FormView formView, Object object) {
-        //not really needed
+        Text weekOf = new Text("Week of " + Settings.getInstance().getDateString());
+
+        weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
+        weekOf.setFill(Color.valueOf("228B22"));
+
+        this.weekOfLabel.getChildren().add(weekOf);
+
+        weekdaysView.reloadAll();
     }
 
     private class ClosingHandler implements EventHandler {
