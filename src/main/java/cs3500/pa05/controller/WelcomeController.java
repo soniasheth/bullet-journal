@@ -91,16 +91,18 @@ public class WelcomeController implements Controller, FormDelegate {
       ExtensionFilter ef = new ExtensionFilter("BUJO File", "*.bujo");
       fileChooser.getExtensionFilters().add(ef);
       File f = fileChooser.showOpenDialog(stage);
-      PersistenceManager.loadDataFrom(f, this.model);
-      this.bujoController.reloadAllView();
-      this.setupWeekOfLabel();
-      Scene customJournal = new Scene(bujo);
-      stage.setScene(customJournal);
-      stage.show();
+      if (f != null) {
+        PersistenceManager.loadDataFrom(f, this.model);
+        this.bujoController.reloadAllView();
+        this.setupWeekOfLabel();
+        Scene customJournal = new Scene(bujo);
+        stage.setScene(customJournal);
+        stage.show();
+      }
     });
   }
 
-  private void setupWeekOfLabel(){
+  private void setupWeekOfLabel() {
     Text weekOf = new Text("Week of " + Settings.getInstance().getDateString());
     weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
     weekOf.setFill(Color.valueOf("228B22"));

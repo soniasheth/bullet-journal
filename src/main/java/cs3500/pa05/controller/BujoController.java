@@ -29,6 +29,7 @@ import java.util.List;
  * Represents the controller for the Bullet Journal Scene
  */
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
+
   //fields
   private final Stage mainStage;
   private final WeekdaysModel model;
@@ -41,15 +42,15 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   /**
    * Constructor
    *
-   * @param mainStage main stage of the program
-   * @param model model holding data
-   * @param weekendView the view of all the weekdays
+   * @param mainStage     main stage of the program
+   * @param model         model holding data
+   * @param weekendView   the view of all the weekdays
    * @param taskQueueView the view of the task view
-   * @param activities the buttons for event and task
-   * @param settings settings button
-   * @param eventStats button for event stats
-   * @param taskStats button for taskStats
-   * @param save save button
+   * @param activities    the buttons for event and task
+   * @param settings      settings button
+   * @param eventStats    button for event stats
+   * @param taskStats     button for taskStats
+   * @param save          save button
    */
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
@@ -73,7 +74,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     handleSave(save);
   }
 
-  public void reloadAllView(){
+  public void reloadAllView() {
     this.taskQueue = this.model.getTaskQueue(this.filterCategory);
     this.weekendView.reloadAll();
     this.taskQueueView.reloadAll();
@@ -109,7 +110,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     b.setOnAction(event -> {
       Stage s = new Stage();
       WeeklyStats stats = new WeeklyStats(model);
-      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT),
+          "Event Stats");
     });
   }
 
@@ -122,7 +124,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     b.setOnAction(event -> {
       Stage s = new Stage();
       WeeklyStats stats = new WeeklyStats(model);
-      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK),
+          "Task Stats");
     });
   }
 
@@ -135,7 +138,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance() ,this, popup, false);
+      VBox settingsView = new SettingsView(Settings.getInstance(), this, popup, false);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
@@ -145,14 +148,16 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
    *
    * @param save save button
    */
-  private void handleSave(Button save){
+  private void handleSave(Button save) {
     save.setOnAction(event -> {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Save BUJO File");
       ExtensionFilter ef = new ExtensionFilter("BUJO File", "*.bujo");
       fileChooser.getExtensionFilters().add(ef);
       File f = fileChooser.showSaveDialog(this.mainStage);
-      PersistenceManager.saveDataTo(f, this.model);
+      if (f != null) {
+        PersistenceManager.saveDataTo(f, this.model);
+      }
     });
   }
 
@@ -197,7 +202,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex)).get(rowIndex);
+      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex))
+          .get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }
@@ -219,7 +225,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //set the action for the edit button on the mini viewer - will show the editable screen
     miniViewer.editSetOnAction(event -> {
       Stage stage = new Stage();
-      Parent v = new ActivitySelectionView(activity, Settings.getInstance().getCategories(), this, stage);
+      Parent v = new ActivitySelectionView(activity, Settings.getInstance().getCategories(), this,
+          stage);
       showPopup(this.mainStage, stage, v, "Edit");
       s.close();
     });
@@ -237,8 +244,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   /**
    * submit the data to the delegatee for handling
+   *
    * @param formView reference to the formView
-   * @param object the newly created object
+   * @param object   the newly created object
    */
   @Override
   public void submit(FormView formView, Object object) {
@@ -251,7 +259,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       this.model.addActivity(activity);
 
     }
-
 
     this.reloadAllView();
     this.showCommitmentWarning();
