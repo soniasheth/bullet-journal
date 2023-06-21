@@ -18,11 +18,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * represents a testing class for WeekdayModel
+ * represents a testing class for WeekdaysModel
  */
 public class WeekdayModelTest {
 
-  private WeekdayModel model;
+  private WeekdaysModel model;
 
   private Task task1;
   private Task task2;
@@ -36,7 +36,7 @@ public class WeekdayModelTest {
    */
   @BeforeEach
   public void setUp() {
-    this.model = new WeekdayModel();
+    this.model = new WeekdaysModel();
     this.task1 = new Task("shower", "very important", Weekday.FRIDAY,
         new Category("lol", null), CompletionStatus.NOT_STARTED);
     this.task2 = new Task("sleep", "sleeping now", Weekday.FRIDAY,

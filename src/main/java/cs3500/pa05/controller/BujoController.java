@@ -10,6 +10,7 @@ import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
+import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
@@ -20,7 +21,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.util.List;
@@ -31,14 +31,14 @@ import java.util.List;
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
 
   private final Stage mainStage;
-  private final WeekdayModel model;
+  private final WeekdaysModel model;
   private final Map<Weekday, List<Activity>> activities;
   private List<Task> taskQueue;
   private final Category filterCategory = null;
   private final TableView weekendView;
   private final TableView taskQueueView;
 
-  public BujoController(Stage mainStage, WeekdayModel model, TableView weekendView,
+  public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
       Button taskStats, Button save) {
     this.mainStage = mainStage;
@@ -54,7 +54,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
-    handleSave(save);
+
   }
 
   public void handleActivities(ActivitiesButtons activities) {
@@ -74,18 +74,16 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void handleEventStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeekdayStat stats = new WeekdayStat(model);
-      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT),
-          "Event Stats");
+      WeeklyStat stats = new WeeklyStat(model);
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
     });
   }
 
   public void handleTaskStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeekdayStat stats = new WeekdayStat(model);
-      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK),
-          "Task Stats");
+      WeeklyStat stats = new WeeklyStat(model);
+      this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
     });
   }
 
@@ -93,15 +91,20 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
 
-  public void handleSave(Button save) {
-    save.setOnAction(event -> {
-      PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
+  public void welcome() {
+    Stage popup = new Stage();
+    WelcomeView welcomeView = new WelcomeView();
+    welcomeView.setOnActionCreate(event -> {
+      Stage s = new Stage();
+      this.showPopup(this.mainStage, s,
+              new SettingsView(Settings.getInstance(),  this, popup), "New Journal");
     });
+    this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
   }
 
 
@@ -187,9 +190,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   /**
    * submit the data to the delegatee for handling
-   *
    * @param formView reference to the formView
-   * @param object   the newly created object
+   * @param object the newly created object
    */
   @Override
   public void submit(FormView formView, Object object) {
@@ -197,13 +199,13 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       Activity activity = (Activity) object;
       if (!Settings.getInstance().getCategories().contains(activity.getCategory())) {
         Settings.getInstance().getCategories()
-            .add(new Category(activity.getCategory().getName(), Color.WHITE));
+            .add(new Category(activity.getCategory().getName(), null));
       }
       this.model.addActivity(activity);
       this.taskQueue = this.model.getTaskQueue(this.filterCategory);
       this.weekendView.reloadAll();
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-      //this.activities.get(activity.getWeekday()).size() - 1);
+          //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
     }
     this.showCommitmentWarning();

@@ -1,7 +1,9 @@
 package cs3500.pa05.model;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 
 /**
  * represents a singleton class of Settings there should be one and only one instance of Settings
@@ -13,8 +15,11 @@ public class Settings {
   private String email;
   private int eventMax;
   private int taskMax;
-  private List<Category> categories;
+  private final List<Category> categories;
   private int week;
+
+  private DayOfWeek startDay;
+
 
   /**
    * default constructor
@@ -25,7 +30,10 @@ public class Settings {
     this.eventMax = 0;
     this.taskMax = 0;
     this.categories = new ArrayList<>();
-    this.week = 0;
+    this.categories.add(new Category("None", Color.WHITE));
+
+   this.week = 0;
+   this.startDay = DayOfWeek.SUNDAY;
   }
 
   public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
@@ -88,6 +96,21 @@ public class Settings {
 
   public void setWeek(int week) {this.week = week;}
 
+  public void setStartDay(DayOfWeek startDay) {
+    this.startDay = startDay;
+  }
+
+  private List<DayOfWeek> getDaysOfWeek() {
+    List<DayOfWeek> daysOfWeek = new ArrayList<>();
+
+    for (int i = 0; i < DayOfWeek.values().length; i ++) {
+      DayOfWeek day = this.startDay.plus(i);
+      daysOfWeek.add(day);
+    }
+
+    return daysOfWeek;
+  }
+
   public int getWeek() {return week;}
 
   /**
@@ -135,4 +158,3 @@ public class Settings {
     return this.categories;
   }
 }
-
