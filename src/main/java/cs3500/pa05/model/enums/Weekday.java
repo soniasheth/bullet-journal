@@ -19,7 +19,7 @@ public enum Weekday {
    *
    * @param representation string representation
    */
-  private Weekday(String representation) {
+  Weekday(String representation) {
     this.representation = representation;
   }
 

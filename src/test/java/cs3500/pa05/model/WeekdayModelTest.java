@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,6 @@ import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.CompletionStatus;
-import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,17 +37,17 @@ public class WeekdayModelTest {
   @BeforeEach
   public void setUp() {
     this.model = new WeekdaysModel();
-    this.task1 = new Task("shower", "very important", Weekday.FRIDAY,
+    this.task1 = new Task("shower", "very important", DayOfWeek.FRIDAY,
         new Category("lol", null), CompletionStatus.NOT_STARTED);
-    this.task2 = new Task("sleep", "sleeping now", Weekday.FRIDAY,
+    this.task2 = new Task("sleep", "sleeping now", DayOfWeek.FRIDAY,
         new Category("haha", null), CompletionStatus.IN_PROGRESS);
-    this.task3 = new Task("essay", "don't wanna write", Weekday.MONDAY,
+    this.task3 = new Task("essay", "don't wanna write", DayOfWeek.MONDAY,
         new Category("haha", null), CompletionStatus.COMPLETED);
-    this.task4 = new Task("prep exam", "no", Weekday.MONDAY,
+    this.task4 = new Task("prep exam", "no", DayOfWeek.MONDAY,
         new Category("haha", null), CompletionStatus.IN_PROGRESS);
-    this.event1 = new Event("date night", "yeah", Weekday.TUESDAY,
+    this.event1 = new Event("date night", "yeah", DayOfWeek.TUESDAY,
         new Category("haha", null), LocalTime.of(20, 0), LocalTime.of(22, 0));
-    this.event2 = new Event("IRS audit", "crap", Weekday.SATURDAY,
+    this.event2 = new Event("IRS audit", "crap", DayOfWeek.SATURDAY,
         new Category("haha", null), LocalTime.of(8, 0), LocalTime.of(8, 30));
     this.model.addActivity(this.task1);
     this.model.addActivity(this.task2);
@@ -82,15 +82,15 @@ public class WeekdayModelTest {
    */
   @Test
   public void testAddActivities() {
-    int size = this.model.getActivities(null).get(Weekday.FRIDAY).size();
+    int size = this.model.getActivities(null).get(DayOfWeek.FRIDAY).size();
     this.model.addActivity(this.task1);
-    assertEquals(this.model.getActivities(null).get(Weekday.FRIDAY).size(), size);
-    size = this.model.getActivities(null).get(Weekday.TUESDAY).size();
+    assertEquals(this.model.getActivities(null).get(DayOfWeek.FRIDAY).size(), size);
+    size = this.model.getActivities(null).get(DayOfWeek.TUESDAY).size();
     this.model.addActivity(this.event1);
-    assertEquals(this.model.getActivities(null).get(Weekday.TUESDAY).size(), size);
-    size = this.model.getActivities(null).get(Weekday.MONDAY).size();
-    this.model.addActivity(new Task("lol", "", Weekday.MONDAY, null, null));
-    assertEquals(this.model.getActivities(null).get(Weekday.MONDAY).size(), size + 1);
+    assertEquals(this.model.getActivities(null).get(DayOfWeek.TUESDAY).size(), size);
+    size = this.model.getActivities(null).get(DayOfWeek.MONDAY).size();
+    this.model.addActivity(new Task("lol", "", DayOfWeek.MONDAY, null, null));
+    assertEquals(this.model.getActivities(null).get(DayOfWeek.MONDAY).size(), size + 1);
   }
 
   /**
@@ -98,30 +98,30 @@ public class WeekdayModelTest {
    */
   @Test
   public void testGetActivities() {
-    Map<Weekday, List<Activity>> items = this.model.getActivities(null);
-    assertEquals(items.get(Weekday.MONDAY).size(), 2);
-    assertEquals(items.get(Weekday.TUESDAY).size(), 1);
-    assertEquals(items.get(Weekday.WEDNESDAY).size(), 0);
-    assertEquals(items.get(Weekday.THURSDAY).size(), 0);
-    assertEquals(items.get(Weekday.FRIDAY).size(), 2);
-    assertEquals(items.get(Weekday.SATURDAY).size(), 1);
-    assertEquals(items.get(Weekday.SUNDAY).size(), 0);
+    Map<DayOfWeek, List<Activity>> items = this.model.getActivities(null);
+    assertEquals(items.get(DayOfWeek.MONDAY).size(), 2);
+    assertEquals(items.get(DayOfWeek.TUESDAY).size(), 1);
+    assertEquals(items.get(DayOfWeek.WEDNESDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.THURSDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.FRIDAY).size(), 2);
+    assertEquals(items.get(DayOfWeek.SATURDAY).size(), 1);
+    assertEquals(items.get(DayOfWeek.SUNDAY).size(), 0);
     items = this.model.getActivities(new Category("lol", Color.WHITE));
-    assertEquals(items.get(Weekday.MONDAY).size(), 0);
-    assertEquals(items.get(Weekday.TUESDAY).size(), 0);
-    assertEquals(items.get(Weekday.WEDNESDAY).size(), 0);
-    assertEquals(items.get(Weekday.THURSDAY).size(), 0);
-    assertEquals(items.get(Weekday.FRIDAY).size(), 1);
-    assertEquals(items.get(Weekday.SATURDAY).size(), 0);
-    assertEquals(items.get(Weekday.SUNDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.MONDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.TUESDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.WEDNESDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.THURSDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.FRIDAY).size(), 1);
+    assertEquals(items.get(DayOfWeek.SATURDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.SUNDAY).size(), 0);
     items = this.model.getActivities(new Category("non-existent", Color.WHITE));
-    assertEquals(items.get(Weekday.MONDAY).size(), 0);
-    assertEquals(items.get(Weekday.TUESDAY).size(), 0);
-    assertEquals(items.get(Weekday.WEDNESDAY).size(), 0);
-    assertEquals(items.get(Weekday.THURSDAY).size(), 0);
-    assertEquals(items.get(Weekday.FRIDAY).size(), 0);
-    assertEquals(items.get(Weekday.SATURDAY).size(), 0);
-    assertEquals(items.get(Weekday.SUNDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.MONDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.TUESDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.WEDNESDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.THURSDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.FRIDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.SATURDAY).size(), 0);
+    assertEquals(items.get(DayOfWeek.SUNDAY).size(), 0);
   }
 
   /**

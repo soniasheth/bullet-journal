@@ -24,10 +24,9 @@ public class BujoView extends BorderPane {
     WeekdaysView weekdaysView;
     TaskQueueView taskQueueView;
 
-    Text weekOf;
 
     public BujoView(ActivitiesButtons activities, Button settings, Button save, WeekdaysView weekdaysView,
-                    TaskQueueView taskQueueView, Button eventStats, Button tasksStats) {
+                    TaskQueueView taskQueueView, Button eventStats, Button tasksStats, HBox weekOfLabel) {
         this.setPadding(new Insets(20, 20, 20, 20));
 
         //init
@@ -37,19 +36,14 @@ public class BujoView extends BorderPane {
         this.weekdaysView = weekdaysView;
         this.taskQueueView = taskQueueView;
 
-        //Create the Week of Label
-        HBox weekOfLabel = new HBox();
-        this.weekOf = new Text("Week of " + Settings.getInstance().getWeek());
 
-        weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
-        weekOf.setFill(Color.valueOf("228B22"));
-        weekOfLabel.getChildren().add(weekOf);
 
         //set the top of the border pane with the Week of label and the settings / save button
         HBox settingsAndSaveButtons = new HBox(this.settings, this.save);
-        settingsAndSaveButtons.setSpacing(15);
+        settingsAndSaveButtons.setSpacing(5);
+        settingsAndSaveButtons.setAlignment(Pos.TOP_RIGHT);
         HBox top = new HBox(weekOfLabel, settingsAndSaveButtons);
-        top.setSpacing((double) width / 2 - 25);
+        top.setSpacing((double) width / 2 );
         this.setTop(top);
         setMargin(top, new Insets(20, 20, 20, 0));
 

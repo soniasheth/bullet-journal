@@ -46,7 +46,7 @@ public class MiniViewer extends VBox {
         Text category = new Text(activity.getCategory().getName());
         category.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
-        Text weekday = new Text("Day: " + activity.getWeekday().getRepresentation());
+        Text weekday = new Text("Day: " + activity.getWeekday().name());
         weekday.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
         Text description = new Text("Description: " + activity.getDescription());
@@ -81,14 +81,20 @@ public class MiniViewer extends VBox {
 
     private String convertTime(LocalTime time) {
         int hour = time.getHour();
-        int minutes = time.getMinute();
+        String minutes = Integer.toString(time.getMinute());
         String amPm = "am";
+        //handle the hours
         if (time.getHour() > 12) {
             hour = hour - 12;
             amPm = "pm";
         } else if (time.getHour() == 0) {
             hour = 12;
             amPm = "am";
+        }
+
+        //handle the 0 case of the minutes
+        if (minutes.equals("0")) {
+            minutes = "00";
         }
         return hour + ":" + minutes + " " + amPm;
     }

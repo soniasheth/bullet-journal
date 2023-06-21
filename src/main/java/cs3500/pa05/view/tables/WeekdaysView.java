@@ -1,17 +1,19 @@
 package cs3500.pa05.view.tables;
 
-import cs3500.pa05.model.enums.Weekday;
+import cs3500.pa05.model.Settings;
 import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
+import java.time.DayOfWeek;
+import java.util.List;
 
 /**
  * represents a weekday view class
@@ -34,7 +36,7 @@ public class WeekdaysView extends GridPane implements TableView {
     this.setHgap(7);
     this.setVgap(7);
     this.setAlignment(Pos.TOP_LEFT);
-    for (int i = 0; i < Weekday.values().length; i++) {
+    for (int i = 0; i < DayOfWeek.values().length; i++) {
       ColumnConstraints cons = new ColumnConstraints();
       cons.setPrefWidth(columnWidth);
       this.getColumnConstraints().add(cons);
@@ -72,7 +74,7 @@ public class WeekdaysView extends GridPane implements TableView {
     invisible.setOpacity(0.0);
     invisible.setBackground(null);
     invisible.setPrefWidth(this.columnWidth);
-    invisible.setPrefHeight(100);
+    invisible.setPrefHeight(80);
     invisible.setOnAction(event -> {
       this.delegate.didClickOn(this, colIndex, rowIndex);
     });
@@ -88,7 +90,7 @@ public class WeekdaysView extends GridPane implements TableView {
    */
   @Override
   public void reloadAt(int colIndex, int rowIndex) throws IllegalArgumentException {
-    if (colIndex < 0 || colIndex >= Weekday.values().length || rowIndex < 0
+    if (colIndex < 0 || colIndex >= DayOfWeek.values().length || rowIndex < 0
         || rowIndex >= this.delegate.numberOfRowFor(this, colIndex)) {
       throw new IllegalArgumentException("given indices are out of bounds!");
     }
@@ -101,7 +103,8 @@ public class WeekdaysView extends GridPane implements TableView {
   @Override
   public void reloadAll() {
     this.getChildren().clear();
-    for (int i = 0; i < Weekday.values().length; i++) {
+    List<DayOfWeek> days = Settings.getInstance().getDaysOfWeek();
+    for (int i = 0; i < days.size(); i++) {
       Text name = new Text(this.delegate.titleForColumn(this, i));
       name.setFill(Color.valueOf("228B22"));
       name.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));

@@ -3,20 +3,17 @@ package cs3500.pa05;
 import cs3500.pa05.controller.BujoController;
 import cs3500.pa05.controller.WelcomeController;
 import cs3500.pa05.model.*;
-import cs3500.pa05.model.activities.Event;
-import cs3500.pa05.model.activities.Task;
-import cs3500.pa05.model.enums.CompletionStatus;
-import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdaysView;
-import java.time.LocalTime;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
@@ -27,24 +24,6 @@ public class BujoMainStage extends Application {
   private int height = 1000;
   private int width = 2000;
 
-  private void initDummyData(WeekdaysModel model) {
-    Settings.reset();
-    List<Category> c = Settings.getInstance().getCategories();
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 3),
-        LocalTime.of(18, 00)));
-    model.addActivity(
-        new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), LocalTime.of(20, 00),
-            LocalTime.of(23, 45)));
-    model.addActivity(new Task("study for exam", "no", Weekday.THURSDAY, c.get(2),
-        CompletionStatus.NOT_STARTED));
-    model.addActivity(new Task("cook", "yeah", Weekday.MONDAY, c.get(1),
-        CompletionStatus.NOT_STARTED));
-    model.addActivity(
-        new Task("cry", "yes", Weekday.TUESDAY, c.get(1), CompletionStatus.COMPLETED));
-    model.addActivity(
-        new Task("pa05", "is hard", Weekday.FRIDAY, c.get(3), CompletionStatus.IN_PROGRESS));
-  }
-
   @Override
   public void start(Stage primaryStage) {
     try {
@@ -53,10 +32,17 @@ public class BujoMainStage extends Application {
       //int views needed for the bujo
       WelcomeView welcomeView = new WelcomeView();
       ActivitiesButtons addActivities = new ActivitiesButtons();
-      Button settings = new Button("Settings");
-      Button save = new Button("Save");
+
+      Button settings = new Button();
+      Button save = new Button();
+
+      setButtonIcon(settings, "settings.png");
+      setButtonIcon(save, "save.png");
+
       WeekdaysView weekdaysView = new WeekdaysView();
       TaskQueueView taskQueueView = new TaskQueueView();
+
+      HBox weekOfLabel = new HBox();
 
       //buttons
       Button eventStats = new Button("Event Stats");
@@ -67,12 +53,13 @@ public class BujoMainStage extends Application {
       taskStats.setPrefSize(200, 50);
 
       BujoView bujo = new BujoView(addActivities, settings, save, weekdaysView, taskQueueView,
-          eventStats, taskStats);
+          eventStats, taskStats, weekOfLabel);
 
       //init the controller
-      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo);
+
       BujoController controller = new BujoController(primaryStage, model, weekdaysView,
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
+      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo, controller, weekOfLabel);
 
       //show the welcome scene
       Scene scene = new Scene(welcomeView);
@@ -82,5 +69,12 @@ public class BujoMainStage extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private void setButtonIcon(Button button, String url) {
+    ImageView icon = new ImageView(url);
+    icon.setFitWidth(20);
+    icon.setFitHeight(20);
+    button.setGraphic(icon);
   }
 }

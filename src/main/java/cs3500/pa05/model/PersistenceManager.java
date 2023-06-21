@@ -13,28 +13,32 @@ import cs3500.pa05.model.activities.Event;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
-import cs3500.pa05.model.enums.Weekday;
 import java.io.File;
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.paint.Color;
+import javafx.util.converter.LocalDateStringConverter;
 
 public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
   public static void loadDataFrom(File f, WeekdaysModel model) {
-    Set<Category> categories = new HashSet<>();
+    Set<Category> categories = new HashSet<>(Settings.getInstance().getCategories());
+    Settings.getInstance().getCategories().clear();
     List<MessageJson> messages;
-    try{
+    try {
       messages = mapper.readValue(f, new TypeReference<>() {
       });
-    }catch (IOException e){
+    } catch (IOException e) {
       System.out.println(e.getMessage());
       return;
     }
@@ -54,8 +58,8 @@ public abstract class PersistenceManager {
 
     List<MessageJson> messageList = new ArrayList<>();
     messageList.add(new MessageJson("setting", getSettingsJsonNode(Settings.getInstance())));
-    Map<Weekday, List<Activity>> activities = model.getActivities(null);
-    for (Weekday weekday : Weekday.values()) {
+    Map<DayOfWeek, List<Activity>> activities = model.getActivities(null);
+    for (DayOfWeek weekday : Settings.getInstance().getDaysOfWeek()) {
       for (Activity activity : activities.get(weekday)) {
         messageList.add(new MessageJson("activity", getActivityJsonNode(activity)));
       }
@@ -79,10 +83,10 @@ public abstract class PersistenceManager {
       LocalTime startTime = LocalTime.of(startTimeJson.hour(), startTimeJson.minute());
       LocalTime endTime = LocalTime.of(endTimeJson.hour(), endTimeJson.minute());
       activity = new Event(activityJson.name(), activityJson.description(),
-          Weekday.valueOf(activityJson.weekdayString()), category, startTime, endTime);
+          DayOfWeek.valueOf(activityJson.weekdayString()), category, startTime, endTime);
     } else {
       activity = new Task(activityJson.name(), activityJson.description(),
-          Weekday.valueOf(activityJson.weekdayString()), category,
+          DayOfWeek.valueOf(activityJson.weekdayString()), category,
           CompletionStatus.valueOf(activityJson.completionStatusString()));
     }
     return activity;
@@ -115,11 +119,13 @@ public abstract class PersistenceManager {
     settings.setEmail(settingsJson.email());
     settings.setTaskMax(settingsJson.taskMax());
     settings.setEventMax(settingsJson.eventMax());
+    settings.setLocalDate(LocalDate.parse(settingsJson.startDateString(),
+        DateTimeFormatter.ofPattern("MM/dd/yyyy")));
   }
 
   private static JsonNode getSettingsJsonNode(Settings settings) {
     SettingsJson settingsJson = new SettingsJson(settings.getName(), settings.getEmail(),
-        settings.getEventMax(), settings.getTaskMax());
+        settings.getEventMax(), settings.getTaskMax(), settings.getDateString());
     return serializedRecord(settingsJson);
   }
 

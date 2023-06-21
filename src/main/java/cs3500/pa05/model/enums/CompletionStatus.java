@@ -16,7 +16,7 @@ public enum CompletionStatus {
    *
    * @param priority the priority in integer
    */
-  private CompletionStatus(int priority, String name) {
+  CompletionStatus(int priority, String name) {
 
     this.priority = priority;
     this.name = name;
@@ -31,6 +31,11 @@ public enum CompletionStatus {
     return this.priority;
   }
 
+  /**
+   * Gets the name of this CompletionStatus enum
+   *
+   * @return String - name
+   */
   public String getName() {
     return this.name;
   }

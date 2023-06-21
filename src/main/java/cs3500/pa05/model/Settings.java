@@ -1,6 +1,8 @@
 package cs3500.pa05.model;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -11,29 +13,24 @@ import javafx.scene.paint.Color;
  */
 public class Settings {
 
+  //fields
   private String name;
   private String email;
   private int eventMax;
   private int taskMax;
   private final List<Category> categories;
-  private int week;
-
+  private String dateString;
+  private LocalDate localDate;
   private DayOfWeek startDay;
 
 
   /**
-   * default constructor
+   * Constructorn\
    */
   private Settings() {
-    this.name = "John Doe";
-    this.email = "JohnDoe@fakeEmail.com";
-    this.eventMax = 0;
-    this.taskMax = 0;
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
-
-   this.week = 0;
-   this.startDay = DayOfWeek.SUNDAY;
+    this.startDay = DayOfWeek.SUNDAY; //default
   }
 
   private static Settings instance;
@@ -93,13 +90,14 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
-  public void setWeek(int week) {this.week = week;}
-
-  public void setStartDay(DayOfWeek startDay) {
-    this.startDay = startDay;
+  public void setLocalDate(LocalDate localDate) {
+    this.localDate = localDate;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    this.dateString = this.localDate.format(formatter);
+    this.startDay = this.localDate.getDayOfWeek();
   }
 
-  private List<DayOfWeek> getDaysOfWeek() {
+  public List<DayOfWeek> getDaysOfWeek() {
     List<DayOfWeek> daysOfWeek = new ArrayList<>();
 
     for (int i = 0; i < DayOfWeek.values().length; i ++) {
@@ -110,7 +108,7 @@ public class Settings {
     return daysOfWeek;
   }
 
-  public int getWeek() {return week;}
+  public String getDateString() {return dateString;}
 
   /**
    * getter for name
@@ -155,5 +153,9 @@ public class Settings {
    */
   public List<Category> getCategories() {
     return this.categories;
+  }
+
+  public LocalDate getLocalDate() {
+    return this.localDate;
   }
 }

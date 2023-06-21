@@ -23,16 +23,28 @@ public class Category {
     this.color = color;
   }
 
+  /**
+   * Gets the name of this category
+   *
+   * @return string with the category name
+   */
+
   public String getName() {
     return this.name;
   }
 
+  /**
+   * Gets the color associated with this category
+   *
+   * @return Color of this category
+   */
   public Color getColor() {
     return this.color;
   }
 
   /**
    * comparing equality with another object
+   *
    * @param other other object for comparison
    * @return true if the other object is equal to this
    */
@@ -46,6 +58,7 @@ public class Category {
 
   /**
    * get the hashCode of this
+   *
    * @return hashCode
    */
   @Override

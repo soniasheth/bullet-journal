@@ -9,14 +9,13 @@
 - Task Queue
 
 ## Section 3: Power Ups
-- Filter by Category
+- Mini Viewer
 - Takesies-Backsies
 - Weekly Overview
 
-## Section 3: Power Ups
-
-
 ## Section 4: Quality of Life
-
+- Week Start
+- Mind Changes
 
 ## Section 5: Extra Credit
+

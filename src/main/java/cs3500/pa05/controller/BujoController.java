@@ -5,45 +5,57 @@ import cs3500.pa05.model.*;
 import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
-import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
-import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import java.io.File;
+import java.time.DayOfWeek;
 import java.util.Map;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * represents the main controller class
+ * Represents the controller for the Bullet Journal Scene
  */
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
-
+  //fields
   private final Stage mainStage;
   private final WeekdaysModel model;
-  private final Map<Weekday, List<Activity>> activities;
+  private final Map<DayOfWeek, List<Activity>> activities;
   private List<Task> taskQueue;
   private final Category filterCategory = null;
   private final TableView weekendView;
   private final TableView taskQueueView;
 
+  /**
+   * Constructor
+   *
+   * @param mainStage main stage of the program
+   * @param model model holding data
+   * @param weekendView the view of all the weekdays
+   * @param taskQueueView the view of the task view
+   * @param activities the buttons for event and task
+   * @param settings settings button
+   * @param eventStats button for event stats
+   * @param taskStats button for taskStats
+   * @param save save button
+   */
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
       Button taskStats, Button save) {
+
+    //assigne fields
     this.mainStage = mainStage;
     this.model = model;
     this.activities = this.model.getActivities(this.filterCategory);
@@ -52,21 +64,35 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.weekendView.setDelegate(this);
     this.taskQueueView = taskQueueView;
     this.taskQueueView.setDelegate(this);
+
+    //call event handlers
     handleActivities(activities);
     handleSettings(settings);
-
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
     handleSave(save);
   }
 
-  public void handleActivities(ActivitiesButtons activities) {
+  public void reloadAllView(){
+    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
+    this.weekendView.reloadAll();
+    this.taskQueueView.reloadAll();
+  }
+
+  /**
+   * Sets up the event handlers for the event and task buttons
+   *
+   * @param activities event and task buttons wrapped in a singular class
+   */
+  private void handleActivities(ActivitiesButtons activities) {
     //handle pop up for pushing the buttons creating new activities
+    //event button event handling
     activities.setOnActionEventButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.EVENT,
           Settings.getInstance().getCategories(), this, s), "New Event");
     });
+    //task button event handling
     activities.setOnActionTaskButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.TASK,
@@ -74,32 +100,52 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     });
   }
 
-  public void handleEventStats(Button b) {
+  /**
+   * Sets up the event handler for the event stats button
+   *
+   * @param b event stats button
+   */
+  private void handleEventStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeeklyStat stats = new WeeklyStat(model);
+      WeeklyStats stats = new WeeklyStats(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
     });
   }
 
-  public void handleTaskStats(Button b) {
+  /**
+   * Sets up the event handler for the task stats button
+   *
+   * @param b task stats button
+   */
+  private void handleTaskStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeeklyStat stats = new WeeklyStat(model);
+      WeeklyStats stats = new WeeklyStats(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
     });
   }
 
-  public void handleSettings(Button settings) {
+  /**
+   * Sets up the event handler for the settings button
+   *
+   * @param settings settings button
+   */
+  private void handleSettings(Button settings) {
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance() ,this, popup, false);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
 
-  public void handleSave(Button save){
+  /**
+   * Sets up the event handler for the save button
+   *
+   * @param save save button
+   */
+  private void handleSave(Button save){
     save.setOnAction(event -> {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Save BUJO File");
@@ -109,18 +155,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       PersistenceManager.saveDataTo(f, this.model);
     });
   }
-
-  public void welcome() {
-    Stage popup = new Stage();
-    WelcomeView welcomeView = new WelcomeView();
-    welcomeView.setOnActionCreate(event -> {
-      Stage s = new Stage();
-      this.showPopup(this.mainStage, s,
-              new SettingsView(Settings.getInstance(),  this, popup), "New Journal");
-    });
-    this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
-  }
-
 
   /**
    * get the title for each column
@@ -132,7 +166,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public String titleForColumn(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return Weekday.values()[columnIndex].getRepresentation();
+      return Settings.getInstance().getDaysOfWeek().get(columnIndex).name();
     }
     return String.format("Weekly Tasks: (%d)", this.taskQueue.size());
   }
@@ -147,7 +181,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public int numberOfRowFor(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(Weekday.values()[columnIndex]).size();
+      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex)).size();
     }
     return this.taskQueue.size();
   }
@@ -163,7 +197,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(Weekday.values()[columnIndex]).get(rowIndex);
+      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex)).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }
@@ -193,9 +227,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //set the action for the delete button on the mini viewer
     miniViewer.deleteSetOnAction(event -> {
       this.model.removeActivity(activity);
-      this.taskQueue = this.model.getTaskQueue(null);
-      this.weekendView.reloadAll();
-      this.taskQueueView.reloadAll();
+      this.reloadAllView();
       s.close();
     });
 
@@ -217,30 +249,20 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
             .add(new Category(activity.getCategory().getName(), null));
       }
       this.model.addActivity(activity);
-      this.taskQueue = this.model.getTaskQueue(this.filterCategory);
-      this.weekendView.reloadAll();
-      //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-          //this.activities.get(activity.getWeekday()).size() - 1);
-      this.taskQueueView.reloadAll();
+
     }
-    if(formView instanceof SettingsView){
-      // TODO: update the starting week
-    }
+
+
+    this.reloadAllView();
     this.showCommitmentWarning();
   }
 
-  private void showPopup(Stage ownerStage, Stage popupStage, Parent popUp, String title) {
-    popupStage.initOwner(ownerStage);
-    popupStage.initModality(Modality.APPLICATION_MODAL);
-    popupStage.setTitle(title);
-    Scene popupScene = new Scene(popUp);
-    popupStage.setScene(popupScene);
-    popupStage.showAndWait();
-  }
-
+  /**
+   * Shows a commitment warning when user trys to add an event / task that exceeds the set max
+   */
   private void showCommitmentWarning() {
     if (this.model.shouldDisplayCommitmentWarning()) {
-      Utils.showAlert("Commitment Warning!", "haha");
+      Utils.showAlert("Commitment Warning!", "You are overbooked for the week!");
     }
   }
 }

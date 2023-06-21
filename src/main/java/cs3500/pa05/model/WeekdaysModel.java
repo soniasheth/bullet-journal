@@ -8,22 +8,22 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.DayOfWeek;
 
-import cs3500.pa05.model.enums.Weekday;
 
 /**
  * represents a weekday model class for bullet journal
  */
 public class WeekdaysModel implements Model {
 
-  private final Map<Weekday, List<Activity>> activities;
+  private final Map<DayOfWeek, List<Activity>> activities;
 
   /**
    * default constructor that initialize an empty map of activities
    */
   public WeekdaysModel() {
     this.activities = new HashMap<>();
-    for (Weekday day : Weekday.values()) {
+    for (DayOfWeek day : DayOfWeek.values()) {
       this.activities.put(day, new ArrayList<>());
     }
   }
@@ -39,22 +39,24 @@ public class WeekdaysModel implements Model {
   }
 
   public void removeActivity(Activity activity) {
-    Weekday day = activity.getWeekday();
+    DayOfWeek day = activity.getWeekday();
+    Activity toRemove = null;
     List<Activity> dayActivities = activities.get(day);
-    for(int i = 0; i < dayActivities.size(); i++) {
-      if (dayActivities.get(i).equals(activity)) {
-        dayActivities.remove(i);
+    for (Activity dayActivity : dayActivities) {
+      if (dayActivity.equals(activity)) {
+        toRemove = dayActivity;
       }
     }
-  }
 
+    dayActivities.remove(toRemove);
+  }
   /**
    * private method to remove an activity if exist
    *
    * @param activity activity instance
    */
   private void removeIfExist(Activity activity) {
-    for (Weekday weekday : Weekday.values()) {
+    for (DayOfWeek weekday : DayOfWeek.values()) {
       List<Activity> items = this.activities.get(weekday);
       for (int i = 0; i < items.size(); i++) {
         if (activity == items.get(i)) {
@@ -71,13 +73,13 @@ public class WeekdaysModel implements Model {
    * @param category category to filter, or null
    * @return activities
    */
-  public Map<Weekday, List<Activity>> getActivities(Category category) {
+  public Map<DayOfWeek, List<Activity>> getActivities(Category category) {
     if (category == null) {
       return this.activities;
     }
 
-    Map<Weekday, List<Activity>> ret = new HashMap<>();
-    for (Weekday weekday : Weekday.values()) {
+    Map<DayOfWeek, List<Activity>> ret = new HashMap<>();
+    for (DayOfWeek weekday : DayOfWeek.values()) {
       ret.put(weekday, this.activities.get(weekday).stream()
           .filter(element -> element.getCategory().equals(category)).toList());
     }
@@ -117,7 +119,7 @@ public class WeekdaysModel implements Model {
     int maxEvent = Settings.getInstance().getEventMax();
     int curTask = 0;
     int curEvent = 0;
-    for (Weekday weekday : Weekday.values()) {
+    for (DayOfWeek weekday : DayOfWeek.values()) {
       for (Activity activity : this.activities.get(weekday)) {
         if (activity.getType() == ActivityType.EVENT) {
           curEvent += 1;
