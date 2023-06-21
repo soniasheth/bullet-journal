@@ -179,6 +179,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //set the action for the delete button on the mini viewer
     miniViewer.deleteSetOnAction(event -> {
       this.model.removeActivity(activity);
+      this.taskQueue = this.model.getTaskQueue(null);
       this.weekendView.reloadAll();
       this.taskQueueView.reloadAll();
       s.close();
@@ -207,6 +208,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
           //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
+    }
+    if(formView instanceof SettingsView){
+      // TODO: update the starting week
     }
     this.showCommitmentWarning();
   }
