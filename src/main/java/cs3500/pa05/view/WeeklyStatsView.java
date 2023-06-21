@@ -1,6 +1,6 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.model.WeeklyStat;
+import cs3500.pa05.model.WeeklyStats;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.Category;
 import javafx.geometry.Insets;
@@ -21,10 +21,10 @@ public class WeeklyStatsView extends VBox{
 
     private ActivityType type;
 
-    private WeeklyStat stats;
+    private WeeklyStats stats;
 
-    public WeeklyStatsView(WeeklyStat weeklyStat, ActivityType activityType) {
-        this.stats = weeklyStat;
+    public WeeklyStatsView(WeeklyStats weeklyStats, ActivityType activityType) {
+        this.stats = weeklyStats;
         this.type = activityType;
 
         this.setSpacing(5);

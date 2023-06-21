@@ -38,7 +38,7 @@ public class WelcomeController implements Controller, FormDelegate {
         welcome.setOnActionCreate(event -> {
             //let the user create a new bullet journal
             Stage settingsPopUP = new Stage();
-            VBox settingsView = new SettingsView(Settings.getInstance(), this, settingsPopUP);
+            VBox settingsView = new SettingsView(Settings.getInstance(), this, settingsPopUP, true);
             ClosingHandler closing = new ClosingHandler(); //if the user closes the pop up
             settingsPopUP.setOnCloseRequest(closing);
             showPopup(stage, settingsPopUP, settingsView, "New Bullet Journal");
