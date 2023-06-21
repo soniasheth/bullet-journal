@@ -8,9 +8,11 @@ import cs3500.pa05.model.enums.CompletionStatus;
 import java.time.DayOfWeek;
 
 /**
- * represents a Task class
+ * Represents a Task
  */
 public class Task extends Activity {
+
+  //fields
   private CompletionStatus status;
 
   /**
@@ -28,7 +30,11 @@ public class Task extends Activity {
     this.status = status;
   }
 
+  /**
+   * Default constructor
+   */
   public Task() {
+    super();
     this.status = null;
   }
 
@@ -42,17 +48,20 @@ public class Task extends Activity {
     return this.status.getPriority() + this.weekday.ordinal();
   }
 
-  public String toString() {
-    return "Name: " + this.name + "\n"
-            + "Category" + this.category.getName() + "\n"
-            + "Weekday:" + this.weekday.name() + "\n"
-            + "Description:" + this.description + "\n";
-  }
-
+  /**
+   * Gets the completion status of this task
+   *
+   * @return completion status
+   */
   public CompletionStatus getStatus() {
     return status;
   }
 
+  /**
+   * Sets the completion status of this task
+   *
+   * @param status given completion status to set to
+   */
   public void setStatus(CompletionStatus status) {
     this.status = status;
   }
@@ -65,5 +74,17 @@ public class Task extends Activity {
   @Override
   public ActivityType getType() {
     return ActivityType.TASK;
+  }
+
+  /**
+   * to string for testing purposes
+   *
+   * @return string representing a task
+   */
+  public String toString() {
+    return "Name: " + this.name + "\n"
+            + "Category" + this.category.getName() + "\n"
+            //+ "Weekday:" + this.weekday.getRepresentation() + "\n"
+            + "Description:" + this.description + "\n";
   }
 }

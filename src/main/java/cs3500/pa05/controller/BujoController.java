@@ -29,10 +29,10 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * represents the main controller class
+ * Represents the controller for the Bullet Journal Scene
  */
 public class BujoController implements Controller, TableViewDelegate, FormDelegate {
-
+  //fields
   private final Stage mainStage;
   private final WeekdaysModel model;
   private final Map<DayOfWeek, List<Activity>> activities;
@@ -41,10 +41,24 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private final TableView weekendView;
   private final TableView taskQueueView;
 
-
+  /**
+   * Constructor
+   *
+   * @param mainStage main stage of the program
+   * @param model model holding data
+   * @param weekendView the view of all the weekdays
+   * @param taskQueueView the view of the task view
+   * @param activities the buttons for event and task
+   * @param settings settings button
+   * @param eventStats button for event stats
+   * @param taskStats button for taskStats
+   * @param save save button
+   */
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
       Button taskStats, Button save) {
+
+    //assigne fields
     this.mainStage = mainStage;
     this.model = model;
     this.activities = this.model.getActivities(this.filterCategory);
@@ -53,21 +67,29 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.weekendView.setDelegate(this);
     this.taskQueueView = taskQueueView;
     this.taskQueueView.setDelegate(this);
+
+    //call event handlers
     handleActivities(activities);
     handleSettings(settings);
-
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
     handleSave(save);
   }
 
+  /**
+   * Sets up the event handlers for the event and task buttons
+   *
+   * @param activities event and task buttons wrapped in a singular class
+   */
   public void handleActivities(ActivitiesButtons activities) {
     //handle pop up for pushing the buttons creating new activities
+    //event button event handling
     activities.setOnActionEventButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.EVENT,
           Settings.getInstance().getCategories(), this, s), "New Event");
     });
+    //task button event handling
     activities.setOnActionTaskButton(event -> {
       Stage s = new Stage();
       this.showPopup(this.mainStage, s, new ActivitySelectionView(ActivityType.TASK,
@@ -75,6 +97,11 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     });
   }
 
+  /**
+   * Sets up the event handler for the event stats button
+   *
+   * @param b event stats button
+   */
   public void handleEventStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
@@ -83,6 +110,11 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     });
   }
 
+  /**
+   * Sets up the event handler for the task stats button
+   *
+   * @param b task stats button
+   */
   public void handleTaskStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
@@ -91,6 +123,11 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     });
   }
 
+  /**
+   * Sets up the event handler for the settings button
+   *
+   * @param settings settings button
+   */
   public void handleSettings(Button settings) {
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
@@ -100,12 +137,16 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     });
   }
 
+  /**
+   * Sets up the event handler for the save button
+   *
+   * @param save save button
+   */
   public void handleSave(Button save){
     save.setOnAction(event -> {
       PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
     });
   }
-
 
   /**
    * get the title for each column
@@ -215,15 +256,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     this.showCommitmentWarning();
   }
 
-  private void showPopup(Stage ownerStage, Stage popupStage, Parent popUp, String title) {
-    popupStage.initOwner(ownerStage);
-    popupStage.initModality(Modality.APPLICATION_MODAL);
-    popupStage.setTitle(title);
-    Scene popupScene = new Scene(popUp);
-    popupStage.setScene(popupScene);
-    popupStage.showAndWait();
-  }
-
+  /**
+   * Shows a commitment warning when user trys to add an event / task that exceeds the set max
+   */
   private void showCommitmentWarning() {
     if (this.model.shouldDisplayCommitmentWarning()) {
       Utils.showAlert("Commitment Warning!", "haha");

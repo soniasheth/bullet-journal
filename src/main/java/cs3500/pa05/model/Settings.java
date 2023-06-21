@@ -12,32 +12,28 @@ import javafx.scene.paint.Color;
  */
 public class Settings {
 
+  //fields
   private String name;
   private String email;
   private int eventMax;
   private int taskMax;
   private final List<Category> categories;
   private String dateString;
-
   private LocalDate localDate;
-
   private DayOfWeek startDay;
 
 
   /**
-   * default constructor
+   * Constructorn\
    */
   private Settings() {
-
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
     this.categories.add(new Category("School", Color.WHITE));
     this.categories.add(new Category("Fun", Color.WHITE));
     this.categories.add(new Category("Work", Color.WHITE));
-
-
-   this.dateString = "6/21/2023";
-   this.startDay = DayOfWeek.WEDNESDAY;
+    this.dateString = "6/21/2023";
+    this.startDay = DayOfWeek.WEDNESDAY;
   }
 
   public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";

@@ -105,7 +105,6 @@ public class BujoMainStage extends Application {
 
       //show the welcome scene
       Scene scene = new Scene(welcomeView);
-
       primaryStage.setScene(scene);
       primaryStage.show();
 
