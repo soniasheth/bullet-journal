@@ -127,14 +127,6 @@ public class SettingsView extends VBox implements FormView {
       LocalDate selectedDate = datePicker.getValue();
       if (selectedDate != null) {
         this.settings.setLocalDate(selectedDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        String dateString = selectedDate.format(formatter);
-
-        DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
-
-        this.settings.setDateString(dateString);
-        this.settings.setStartDay(dayOfWeek);
-
       } else {
         throw new IllegalArgumentException("Select a week!");
       }

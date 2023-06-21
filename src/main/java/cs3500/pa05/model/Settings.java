@@ -2,6 +2,7 @@ package cs3500.pa05.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -29,16 +30,9 @@ public class Settings {
   private Settings() {
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
-    this.categories.add(new Category("School", Color.WHITE));
-    this.categories.add(new Category("Fun", Color.WHITE));
-    this.categories.add(new Category("Work", Color.WHITE));
-
-
     this.startDay = DayOfWeek.SUNDAY; //default
-
   }
 
-  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
   private static Settings instance;
 
   /**
@@ -96,14 +90,11 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
-  public void setDateString(String dateString) {this.dateString = dateString;}
-
   public void setLocalDate(LocalDate localDate) {
     this.localDate = localDate;
-  }
-
-  public void setStartDay(DayOfWeek startDay) {
-    this.startDay = startDay;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    this.dateString = this.localDate.format(formatter);
+    this.startDay = this.localDate.getDayOfWeek();
   }
 
   public List<DayOfWeek> getDaysOfWeek() {
