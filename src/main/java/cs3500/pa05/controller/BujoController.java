@@ -54,7 +54,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
-
+    handleSave(save);
   }
 
   public void handleActivities(ActivitiesButtons activities) {
@@ -93,6 +93,12 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       Stage popup = new Stage();
       VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
+    });
+  }
+
+  public void handleSave(Button save){
+    save.setOnAction(event -> {
+      PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
     });
   }
 
@@ -179,6 +185,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //set the action for the delete button on the mini viewer
     miniViewer.deleteSetOnAction(event -> {
       this.model.removeActivity(activity);
+      this.taskQueue = this.model.getTaskQueue(null);
       this.weekendView.reloadAll();
       this.taskQueueView.reloadAll();
       s.close();
@@ -207,6 +214,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
           //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
+    }
+    if(formView instanceof SettingsView){
+      // TODO: update the starting week
     }
     this.showCommitmentWarning();
   }

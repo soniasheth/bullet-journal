@@ -36,6 +36,7 @@ public class BujoMainStage extends Application {
 
   private void initDummyData(WeekdaysModel model) {
     Settings.reset();
+    PersistenceManager.loadSettingsFrom(Settings.SETTING_FILE_DIR);
     List<Category> c = Settings.getInstance().getCategories();
     model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 3),
         LocalTime.of(18, 00)));
