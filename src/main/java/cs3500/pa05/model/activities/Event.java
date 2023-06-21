@@ -2,8 +2,8 @@ package cs3500.pa05.model.activities;
 
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
-import cs3500.pa05.model.enums.Weekday;
 
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 /**
@@ -25,7 +25,7 @@ public class Event extends Activity {
    * @param startTime   event start time
    * @param endTime     event end time
    */
-  public Event(String name, String description, Weekday weekday, Category category,
+  public Event(String name, String description, DayOfWeek weekday, Category category,
                LocalTime startTime, LocalTime endTime) {
     super(name, description, weekday, category);
     this.startTime = startTime;
@@ -106,7 +106,7 @@ public class Event extends Activity {
   public String toString() {
     return "Name: " + this.name + "\n"
             + "Category" + this.category.getName() + "\n"
-            + "Weekday:" + this.weekday.getRepresentation() + "\n"
+            //+ "Weekday:" + this.weekday.getRepresentation() + "\n"
             + "Description:" + this.description + "\n"
             + "Start Time" + this.startTime.toString() + "\n"
             + "End Time" + this.endTime.toString();

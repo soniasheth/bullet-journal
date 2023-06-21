@@ -1,5 +1,6 @@
 package cs3500.pa05.model;
 
+import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +10,12 @@ import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
-import cs3500.pa05.model.enums.Weekday;
 
 /**
  * represents a statistic class for Weekday
  */
-public class WeeklyStat {
-    private final Map<Weekday, List<Activity>> activities;
+public class WeeklyStats {
+    private final Map<DayOfWeek, List<Activity>> activities;
 
     private final List<Category> categories;
 
@@ -35,7 +35,7 @@ public class WeeklyStat {
 
     Map<Category, Integer> taskCategoryValues;
 
-    public WeeklyStat(WeekdaysModel weeklyModel) {
+    public WeeklyStats(WeekdaysModel weeklyModel) {
         this.weeklyModel = weeklyModel;
         this.activities =  weeklyModel.getActivities(null);
         this.categories = Settings.getInstance().getCategories();

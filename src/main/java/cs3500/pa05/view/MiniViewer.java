@@ -46,7 +46,7 @@ public class MiniViewer extends VBox {
         Text category = new Text(activity.getCategory().getName());
         category.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
-        Text weekday = new Text("Day: " + activity.getWeekday().getRepresentation());
+        Text weekday = new Text("Day: " + activity.getWeekday().name());
         weekday.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
         Text description = new Text("Description: " + activity.getDescription());

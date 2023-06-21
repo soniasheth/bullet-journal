@@ -2,7 +2,7 @@ package cs3500.pa05.model.activities;
 
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
-import cs3500.pa05.model.enums.Weekday;
+import java.time.DayOfWeek;
 
 /**
  * Represents an activity: Event or Task
@@ -11,7 +11,7 @@ public abstract class Activity implements Comparable<Activity> {
   //fields
   protected String name;
   protected String description;
-  protected Weekday weekday;
+  protected DayOfWeek weekday;
   protected Category category;
 
   /**
@@ -22,7 +22,7 @@ public abstract class Activity implements Comparable<Activity> {
    * @param weekday     weekday the activity belongs
    * @param category    category the activity belongs
    */
-  public Activity(String name, String description, Weekday weekday, Category category) {
+  public Activity(String name, String description, DayOfWeek weekday, Category category) {
     this.name = name;
     this.description = description;
     this.weekday = weekday;
@@ -51,7 +51,7 @@ public abstract class Activity implements Comparable<Activity> {
    *
    * @return weekday
    */
-  public Weekday getWeekday() {
+  public DayOfWeek getWeekday() {
     return this.weekday;
   }
 
@@ -119,7 +119,7 @@ public abstract class Activity implements Comparable<Activity> {
    *
    * @param weekday given description to set to
    */
-  public void setWeekday (Weekday weekday) {
+  public void setWeekday (DayOfWeek weekday) {
     this.weekday = weekday;
   }
 
@@ -131,4 +131,5 @@ public abstract class Activity implements Comparable<Activity> {
   public void setCategory (Category category) {
     this.category = category;
   }
+
 }
