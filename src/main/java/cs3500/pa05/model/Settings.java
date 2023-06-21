@@ -36,7 +36,6 @@ public class Settings {
    this.startDay = DayOfWeek.SUNDAY;
   }
 
-  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
   private static Settings instance;
 
   /**

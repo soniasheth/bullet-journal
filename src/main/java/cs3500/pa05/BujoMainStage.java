@@ -14,15 +14,8 @@ import cs3500.pa05.view.tables.TaskQueueView;
 import cs3500.pa05.view.tables.WeekdaysView;
 import java.time.LocalTime;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -36,7 +29,6 @@ public class BujoMainStage extends Application {
 
   private void initDummyData(WeekdaysModel model) {
     Settings.reset();
-    PersistenceManager.loadSettingsFrom(Settings.SETTING_FILE_DIR);
     List<Category> c = Settings.getInstance().getCategories();
     model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 3),
         LocalTime.of(18, 00)));
@@ -57,7 +49,6 @@ public class BujoMainStage extends Application {
   public void start(Stage primaryStage) {
     try {
       WeekdaysModel model = new WeekdaysModel();
-      this.initDummyData(model);
 
       //int views needed for the bujo
       WelcomeView welcomeView = new WelcomeView();
@@ -84,7 +75,7 @@ public class BujoMainStage extends Application {
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
 
       //show the welcome scene
-      Scene scene = new Scene(bujo);
+      Scene scene = new Scene(welcomeView);
       primaryStage.setScene(scene);
       primaryStage.show();
 

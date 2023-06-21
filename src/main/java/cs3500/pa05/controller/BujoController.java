@@ -16,11 +16,14 @@ import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import java.io.File;
 import java.util.Map;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.util.List;
@@ -98,7 +101,12 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   public void handleSave(Button save){
     save.setOnAction(event -> {
-      PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.setTitle("Save BUJO File");
+      ExtensionFilter ef = new ExtensionFilter("BUJO File", "*.bujo");
+      fileChooser.getExtensionFilters().add(ef);
+      File f = fileChooser.showSaveDialog(this.mainStage);
+      PersistenceManager.saveDataTo(f, this.model);
     });
   }
 

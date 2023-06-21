@@ -64,4 +64,6 @@ public class Task extends Activity {
   public ActivityType getType() {
     return ActivityType.TASK;
   }
+
+
 }

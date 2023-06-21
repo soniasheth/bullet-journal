@@ -7,6 +7,5 @@ public record SettingsJson(
     @JsonProperty("name") String name,
     @JsonProperty("email") String email,
     @JsonProperty("eventMax") int eventMax,
-    @JsonProperty("taskMax") int taskMax,
-    @JsonProperty("categories") List<CategoryJson> categories
+    @JsonProperty("taskMax") int taskMax
 ){}

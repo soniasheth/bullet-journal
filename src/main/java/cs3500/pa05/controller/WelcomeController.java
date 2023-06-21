@@ -1,18 +1,22 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Model;
+import cs3500.pa05.model.PersistenceManager;
 import cs3500.pa05.model.Settings;
+import cs3500.pa05.model.WeekdaysModel;
 import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.delegates.FormDelegate;
+import cs3500.pa05.view.tables.WeekdaysView;
+import java.io.File;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,11 +24,11 @@ import javafx.stage.Stage;
  * Handles the welcome scene
  */
 public class WelcomeController implements Controller, FormDelegate {
-    private Model model;
+    private WeekdaysModel model;
     private WelcomeView welcome;
     private Stage stage;
     private BujoView bujo;
-    public WelcomeController(Model model, WelcomeView welcome, Stage stage, BujoView bujo) {
+    public WelcomeController(WeekdaysModel model, WelcomeView welcome, Stage stage, BujoView bujo) {
         this.model = model;
         this.welcome = welcome;
         this.bujo = bujo;
@@ -56,7 +60,13 @@ public class WelcomeController implements Controller, FormDelegate {
         welcome.setOnActionLoad(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open BUJO File");
-            fileChooser.showOpenDialog(stage);
+            ExtensionFilter ef = new ExtensionFilter("BUJO File", "*.bujo");
+            fileChooser.getExtensionFilters().add(ef);
+            File f = fileChooser.showOpenDialog(stage);
+            PersistenceManager.loadDataFrom(f, this.model);
+            Scene customJournal = new Scene(bujo);
+            stage.setScene(customJournal);
+            stage.show();
         });
     }
 
