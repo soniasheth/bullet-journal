@@ -7,8 +7,8 @@ import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 
 import cs3500.pa05.view.FormView;
-import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.MiniViewer;
+import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
@@ -41,19 +41,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   private final TableView weekendView;
   private final TableView taskQueueView;
 
-  /**
-   * constructor
-   *
-   * @param mainStage
-   * @param model
-   * @param weekendView
-   * @param taskQueueView
-   * @param activities
-   * @param settings
-   * @param eventStats
-   * @param taskStats
-   * @param save
-   */
+
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
       Button taskStats, Button save) {
@@ -70,7 +58,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
-
+    handleSave(save);
   }
 
   public void handleActivities(ActivitiesButtons activities) {
@@ -117,8 +105,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
     });
   }
-
-
 
 
   /**
@@ -222,6 +208,9 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
           //this.activities.get(activity.getWeekday()).size() - 1);
       this.taskQueueView.reloadAll();
+    }
+    if(formView instanceof SettingsView){
+      // TODO: update the starting week
     }
     this.showCommitmentWarning();
   }

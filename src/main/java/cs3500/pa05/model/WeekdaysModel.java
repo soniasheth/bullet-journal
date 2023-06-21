@@ -50,7 +50,6 @@ public class WeekdaysModel implements Model {
 
     dayActivities.remove(toRemove);
   }
-
   /**
    * private method to remove an activity if exist
    *
