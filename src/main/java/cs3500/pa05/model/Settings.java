@@ -32,8 +32,10 @@ public class Settings {
     this.categories.add(new Category("School", Color.WHITE));
     this.categories.add(new Category("Fun", Color.WHITE));
     this.categories.add(new Category("Work", Color.WHITE));
-    this.dateString = "6/21/2023";
-    this.startDay = DayOfWeek.WEDNESDAY;
+
+
+    this.startDay = DayOfWeek.SUNDAY; //default
+
   }
 
   public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";

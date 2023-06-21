@@ -16,18 +16,15 @@ import cs3500.pa05.view.tables.WeekdaysView;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -43,12 +40,12 @@ public class BujoMainStage extends Application {
     Settings.reset();
     PersistenceManager.loadSettingsFrom(Settings.SETTING_FILE_DIR);
     List<Category> c = Settings.getInstance().getCategories();
-    model.addActivity(new Event("field trip", "fun", DayOfWeek.MONDAY, c.get(3), LocalTime.of(11, 3),
+    model.addActivity(new Event("field trip", "fun", DayOfWeek.MONDAY, c.get(3), LocalTime.of(11, 30),
         LocalTime.of(18, 00)));
     model.addActivity(new Event("field trip", "fun", DayOfWeek.MONDAY, c.get(3), LocalTime.of(11, 30),
-        LocalTime.of(18, 0)));
+        LocalTime.of(18, 00)));
     model.addActivity(
-        new Event("movie night", "fun", DayOfWeek.WEDNESDAY, c.get(3), LocalTime.of(20, 0),
+        new Event("movie night", "fun", DayOfWeek.WEDNESDAY, c.get(3), LocalTime.of(20, 00),
             LocalTime.of(23, 45)));
     model.addActivity(new Task("study for exam", "no", DayOfWeek.THURSDAY, c.get(2),
         CompletionStatus.NOT_STARTED));
@@ -70,22 +67,16 @@ public class BujoMainStage extends Application {
       WelcomeView welcomeView = new WelcomeView();
       ActivitiesButtons addActivities = new ActivitiesButtons();
 
-      ImageView settingsIcon = new ImageView("settings.png");
-      settingsIcon.setFitWidth(20);
-      settingsIcon.setFitHeight(20);
       Button settings = new Button();
-      settings.setGraphic(settingsIcon);
-
-
-      ImageView saveIcon = new ImageView("save.png");
-      saveIcon.setFitWidth(20);
-      saveIcon.setFitHeight(20);
       Button save = new Button();
-      save.setGraphic(saveIcon);
 
+      setButtonIcon(settings, "settings.png");
+      setButtonIcon(save, "save.png");
 
       WeekdaysView weekdaysView = new WeekdaysView();
       TaskQueueView taskQueueView = new TaskQueueView();
+
+      HBox weekOfLabel = new HBox();
 
       //buttons
       Button eventStats = new Button("Event Stats");
@@ -96,12 +87,13 @@ public class BujoMainStage extends Application {
       taskStats.setPrefSize(200, 50);
 
       BujoView bujo = new BujoView(addActivities, settings, save, weekdaysView, taskQueueView,
-          eventStats, taskStats);
+          eventStats, taskStats, weekOfLabel);
 
       //init the controller
-      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo);
+
       BujoController controller = new BujoController(primaryStage, model, weekdaysView,
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
+      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo, weekdaysView, weekOfLabel);
 
       //show the welcome scene
       Scene scene = new Scene(welcomeView);
@@ -111,5 +103,12 @@ public class BujoMainStage extends Application {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private void setButtonIcon(Button button, String url) {
+    ImageView icon = new ImageView(url);
+    icon.setFitWidth(20);
+    icon.setFitHeight(20);
+    button.setGraphic(icon);
   }
 }

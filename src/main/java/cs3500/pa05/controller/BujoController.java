@@ -10,7 +10,6 @@ import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
-import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitySelectionView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
@@ -18,7 +17,6 @@ import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 
 import java.time.DayOfWeek;
-import java.util.Date;
 import java.util.Map;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -174,7 +172,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public int numberOfRowFor(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(DayOfWeek.values()[columnIndex]).size();
+      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex)).size();
     }
     return this.taskQueue.size();
   }
@@ -190,7 +188,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(DayOfWeek.values()[columnIndex]).get(rowIndex);
+      return this.activities.get(Settings.getInstance().getDaysOfWeek().get(columnIndex)).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }
@@ -244,15 +242,14 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
             .add(new Category(activity.getCategory().getName(), null));
       }
       this.model.addActivity(activity);
-      this.taskQueue = this.model.getTaskQueue(this.filterCategory);
-      this.weekendView.reloadAll();
-      //this.weekendView.reloadAt(activity.getWeekday().ordinal(),
-          //this.activities.get(activity.getWeekday()).size() - 1);
-      this.taskQueueView.reloadAll();
+
     }
-    if(formView instanceof SettingsView){
-      // TODO: update the starting week
-    }
+
+
+    this.taskQueue = this.model.getTaskQueue(this.filterCategory);
+    this.weekendView.reloadAll();
+
+    this.taskQueueView.reloadAll();
     this.showCommitmentWarning();
   }
 
@@ -261,7 +258,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
    */
   private void showCommitmentWarning() {
     if (this.model.shouldDisplayCommitmentWarning()) {
-      Utils.showAlert("Commitment Warning!", "haha");
+      Utils.showAlert("Commitment Warning!", "You are overbooked for the week!");
     }
   }
 }
