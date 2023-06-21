@@ -23,7 +23,7 @@ public class Settings {
 
 
   /**
-   * Constructor
+   * Constructorn
    */
   private Settings() {
     this.name = "John Doe";
