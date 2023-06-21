@@ -2,21 +2,20 @@ package cs3500.pa05.model.activities;
 
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
-
-
 import java.time.DayOfWeek;
 
 /**
- * represents an Activity class
+ * Represents an activity: Event or Task
  */
 public abstract class Activity implements Comparable<Activity> {
+  //fields
   protected String name;
   protected String description;
   protected DayOfWeek weekday;
   protected Category category;
 
   /**
-   * default constructor for activity
+   * Constructor
    *
    * @param name        name of the activity
    * @param description a short description of the activity
@@ -30,6 +29,9 @@ public abstract class Activity implements Comparable<Activity> {
     this.category = category;
   }
 
+  /**
+   * Default constructor
+   */
   public Activity() {
     this.name = null;
     this.description = null;
@@ -94,19 +96,40 @@ public abstract class Activity implements Comparable<Activity> {
     return this.getPriority() - that.getPriority();
   }
 
+  /**
+   * Sets the name field
+   *
+   * @param name given name to set to
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Sets the description field
+   *
+   * @param description given description to set to
+   */
   public void setDescription (String description) {
     this.description = description;
   }
 
+  /**
+   * Sets the weekday field
+   *
+   * @param weekday given description to set to
+   */
   public void setWeekday (DayOfWeek weekday) {
     this.weekday = weekday;
   }
 
-  public void setCategory (Category cat) {
-    this.category = cat;
+  /**
+   * Sets the category field
+   *
+   * @param category given category to set to
+   */
+  public void setCategory (Category category) {
+    this.category = category;
   }
+
 }
