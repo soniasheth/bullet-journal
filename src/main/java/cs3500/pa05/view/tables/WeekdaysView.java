@@ -75,6 +75,7 @@ public class WeekdaysView extends GridPane implements TableView {
     invisible.setPrefWidth(this.columnWidth);
     //invisible.setPrefHeight(100);
     //set on action
+    invisible.setPrefHeight(80);
     invisible.setOnAction(event -> {
       this.delegate.didClickOn(this, colIndex, rowIndex);
     });

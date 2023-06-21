@@ -12,9 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the view for the Settings Pop up
@@ -31,7 +29,6 @@ public class SettingsView extends VBox implements FormView {
   private DatePicker datePicker;
   private boolean welcome;
   private Stage stage;
-
   /**
    * Constructor - creates the view
    *
@@ -140,11 +137,6 @@ public class SettingsView extends VBox implements FormView {
       LocalDate selectedDate = datePicker.getValue();
       if (selectedDate != null) {
         this.settings.setLocalDate(selectedDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String dateString = selectedDate.format(formatter);
-        DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
-        this.settings.setDateString(dateString);
-        this.settings.setStartDay(dayOfWeek);
       } else {
         throw new IllegalArgumentException("Select a week!");
       }

@@ -2,6 +2,7 @@ package cs3500.pa05.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -21,8 +22,7 @@ public class Settings {
   private String dateString;
   private LocalDate localDate;
   private DayOfWeek startDay;
-  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
-  private static Settings instance;
+
 
   /**
    * Constructor
@@ -30,12 +30,10 @@ public class Settings {
   private Settings() {
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
-    this.categories.add(new Category("School", Color.WHITE));
-    this.categories.add(new Category("Fun", Color.WHITE));
-    this.categories.add(new Category("Work", Color.WHITE));
-    this.dateString = "6/21/2023";
-    this.startDay = DayOfWeek.WEDNESDAY;
+    this.startDay = DayOfWeek.SUNDAY; //default
   }
+
+  private static Settings instance;
 
   /**
    * getter for the only instance of Settings
@@ -93,29 +91,17 @@ public class Settings {
   }
 
   /**
-   * sets the date of the header for the journal
-   *
-   * @param dateString string
-   */
-  public void setDateString(String dateString) {this.dateString = dateString;}
-
-  /**
    * Sets the local date of the settings
    *
    * @param localDate given local date to set to
    */
   public void setLocalDate(LocalDate localDate) {
     this.localDate = localDate;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    this.dateString = this.localDate.format(formatter);
+    this.startDay = this.localDate.getDayOfWeek();
   }
 
-  /**
-   * Sets the start day of the week to the given DayOfWeek
-   *
-   * @param startDay given DayOfWeek
-   */
-  public void setStartDay(DayOfWeek startDay) {
-    this.startDay = startDay;
-  }
 
   /**
    * Gets all the days of the week

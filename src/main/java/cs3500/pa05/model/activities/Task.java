@@ -75,16 +75,4 @@ public class Task extends Activity {
   public ActivityType getType() {
     return ActivityType.TASK;
   }
-
-  /**
-   * to string for testing purposes
-   *
-   * @return string representing a task
-   */
-  public String toString() {
-    return "Name: " + this.name + "\n"
-            + "Category" + this.category.getName() + "\n"
-            //+ "Weekday:" + this.weekday.getRepresentation() + "\n"
-            + "Description:" + this.description + "\n";
-  }
 }
