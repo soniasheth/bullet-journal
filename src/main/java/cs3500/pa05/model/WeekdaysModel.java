@@ -38,6 +38,16 @@ public class WeekdaysModel implements Model {
     this.activities.get(activity.getWeekday()).add(activity);
   }
 
+  public void removeActivity(Activity activity) {
+    Weekday day = activity.getWeekday();
+    List<Activity> dayActivities = activities.get(day);
+    for(int i = 0; i < dayActivities.size(); i++) {
+      if (dayActivities.get(i).equals(activity)) {
+        dayActivities.remove(i);
+      }
+    }
+  }
+
   /**
    * private method to remove an activity if exist
    *

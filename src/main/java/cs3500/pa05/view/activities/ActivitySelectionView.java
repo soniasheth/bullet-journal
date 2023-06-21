@@ -170,7 +170,7 @@ public class ActivitySelectionView extends VBox implements FormView {
         boolean validated = !this.name.equals("") && this.weekdays.getSelectedWeekDay() != null &&
                 this.categories.getChosenCategory() != null;
         if (this.activityType.equals(ActivityType.EVENT)) {
-            if (this.startTime == null || this.endTime == null) {
+            if (this.startTime.getTime() == null || this.endTime.getTime() == null) {
                 validated = false;
             }
         }

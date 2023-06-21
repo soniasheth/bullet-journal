@@ -7,6 +7,7 @@ import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
+import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WeeklyStatsView;
 import cs3500.pa05.view.WelcomeView;
@@ -165,8 +166,26 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void didClickOn(TableView tableView, int columnIndex, int rowIndex) {
     Activity activity = this.getActivityForCellAt(tableView, columnIndex, rowIndex);
     Stage s = new Stage();
-    Parent v = new ActivitySelectionView(activity, Settings.getInstance().getCategories(), this, s);
-    this.showPopup(this.mainStage, s, v, "Advanced Mini Viewer");
+    MiniViewer miniViewer = new MiniViewer(activity, s);
+
+    //set the action for the edit button on the mini viewer - will show the editable screen
+    miniViewer.editSetOnAction(event -> {
+      Stage stage = new Stage();
+      Parent v = new ActivitySelectionView(activity, Settings.getInstance().getCategories(), this, stage);
+      showPopup(this.mainStage, stage, v, "Edit");
+      s.close();
+    });
+
+    //set the action for the delete button on the mini viewer
+    miniViewer.deleteSetOnAction(event -> {
+      this.model.removeActivity(activity);
+      this.weekendView.reloadAll();
+      this.taskQueueView.reloadAll();
+      s.close();
+    });
+
+    //show the mini viewer in a pop up
+    this.showPopup(this.mainStage, s, miniViewer, "Mini Viewer");
   }
 
   /**
