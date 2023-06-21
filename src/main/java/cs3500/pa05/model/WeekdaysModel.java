@@ -12,14 +12,15 @@ import java.time.DayOfWeek;
 
 
 /**
- * represents a weekday model class for bullet journal
+ * represents a weekday model class for bullet journal - Holds all important information
  */
 public class WeekdaysModel implements Model {
 
+  //fields
   private final Map<DayOfWeek, List<Activity>> activities;
 
   /**
-   * default constructor that initialize an empty map of activities
+   * Constructor that initialize an empty map of activities
    */
   public WeekdaysModel() {
     this.activities = new HashMap<>();
@@ -38,24 +39,31 @@ public class WeekdaysModel implements Model {
     this.activities.get(activity.getWeekday()).add(activity);
   }
 
+  /**
+   * Removes the given acitivity from the hashmap
+   *
+   * @param activity Task or Event Acitivity
+   */
   public void removeActivity(Activity activity) {
+    //get the week day of the activity
     DayOfWeek day = activity.getWeekday();
     Activity toRemove = null;
     List<Activity> dayActivities = activities.get(day);
+    //find the activity to remove
     for (Activity dayActivity : dayActivities) {
       if (dayActivity.equals(activity)) {
         toRemove = dayActivity;
       }
     }
-
     dayActivities.remove(toRemove);
   }
   /**
-   * private method to remove an activity if exist
+   * private method to remove an activity if it exists
    *
    * @param activity activity instance
    */
   private void removeIfExist(Activity activity) {
+    //loops through each day and each list of activities for each day
     for (DayOfWeek weekday : DayOfWeek.values()) {
       List<Activity> items = this.activities.get(weekday);
       for (int i = 0; i < items.size(); i++) {
@@ -77,7 +85,6 @@ public class WeekdaysModel implements Model {
     if (category == null) {
       return this.activities;
     }
-
     Map<DayOfWeek, List<Activity>> ret = new HashMap<>();
     for (DayOfWeek weekday : DayOfWeek.values()) {
       ret.put(weekday, this.activities.get(weekday).stream()
@@ -120,6 +127,7 @@ public class WeekdaysModel implements Model {
     int curTask = 0;
     int curEvent = 0;
     for (DayOfWeek weekday : DayOfWeek.values()) {
+      //loop through all activigties
       for (Activity activity : this.activities.get(weekday)) {
         if (activity.getType() == ActivityType.EVENT) {
           curEvent += 1;

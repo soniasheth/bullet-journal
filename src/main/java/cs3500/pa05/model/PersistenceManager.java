@@ -27,6 +27,9 @@ import java.util.Set;
 import javafx.scene.paint.Color;
 import javafx.util.converter.LocalDateStringConverter;
 
+/**
+ * Represents saving and writing to files
+ */
 public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();

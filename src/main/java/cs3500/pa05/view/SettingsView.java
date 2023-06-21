@@ -11,47 +11,48 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
 
+/**
+ * Represents the view for the Settings Pop up
+ */
 public class SettingsView extends VBox implements FormView {
+  //fields
   TextField nameInput;
   TextField emailInput;
   TextField eventInput;
   TextField taskInput;
   Button submitButton;
   Settings settings;
-
   FormDelegate submitDelegate;
-
   private DatePicker datePicker;
-
-  boolean welcome;
-
+  private boolean welcome;
+  private Stage stage;
+  /**
+   * Constructor - creates the view
+   *
+   * @param setting current settings data
+   * @param delegate controller delegate
+   * @param primaryStage stage to view on
+   * @param welcome true / false representing if upon opening program OR within the bullet journal
+   */
   public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage, boolean welcome) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
     this.eventInput = new TextField();
     this.taskInput = new TextField();
     this.settings = setting;
+    this.stage = primaryStage;
     this.datePicker = new DatePicker();
-
-
     this.submitDelegate = delegate;
     this.setSpacing(10);
-
     this.welcome = welcome;
 
+    //different modes
     if (welcome) {
       this.submitButton = new Button("Submit");
-    }
-    else {
+    } else {
       this.submitButton = new Button("Save");
       this.datePicker.setDisable(true);
     }
@@ -78,12 +79,19 @@ public class SettingsView extends VBox implements FormView {
     this.getChildren().addAll(settings);
     this.getChildren().addAll(submitButton);
 
-
     //set an on action event
+    setOnActionSubmit();
+  }
+
+
+  /**
+   * Sets the on action for the submit button
+   */
+  private void setOnActionSubmit() {
     submitButton.setOnAction(event -> {
       try {
         getUserInput();
-        primaryStage.close();
+        stage.close();
         this.submitDelegate.submit(this, Settings.getInstance());
       } catch (IllegalArgumentException e) {
         Utils.showAlert("Warning!", e.getMessage());
@@ -91,6 +99,9 @@ public class SettingsView extends VBox implements FormView {
     });
   }
 
+  /**
+   * Checks the user's inputted information and ensures that its all valid
+   */
   private void getUserInput() {
     //gets the user's name
     this.settings.setName(nameInput.getText());
@@ -121,7 +132,6 @@ public class SettingsView extends VBox implements FormView {
       throw new IllegalArgumentException("Please enter a valid email.");
     }
 
-
     //get the week
     if (welcome) {
       LocalDate selectedDate = datePicker.getValue();
@@ -131,7 +141,5 @@ public class SettingsView extends VBox implements FormView {
         throw new IllegalArgumentException("Select a week!");
       }
     }
-
   }
-
 }

@@ -15,10 +15,18 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
+/**
+ * Represents the view for a single event or task in the bullet journal
+ */
 public class ActivityView extends VBox {
   Label title;
   Label category;
 
+  /**
+   * Constructor
+   *
+   * @param activity activity to create a view for
+   */
   public ActivityView (Activity activity) {
     this.setSpacing(2);
     this.setPadding(new Insets(10));

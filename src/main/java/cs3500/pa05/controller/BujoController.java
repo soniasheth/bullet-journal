@@ -220,7 +220,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void didClickOn(TableView tableView, int columnIndex, int rowIndex) {
     Activity activity = this.getActivityForCellAt(tableView, columnIndex, rowIndex);
     Stage s = new Stage();
-    MiniViewer miniViewer = new MiniViewer(activity, s);
+    MiniViewer miniViewer = new MiniViewer(activity);
 
     //set the action for the edit button on the mini viewer - will show the editable screen
     miniViewer.editSetOnAction(event -> {
