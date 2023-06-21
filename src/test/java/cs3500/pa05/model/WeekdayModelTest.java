@@ -129,13 +129,13 @@ public class WeekdayModelTest {
    */
   @Test
   public void testShouldDisplayCommitmentWarning() {
-    assertTrue(this.model.shouldDisplayCommitmentWarning());
+    assertEquals(this.model.shouldDisplayCommitmentWarning().size(), 4);
     Settings.getInstance().setEventMax(10);
-    assertTrue(this.model.shouldDisplayCommitmentWarning());
+    assertEquals(this.model.shouldDisplayCommitmentWarning().size(), 2);
     Settings.getInstance().setTaskMax(10);
     Settings.getInstance().setEventMax(0);
-    assertTrue(this.model.shouldDisplayCommitmentWarning());
+    assertEquals(this.model.shouldDisplayCommitmentWarning().size(), 2);
     Settings.getInstance().setEventMax(10);
-    assertFalse(this.model.shouldDisplayCommitmentWarning());
+    assertEquals(this.model.shouldDisplayCommitmentWarning().size(), 0);
   }
 }

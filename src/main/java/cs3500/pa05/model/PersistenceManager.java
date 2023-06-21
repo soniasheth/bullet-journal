@@ -25,15 +25,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.paint.Color;
-import javafx.util.converter.LocalDateStringConverter;
 
 /**
- * Represents saving and writing to files
+ * represents a utility class of persistence manager responsible for saving and reading json files
  */
 public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
+  /**
+   * load json data from a file and update the model
+   *
+   * @param f     file to read from
+   * @param model model to save to
+   */
   public static void loadDataFrom(File f, WeekdaysModel model) {
     Set<Category> categories = new HashSet<>(Settings.getInstance().getCategories());
     Settings.getInstance().getCategories().clear();
@@ -57,6 +62,12 @@ public abstract class PersistenceManager {
     Settings.getInstance().getCategories().addAll(categories);
   }
 
+  /**
+   * save data in the given model to the given file
+   *
+   * @param f     file to save
+   * @param model model to save
+   */
   public static void saveDataTo(File f, WeekdaysModel model) {
 
     List<MessageJson> messageList = new ArrayList<>();
@@ -75,6 +86,12 @@ public abstract class PersistenceManager {
     }
   }
 
+  /**
+   * helper method to parse a JsonNode into either Task or Event
+   *
+   * @param arguments JsonNode argument
+   * @return an Activity instance
+   */
   private static Activity parseActivity(JsonNode arguments) {
     Activity activity;
     ActivityJson activityJson = mapper.convertValue(arguments, ActivityJson.class);
@@ -95,6 +112,12 @@ public abstract class PersistenceManager {
     return activity;
   }
 
+  /**
+   * helper method to convert a Task or Event to JsonNode
+   *
+   * @param activity activity to serialize
+   * @return JsonNode
+   */
   private static JsonNode getActivityJsonNode(Activity activity) {
     CategoryJson categoryJson = new CategoryJson(activity.getCategory().getName());
     TimeJson startTime = new TimeJson(-1, -1);
@@ -115,6 +138,11 @@ public abstract class PersistenceManager {
     return serializedRecord(activityJson);
   }
 
+  /**
+   * helper method to parse JsonNode into Settings singleton
+   *
+   * @param arguments JsonNode to parse
+   */
   private static void parseSetting(JsonNode arguments) {
     SettingsJson settingsJson = mapper.convertValue(arguments, SettingsJson.class);
     Settings settings = Settings.getInstance();
@@ -126,6 +154,12 @@ public abstract class PersistenceManager {
         DateTimeFormatter.ofPattern("MM/dd/yyyy")));
   }
 
+  /**
+   * helper method to convert a Setting instance to JsonNode
+   *
+   * @param settings setting instance to convert
+   * @return JsonNode
+   */
   private static JsonNode getSettingsJsonNode(Settings settings) {
     SettingsJson settingsJson = new SettingsJson(settings.getName(), settings.getEmail(),
         settings.getEventMax(), settings.getTaskMax(), settings.getDateString());

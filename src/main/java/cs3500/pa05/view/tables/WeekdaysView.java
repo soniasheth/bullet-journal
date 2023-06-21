@@ -1,5 +1,6 @@
 package cs3500.pa05.view.tables;
 
+import cs3500.pa05.Utils;
 import cs3500.pa05.model.Settings;
 import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
@@ -43,7 +44,7 @@ public class WeekdaysView extends GridPane implements TableView {
 
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
-    BorderStroke borderStroke = new BorderStroke(Color.valueOf( "228B22"), BorderStrokeStyle.SOLID, cornerRadii,
+    BorderStroke borderStroke = new BorderStroke(Utils.BUJO_THEME_COLOR, BorderStrokeStyle.SOLID, cornerRadii,
         new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
@@ -92,7 +93,7 @@ public class WeekdaysView extends GridPane implements TableView {
     List<DayOfWeek> days = Settings.getInstance().getDaysOfWeek();
     for (int i = 0; i < days.size(); i++) {
       Text name = new Text(this.delegate.titleForColumn(this, i));
-      name.setFill(Color.valueOf("228B22"));
+      name.setFill(Utils.BUJO_THEME_COLOR);
       name.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
       HBox day = new HBox(name);
       day.setAlignment(Pos.CENTER);

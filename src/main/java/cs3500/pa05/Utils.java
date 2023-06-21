@@ -8,10 +8,12 @@ import javafx.scene.paint.Color;
  */
 public class Utils {
 
+  public static Color BUJO_THEME_COLOR = Color.valueOf("228B22");
+
   /**
    * Shows a warning / alert pop up
    *
-   * @param title title of the pop up
+   * @param title   title of the pop up
    * @param message message in the pop up
    */
   public static void showAlert(String title, String message) {
@@ -41,7 +43,6 @@ public class Utils {
    * checks if the given email is valid
    *
    * @param input string
-   *
    * @return true / false
    */
   public static boolean isValidEmail(String input) {
