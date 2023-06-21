@@ -39,7 +39,7 @@ public class BujoMainStage extends Application {
     Settings.reset();
     PersistenceManager.loadSettingsFrom(Settings.SETTING_FILE_DIR);
     List<Category> c = Settings.getInstance().getCategories();
-    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 30),
+    model.addActivity(new Event("field trip", "fun", Weekday.MONDAY, c.get(3), LocalTime.of(11, 3),
         LocalTime.of(18, 00)));
     model.addActivity(
         new Event("movie night", "fun", Weekday.WEDNESDAY, c.get(3), LocalTime.of(20, 00),
@@ -85,7 +85,7 @@ public class BujoMainStage extends Application {
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
 
       //show the welcome scene
-      Scene scene = new Scene(welcomeView);
+      Scene scene = new Scene(bujo);
       primaryStage.setScene(scene);
       primaryStage.show();
 
