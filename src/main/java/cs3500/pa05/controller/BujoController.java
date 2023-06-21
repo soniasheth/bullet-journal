@@ -54,7 +54,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
     handleEventStats(eventStats);
     handleTaskStats(taskStats);
-
+    handleSave(save);
   }
 
   public void handleActivities(ActivitiesButtons activities) {
@@ -93,6 +93,12 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
       Stage popup = new Stage();
       VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
+    });
+  }
+
+  public void handleSave(Button save){
+    save.setOnAction(event -> {
+      PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
     });
   }
 
