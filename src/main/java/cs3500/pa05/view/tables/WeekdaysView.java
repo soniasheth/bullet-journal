@@ -21,16 +21,15 @@ import java.util.List;
 public class WeekdaysView extends GridPane implements TableView {
 
   private final int columnWidth = 200;
-  /**
-   * delegate for the delegate
-   */
+  //delegate for the delegate
   private TableViewDelegate delegate;
 
 
   /**
-   * default constructor
+   * Constructor
    */
   public WeekdaysView() {
+    //make view
     super();
     this.setPadding(new Insets(10));
     this.setHgap(7);
@@ -75,27 +74,13 @@ public class WeekdaysView extends GridPane implements TableView {
     invisible.setBackground(null);
     invisible.setPrefWidth(this.columnWidth);
     //invisible.setPrefHeight(100);
+    //set on action
     invisible.setOnAction(event -> {
       this.delegate.didClickOn(this, colIndex, rowIndex);
     });
     this.add(new StackPane(v, invisible), colIndex, rowIndex + 1);
   }
 
-  /**
-   * delegatee calls this method to reload a specific cell in the table view
-   *
-   * @param colIndex column index of the cell
-   * @param rowIndex row index of the cell
-   * @throws IllegalArgumentException if user provides invalid indices
-   */
-  @Override
-  public void reloadAt(int colIndex, int rowIndex) throws IllegalArgumentException {
-    if (colIndex < 0 || colIndex >= DayOfWeek.values().length || rowIndex < 0
-        || rowIndex >= this.delegate.numberOfRowFor(this, colIndex)) {
-      throw new IllegalArgumentException("given indices are out of bounds!");
-    }
-    this.renderCell(colIndex, rowIndex);
-  }
 
   /**
    * delegatee calls this method to reload all cells in the table view

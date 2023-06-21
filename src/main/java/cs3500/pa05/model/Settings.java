@@ -21,10 +21,11 @@ public class Settings {
   private String dateString;
   private LocalDate localDate;
   private DayOfWeek startDay;
-
+  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
+  private static Settings instance;
 
   /**
-   * Constructorn\
+   * Constructor
    */
   private Settings() {
     this.categories = new ArrayList<>();
@@ -35,9 +36,6 @@ public class Settings {
     this.dateString = "6/21/2023";
     this.startDay = DayOfWeek.WEDNESDAY;
   }
-
-  public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
-  private static Settings instance;
 
   /**
    * getter for the only instance of Settings
@@ -94,16 +92,36 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
+  /**
+   * sets the date of the header for the journal
+   *
+   * @param dateString string
+   */
   public void setDateString(String dateString) {this.dateString = dateString;}
 
+  /**
+   * Sets the local date of the settings
+   *
+   * @param localDate given local date to set to
+   */
   public void setLocalDate(LocalDate localDate) {
     this.localDate = localDate;
   }
 
+  /**
+   * Sets the start day of the week to the given DayOfWeek
+   *
+   * @param startDay given DayOfWeek
+   */
   public void setStartDay(DayOfWeek startDay) {
     this.startDay = startDay;
   }
 
+  /**
+   * Gets all the days of the week
+   *
+   * @return list of the days of the week
+   */
   public List<DayOfWeek> getDaysOfWeek() {
     List<DayOfWeek> daysOfWeek = new ArrayList<>();
 
@@ -111,10 +129,14 @@ public class Settings {
       DayOfWeek day = this.startDay.plus(i);
       daysOfWeek.add(day);
     }
-
     return daysOfWeek;
   }
 
+  /**
+   * Gets the date string for the week
+   *
+   * @return String
+   */
   public String getDateString() {return dateString;}
 
   /**
@@ -162,6 +184,11 @@ public class Settings {
     return this.categories;
   }
 
+  /**
+   * Gets the local date
+   *
+   * @return LocateDate - date
+   */
   public LocalDate getLocalDate() {
     return this.localDate;
   }

@@ -16,17 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class WeeklyStatsView extends VBox{
-
-
+/**
+ * Represents the view for the Stats (event stats and task tasks)
+ */
+public class WeeklyStatsView extends VBox {
+    //fields
     private ActivityType type;
-
     private WeeklyStats stats;
 
+    /**
+     * Constructor - creates the view
+     *
+     * @param weeklyStats current stats
+     * @param activityType the activity type
+     */
     public WeeklyStatsView(WeeklyStats weeklyStats, ActivityType activityType) {
         this.stats = weeklyStats;
         this.type = activityType;
-
         this.setSpacing(5);
 
         Map<Category, Integer> eventHash = stats.getEventCategoryValues();
@@ -41,30 +47,27 @@ public class WeeklyStatsView extends VBox{
             info = taskPopUp();
             categories = categoriesPopUp(taskHash);
         }
-
-
-
         this.getChildren().addAll(info, categories);
-
-
-
     }
 
+    /**
+     * Handles the categories pop up
+     *
+     * @param hash hashmap with category data
+     *
+     * @return view - GridPane
+     */
     private GridPane categoriesPopUp(Map<Category, Integer> hash) {
         GridPane info = new GridPane();
         info.setPadding(new Insets(10));
         info.setHgap(10);
         info.setVgap(5);
-
         Label label = new Label("Category Breakdown: ");
         label.setFont(Font.font("verdana", FontWeight.BOLD, 10));
-
         info.addRow(0, label, new Label(""));
         List<Category> keys = new ArrayList<>(hash.keySet());
 
-        /*
-        total events:
-         */
+        //total events
         for (int i = 1; i < hash.size() + 1; i++) {
             Category category = keys.get(i - 1);
             Integer value = hash.get(category);
@@ -72,10 +75,14 @@ public class WeeklyStatsView extends VBox{
             //categoryLabel.setTextFill(category.getColor());
             info.addRow(i, categoryLabel, new Label(String.valueOf(value)));
         }
-
         return info;
     }
 
+    /**
+     * Handles stats for the tasks
+     *
+     * @return View - vbox with information
+     */
     private VBox taskPopUp() {
         VBox box = new VBox();
         box.setPadding(new Insets(10));
@@ -97,6 +104,11 @@ public class WeeklyStatsView extends VBox{
         return box;
     }
 
+    /**
+     * Handles stats for the events
+     *
+     * @return View - vbox with information
+     */
     private VBox eventPopUp() {
         VBox box = new VBox();
         Label label = new Label("Total Events: " + stats.getTotalEvents());

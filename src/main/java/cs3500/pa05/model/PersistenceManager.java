@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
 
+/**
+ * Represents saving and writing to files
+ */
 public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();

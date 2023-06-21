@@ -8,27 +8,43 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Represents the drop down for the Category section in the event / task pop up to
+ *     edit
+ */
 public class CategoriesView extends ComboBox {
+  //fields
   private List<Category> existingCategories;
 
-  //make sure that the list of categories had none at the end
+  /**
+   * Constructor
+   *
+   * @param categories list of exisiting categories
+   */
   public CategoriesView(List<Category> categories) {
     this.existingCategories = categories;
+    //add exisiting categories to the combo box drop down
     for (Category category : categories) {
       this.getItems().add(category.getName());
     }
+    // allow the user to type a new category
     this.setEditable(true);
   }
 
+  /**
+   * Gets the user's chosen category and validates that they chose one
+   *
+   * @return Category - the chosen category
+   */
   public Category getChosenCategory() {
+    //ensures not null
     if (!validateAnswer()) {
       return null;
-    }
-    else {
+    } else {
+      //finds the ref to the category
       String category = this.getValue().toString();
       Category userChoice = null;
       boolean found = false;
-      //as long at the catergory is not null
       // see if its an existing category
       for (Category existingCategory : existingCategories) {
         if (category.equals(existingCategory)) {
@@ -45,10 +61,20 @@ public class CategoriesView extends ComboBox {
     }
   }
 
+  /**
+   * Ensure that that the chosen category is not null
+   *
+   * @return true if null, false if not
+   */
   private boolean validateAnswer() {
     return this.getValue() != null;
   }
 
+  /**
+   * Sets the default value of the category drop down
+   *
+   * @param name given category to set to default
+   */
   public void setDefaultStartValue(Category name) {
     this.getSelectionModel().select(name.getName());
   }

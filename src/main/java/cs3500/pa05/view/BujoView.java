@@ -15,6 +15,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * Represents the view for the entire bullet journal
+ */
 public class BujoView extends BorderPane {
     private final int height = 1000;
     private final int width = 2000;
@@ -23,13 +26,22 @@ public class BujoView extends BorderPane {
     Button save;
     WeekdaysView weekdaysView;
     TaskQueueView taskQueueView;
-
     Text weekOf;
 
+    /**
+     * Constructor
+     *
+     * @param activities view for add event and add task buttons
+     * @param settings settings button
+     * @param save save button
+     * @param weekdaysView view for the weekdays
+     * @param taskQueueView view for the task queue
+     * @param eventStats eventStats button
+     * @param tasksStats taskStats button
+     */
     public BujoView(ActivitiesButtons activities, Button settings, Button save, WeekdaysView weekdaysView,
                     TaskQueueView taskQueueView, Button eventStats, Button tasksStats) {
         this.setPadding(new Insets(20, 20, 20, 20));
-
         //init
         this.activities = activities;
         this.settings = settings;
@@ -37,10 +49,9 @@ public class BujoView extends BorderPane {
         this.weekdaysView = weekdaysView;
         this.taskQueueView = taskQueueView;
 
-        //Create the Week of Label
+        //Create the Week of Label and but in Hbox
         HBox weekOfLabel = new HBox();
         this.weekOf = new Text("Week of " + Settings.getInstance().getDateString());
-
         weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
         weekOf.setFill(Color.valueOf("228B22"));
         weekOfLabel.getChildren().add(weekOf);
@@ -59,7 +70,7 @@ public class BujoView extends BorderPane {
         stats.setAlignment(Pos.CENTER);
         stats.setSpacing(20);
 
-        //set the left
+        //set the left which has the task queue view, add buttons, stats buttons
         VBox leftPane = new VBox(this.activities, this.taskQueueView, stats);
         leftPane.setSpacing(20);
         this.setLeft(leftPane);

@@ -33,7 +33,7 @@ import javafx.scene.image.ImageView;
 import java.util.List;
 
 /**
- * my playground to test stuff
+ * MainStage for Bullet Journal
  */
 public class BujoMainStage extends Application {
   private int height = 1000;
@@ -66,26 +66,25 @@ public class BujoMainStage extends Application {
       WeekdaysModel model = new WeekdaysModel();
       this.initDummyData(model);
 
-      //int views needed for the bujo
+      //init views needed for the bujo
       WelcomeView welcomeView = new WelcomeView();
       ActivitiesButtons addActivities = new ActivitiesButtons();
+      WeekdaysView weekdaysView = new WeekdaysView();
+      TaskQueueView taskQueueView = new TaskQueueView();
 
+      //settings button
       ImageView settingsIcon = new ImageView("settings.png");
       settingsIcon.setFitWidth(20);
       settingsIcon.setFitHeight(20);
       Button settings = new Button();
       settings.setGraphic(settingsIcon);
 
-
+      //save button
       ImageView saveIcon = new ImageView("save.png");
       saveIcon.setFitWidth(20);
       saveIcon.setFitHeight(20);
       Button save = new Button();
       save.setGraphic(saveIcon);
-
-
-      WeekdaysView weekdaysView = new WeekdaysView();
-      TaskQueueView taskQueueView = new TaskQueueView();
 
       //buttons
       Button eventStats = new Button("Event Stats");
@@ -99,7 +98,7 @@ public class BujoMainStage extends Application {
           eventStats, taskStats);
 
       //init the controller
-      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo);
+      WelcomeController greetings = new WelcomeController(model, welcomeView, primaryStage, bujo);
       BujoController controller = new BujoController(primaryStage, model, weekdaysView,
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
 
