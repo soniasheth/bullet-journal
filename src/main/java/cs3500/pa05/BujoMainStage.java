@@ -84,7 +84,7 @@ public class BujoMainStage extends Application {
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
 
       //show the welcome scene
-      Scene scene = new Scene(bujo);
+      Scene scene = new Scene(welcomeView);
       primaryStage.setScene(scene);
       primaryStage.show();
 

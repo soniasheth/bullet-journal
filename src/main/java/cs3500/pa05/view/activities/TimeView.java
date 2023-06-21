@@ -48,13 +48,27 @@ public class TimeView extends HBox {
   }
 
   public void setDefault(LocalTime time) {
+    //handle hours [convert from military time]
     if (time.getHour() > 12) {
       this.hour.getSelectionModel().select(Integer.toString(time.getHour() - 12));
       this.amPm.getSelectionModel().select("PM");
-    } else {
+    } else if (time.getHour() == 0) {
+      //if the hour is 0, then it should be 12 am
+      this.hour.getSelectionModel().select(Integer.toString(12));
+      this.amPm.getSelectionModel().select("AM");
+    }
+    else {
       this.hour.getSelectionModel().select(Integer.toString(time.getHour()));
       this.amPm.getSelectionModel().select("AM");
     }
-    this.minute.getSelectionModel().select(Integer.toString(time.getMinute()));
+
+    //handle the minutes
+    if (time.getMinute() == 0) {
+      this.minute.getSelectionModel().select("00");
+    }
+    else {
+      this.minute.getSelectionModel().select(Integer.toString(time.getMinute()));
+    }
+
   }
 }

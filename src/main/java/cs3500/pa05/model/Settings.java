@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
  */
 public class Settings {
 
+  //fields
   private String name;
   private String email;
   private int eventMax;
@@ -22,7 +23,7 @@ public class Settings {
 
 
   /**
-   * default constructor
+   * Constructor
    */
   private Settings() {
     this.name = "John Doe";
@@ -31,9 +32,8 @@ public class Settings {
     this.taskMax = 0;
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
-
-   this.week = 0;
-   this.startDay = DayOfWeek.SUNDAY;
+    this.week = 0;
+    this.startDay = DayOfWeek.SUNDAY;
   }
 
   public static String SETTING_FILE_DIR = "src/test/resources/settings.bujo";
