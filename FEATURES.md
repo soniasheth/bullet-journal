@@ -18,4 +18,4 @@
 - Mind Changes
 
 ## Section 5: Extra Credit
-
+- Visual Flourish

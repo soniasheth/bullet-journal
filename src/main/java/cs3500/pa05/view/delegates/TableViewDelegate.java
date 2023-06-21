@@ -45,7 +45,5 @@ public interface TableViewDelegate {
    * @param columnIndex column index of the cell
    * @param rowIndex row index of the cell
    */
-  default void didClickOn(TableView tableView, int columnIndex, int rowIndex){
-    // by default, the delegator does not do anything
-  }
+  void didClickOn(TableView tableView, int columnIndex, int rowIndex);
 }

@@ -19,15 +19,23 @@ import javafx.stage.Stage;
 
 import java.time.LocalTime;
 
+/**
+ * Represents the view for a the mini viewer of an acitivity
+ */
 public class MiniViewer extends VBox {
+    //fields
     private Button edit;
     private Button delete;
     private Activity activity;
-    private Stage stage;
 
-    public MiniViewer(Activity activity, Stage stage) {
+    /**
+     * Constructor
+     *
+     * @param activity activity to create mini viewer for
+     */
+    public MiniViewer(Activity activity) {
         this.activity = activity;
-        this.stage = stage;
+
         //buttons
         this.edit = new Button("Edit");
         this.edit.setPrefSize(100, 25);
@@ -40,15 +48,19 @@ public class MiniViewer extends VBox {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setPrefWidth(300);
 
+        //name
         Text name = new Text(activity.getName());
         name.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 
+        //category
         Text category = new Text(activity.getCategory().getName());
         category.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
+        //weekday
         Text weekday = new Text("Day: " + activity.getWeekday().name());
         weekday.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
 
+        //description
         Text description = new Text("Description: " + activity.getDescription());
         description.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         description.setWrappingWidth(200);
@@ -63,6 +75,9 @@ public class MiniViewer extends VBox {
         this.setSpacing(10);
     }
 
+    /**
+     * Handles adding the event specific information to the mini-viewer
+     */
     private void handleEvent() {
         Event e = (Event) activity;
         Text startTime = new Text("Start: " + convertTime(e.getStartTime()));
@@ -72,6 +87,9 @@ public class MiniViewer extends VBox {
         this.getChildren().addAll(startTime, endTime);
     }
 
+    /**
+     * Handles adding the task specific information to the mini-viewer
+     */
     private void handleTask() {
         Task e = (Task) activity;
         Text completionStatus = new Text(e.getStatus().getName());
@@ -79,6 +97,12 @@ public class MiniViewer extends VBox {
         this.getChildren().add(completionStatus);
     }
 
+    /**
+     * Converts a given time from military time to normal clock time
+     *
+     * @param time LocalTime in miltary time
+     * @return String representation of the time
+     */
     private String convertTime(LocalTime time) {
         int hour = time.getHour();
         String minutes = Integer.toString(time.getMinute());
@@ -99,14 +123,22 @@ public class MiniViewer extends VBox {
         return hour + ":" + minutes + " " + amPm;
     }
 
+    /**
+     * Sets event handlers for the edit button
+     *
+     * @param action event handler
+     */
     public void editSetOnAction(EventHandler<ActionEvent> action) {
         this.edit.setOnAction(action);
     }
 
+    /**
+     * Sets event handlers for the delete button
+     *
+     * @param action event handler
+     */
     public void deleteSetOnAction(EventHandler<ActionEvent> action) {
         this.delete.setOnAction(action);
     }
-
-
 
 }

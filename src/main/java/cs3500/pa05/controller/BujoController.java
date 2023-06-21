@@ -5,7 +5,6 @@ import cs3500.pa05.model.*;
 import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
-import cs3500.pa05.model.enums.Weekday;
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
@@ -221,7 +220,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void didClickOn(TableView tableView, int columnIndex, int rowIndex) {
     Activity activity = this.getActivityForCellAt(tableView, columnIndex, rowIndex);
     Stage s = new Stage();
-    MiniViewer miniViewer = new MiniViewer(activity, s);
+    MiniViewer miniViewer = new MiniViewer(activity);
 
     //set the action for the edit button on the mini viewer - will show the editable screen
     miniViewer.editSetOnAction(event -> {

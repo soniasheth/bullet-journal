@@ -23,12 +23,16 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Represents the pop up view when adding a task or event
+ */
 public class ActivitySelectionView extends VBox implements FormView {
+    //fields
     private Label event;
     private TextField name;
     private TextField description;
     private CategoriesView categories;
-    private WeekdayComboBox weekdays;
+    private WeekdayDropDownView weekdays;
     private TimeView startTime;
     private TimeView endTime;
     private ComboBox completion;
@@ -37,6 +41,14 @@ public class ActivitySelectionView extends VBox implements FormView {
     private ActivityType activityType;
     private Activity activity;
 
+    /**
+     * Constructor that constructs the view of the activity pop up
+     *
+     * @param type activity type (event or task)
+     * @param categories list of categories already present in the journal
+     * @param delegate delegate controller
+     * @param popupStage stage that the view will present / write on
+     */
     public ActivitySelectionView(ActivityType type, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         //elements on the event pop up
         this.activityType = type;
@@ -44,7 +56,7 @@ public class ActivitySelectionView extends VBox implements FormView {
         this.description = new TextField();
         this.categories = new CategoriesView(categories);
         this.submit = new Button("Submit");
-        this.weekdays = new WeekdayComboBox();
+        this.weekdays = new WeekdayDropDownView();
         this.submitDelegate = delegate;
         this.setSpacing(10);
 
@@ -72,9 +84,9 @@ public class ActivitySelectionView extends VBox implements FormView {
         //when the submit button is pressed
         submit.setOnAction(event -> {
             try {
-                Activity activity = submitHandling();
+                submitHandling();
                 popupStage.close();
-                this.submitDelegate.submit(this, activity);
+                this.submitDelegate.submit(this, this.activity);
             } catch (IllegalArgumentException e) {
                 Utils.showAlert("Warning", e.getMessage());
 
@@ -82,7 +94,15 @@ public class ActivitySelectionView extends VBox implements FormView {
         });
     }
 
-    //use this constructor if you want to update an event
+    /**
+     * Constructor for EDITING a current activity / use this constructor if you want to update an event
+     *
+     * @param activity activity being edited
+     * @param categories list of current activitiies
+     * @param delegate delegate controller
+     * @param popupStage stage that the view will present / write on
+     */
+
    public ActivitySelectionView(Activity activity, List<Category> categories, FormDelegate delegate, Stage popupStage) {
         this(activity.getType(), categories, delegate, popupStage);
 
@@ -92,19 +112,23 @@ public class ActivitySelectionView extends VBox implements FormView {
         this.categories.setDefaultStartValue(activity.getCategory());
         this.weekdays.setDefault(activity.getWeekday());
 
+        //add specific things based on event or task
         if (activity.getType().equals(ActivityType.EVENT)) {
             Event event = (Event) activity;
-           this.startTime.setDefault(event.getStartTime());
-           this.endTime.setDefault(event.getEndTime());
+            this.startTime.setDefault(event.getStartTime());
+            this.endTime.setDefault(event.getEndTime());
         } else {
             Task task = (Task) activity;
             this.completion.getSelectionModel().select(task.getStatus().getName());
         }
         this.activity = activity;
-        //this.event = new Label("Edit");
-
    }
 
+    /**
+     * Handles creating the grid pane with all necessary fields for an event
+     *
+     * @return GridPane with all event information
+     */
     private GridPane eventPopUp() {
         //event specific calls
         this.event = new Label("New Event");
@@ -122,6 +146,11 @@ public class ActivitySelectionView extends VBox implements FormView {
         return info;
     }
 
+    /**
+     * Handles creating the grid pane with all necessary fields for a task
+     *
+     * @return GridPane with all task information
+     */
     private GridPane taskPopUp() {
         this.event = new Label("New Task");
         //completion status combo box
@@ -142,12 +171,17 @@ public class ActivitySelectionView extends VBox implements FormView {
         return info;
     }
 
-    public Activity submitHandling() {
+    /**
+     * Even handler for the submit button
+     *
+     */
+    public void submitHandling() {
         //Activity activity;
+        //validate the user answers and show pop up
         if (!validateAnswers()) {
             throw new IllegalArgumentException("You must fill out all the information!");
-        }
-        else {
+        } else {
+            //get all the user inputed info
             this.activity.setName(this.name.getText());
             this.activity.setDescription(this.description.getText());
             this.activity.setWeekday(this.weekdays.getSelectedWeekDay());
@@ -161,11 +195,15 @@ public class ActivitySelectionView extends VBox implements FormView {
                 Task task = (Task) this.activity;
                 task.setStatus(CompletionStatus.valueOf(this.completion.getValue().toString().toUpperCase().replace(" ", "_")));
             }
-            return activity;
         }
 
     }
 
+    /**
+     * Checks to ensure that the user enters valid inputs (also not null)
+     *
+     * @return true if valid, false if not
+     */
     private boolean validateAnswers() {
         boolean validated = !this.name.equals("") && this.weekdays.getSelectedWeekDay() != null &&
                 this.categories.getChosenCategory() != null;

@@ -25,7 +25,7 @@ public class Settings {
 
 
   /**
-   * Constructorn\
+   * Constructor
    */
   private Settings() {
     this.categories = new ArrayList<>();
@@ -90,6 +90,11 @@ public class Settings {
     this.taskMax = taskMax;
   }
 
+  /**
+   * Sets the local date of the settings
+   *
+   * @param localDate given local date to set to
+   */
   public void setLocalDate(LocalDate localDate) {
     this.localDate = localDate;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -97,6 +102,12 @@ public class Settings {
     this.startDay = this.localDate.getDayOfWeek();
   }
 
+
+  /**
+   * Gets all the days of the week
+   *
+   * @return list of the days of the week
+   */
   public List<DayOfWeek> getDaysOfWeek() {
     List<DayOfWeek> daysOfWeek = new ArrayList<>();
 
@@ -104,10 +115,14 @@ public class Settings {
       DayOfWeek day = this.startDay.plus(i);
       daysOfWeek.add(day);
     }
-
     return daysOfWeek;
   }
 
+  /**
+   * Gets the date string for the week
+   *
+   * @return String
+   */
   public String getDateString() {return dateString;}
 
   /**
@@ -155,6 +170,11 @@ public class Settings {
     return this.categories;
   }
 
+  /**
+   * Gets the local date
+   *
+   * @return LocateDate - date
+   */
   public LocalDate getLocalDate() {
     return this.localDate;
   }
