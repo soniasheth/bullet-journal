@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
@@ -26,29 +27,43 @@ public class SettingsView extends VBox implements FormView {
   TextField taskInput;
   Button submitButton;
   Settings settings;
-  Text endMessage;
+
   FormDelegate submitDelegate;
 
-  private final DatePicker datePicker;
+  private DatePicker datePicker;
 
-  public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage) {
+  boolean welcome;
+
+  public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage, boolean welcome) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
     this.eventInput = new TextField();
     this.taskInput = new TextField();
     this.settings = setting;
-    this.endMessage = new Text("");
     this.datePicker = new DatePicker();
+
+
     this.submitDelegate = delegate;
     this.setSpacing(10);
-    this.submitButton = new Button("Submit");
 
+    this.welcome = welcome;
 
-    //set default text
-    this.nameInput.setText(this.settings.getName());
-    this.emailInput.setText(this.settings.getEmail());
-    this.eventInput.setText(Integer.toString(this.settings.getEventMax()));
-    this.taskInput.setText(Integer.toString(this.settings.getTaskMax()));
+    if (welcome) {
+      this.submitButton = new Button("Submit");
+    }
+    else {
+      this.submitButton = new Button("Save");
+      this.datePicker.setDisable(true);
+    }
+
+    if (!welcome) {
+      //set default text
+      this.nameInput.setText(this.settings.getName());
+      this.emailInput.setText(this.settings.getEmail());
+      this.eventInput.setText(Integer.toString(this.settings.getEventMax()));
+      this.taskInput.setText(Integer.toString(this.settings.getTaskMax()));
+      this.datePicker.setValue(this.settings.getLocalDate());
+    }
 
     //add the type boxes to the vbox
     GridPane settings = new GridPane();
@@ -61,8 +76,7 @@ public class SettingsView extends VBox implements FormView {
     this.setAlignment(Pos.CENTER);
     this.setPadding(new Insets(10));
     this.getChildren().addAll(settings);
-    this.getChildren().addAll(submitButton, endMessage);
-
+    this.getChildren().addAll(submitButton);
 
 
     //set an on action event
@@ -107,51 +121,29 @@ public class SettingsView extends VBox implements FormView {
       throw new IllegalArgumentException("Please enter a valid email.");
     }
 
-    /**
-     * THIS SHOULDN'T BE SOMETHING THEY CAN CHANGE
-     */
-    LocalDate selectedDate = datePicker.getValue();
-    if (selectedDate != null) {
-      int selectedWeek = selectedDate.get(WeekFields.of(Locale.getDefault()).weekOfYear());
 
-      DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
-      this.settings.setWeek(selectedWeek);
-      this.settings.setStartDay(dayOfWeek);
+    //get the week
+    if (welcome) {
+      LocalDate selectedDate = datePicker.getValue();
+      if (selectedDate != null) {
+        this.settings.setLocalDate(selectedDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        String dateString = selectedDate.format(formatter);
 
-      System.out.println("selected week: " + selectedWeek);
-      System.out.println("day of week: " + dayOfWeek);
-    } else {
-      throw new IllegalArgumentException("Select a week!");
+        DayOfWeek dayOfWeek = selectedDate.getDayOfWeek();
+
+        this.settings.setDateString(dateString);
+        this.settings.setStartDay(dayOfWeek);
+
+        System.out.println("selected week: " + dateString);
+        System.out.println("day of week: " + dayOfWeek);
+
+        System.out.println("settings: " + Settings.getInstance().getDateString() + Settings.getInstance().getDaysOfWeek());
+      } else {
+        throw new IllegalArgumentException("Select a week!");
+      }
     }
 
-    //this.endMessage.setText("Hello, " + this.settings.getName() + "! Welcome to your Bullet Journal!");
   }
 
-
-
-/*
-  TODO:
-   verify number inputs, -- make sure this allows for re-entering (especially to make sure not null)
-   verify email input,
-   decrease size of number Hbox,
-   add buffer between things HBoxes
-   add functionality to make items editable
-
-   welcome flag:
-
-   if welcome is true:
-
-   Welcome
-   name: textbox
-   .....
-   welcome to your Bullet Journal
-
-
-   if welcome to false:
-
-   Setting
-   name: Maggie (set as textfield)
-
-   Settings changed!
- */
 }

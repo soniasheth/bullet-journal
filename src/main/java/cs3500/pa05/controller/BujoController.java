@@ -5,7 +5,7 @@ import cs3500.pa05.model.*;
 import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
-import cs3500.pa05.model.enums.Weekday;
+
 import cs3500.pa05.view.FormView;
 import cs3500.pa05.view.MiniViewer;
 import cs3500.pa05.view.SettingsView;
@@ -16,6 +16,9 @@ import cs3500.pa05.view.activities.ActivitiesButtons;
 import cs3500.pa05.view.delegates.FormDelegate;
 import cs3500.pa05.view.tables.TableView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+
+import java.time.DayOfWeek;
+import java.util.Date;
 import java.util.Map;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,11 +35,12 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
 
   private final Stage mainStage;
   private final WeekdaysModel model;
-  private final Map<Weekday, List<Activity>> activities;
+  private final Map<DayOfWeek, List<Activity>> activities;
   private List<Task> taskQueue;
   private final Category filterCategory = null;
   private final TableView weekendView;
   private final TableView taskQueueView;
+
 
   public BujoController(Stage mainStage, WeekdaysModel model, TableView weekendView,
       TableView taskQueueView, ActivitiesButtons activities, Button settings, Button eventStats,
@@ -74,7 +78,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void handleEventStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeeklyStat stats = new WeeklyStat(model);
+      WeeklyStats stats = new WeeklyStats(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.EVENT), "Event Stats");
     });
   }
@@ -82,7 +86,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   public void handleTaskStats(Button b) {
     b.setOnAction(event -> {
       Stage s = new Stage();
-      WeeklyStat stats = new WeeklyStat(model);
+      WeeklyStats stats = new WeeklyStats(model);
       this.showPopup(this.mainStage, s, new WeeklyStatsView(stats, ActivityType.TASK), "Task Stats");
     });
   }
@@ -91,7 +95,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     //handles pop up when pushing the settings button
     settings.setOnAction(event -> {
       Stage popup = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(),  this, popup);
+      VBox settingsView = new SettingsView(Settings.getInstance() ,this, popup, false);
       this.showPopup(this.mainStage, popup, settingsView, "Settings");
     });
   }
@@ -100,17 +104,6 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
     save.setOnAction(event -> {
       PersistenceManager.saveSettingsTo(Settings.SETTING_FILE_DIR);
     });
-  }
-
-  public void welcome() {
-    Stage popup = new Stage();
-    WelcomeView welcomeView = new WelcomeView();
-    welcomeView.setOnActionCreate(event -> {
-      Stage s = new Stage();
-      this.showPopup(this.mainStage, s,
-              new SettingsView(Settings.getInstance(),  this, popup), "New Journal");
-    });
-    this.showPopup(this.mainStage, popup, welcomeView, "Welcome!");
   }
 
 
@@ -124,7 +117,8 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public String titleForColumn(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return Weekday.values()[columnIndex].getRepresentation();
+
+      return Settings.getInstance().getDaysOfWeek().get(columnIndex).name();
     }
     return String.format("Weekly Tasks: (%d)", this.taskQueue.size());
   }
@@ -139,7 +133,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public int numberOfRowFor(TableView tableView, int columnIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(Weekday.values()[columnIndex]).size();
+      return this.activities.get(DayOfWeek.values()[columnIndex]).size();
     }
     return this.taskQueue.size();
   }
@@ -155,7 +149,7 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
   @Override
   public Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex) {
     if (tableView == this.weekendView) {
-      return this.activities.get(Weekday.values()[columnIndex]).get(rowIndex);
+      return this.activities.get(DayOfWeek.values()[columnIndex]).get(rowIndex);
     }
     return this.taskQueue.get(rowIndex);
   }

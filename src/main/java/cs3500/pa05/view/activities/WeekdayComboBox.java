@@ -1,38 +1,34 @@
 package cs3500.pa05.view.activities;
 
-import cs3500.pa05.model.enums.Weekday;
 import javafx.scene.control.ComboBox;
+
+import java.time.DayOfWeek;
 
 public class WeekdayComboBox extends ComboBox {
 
   public WeekdayComboBox() {
     this.getItems().addAll(
-            Weekday.SUNDAY.getRepresentation(),
-        Weekday.MONDAY.getRepresentation(),
-        Weekday.TUESDAY.getRepresentation(),
-        Weekday.WEDNESDAY.getRepresentation(),
-        Weekday.THURSDAY.getRepresentation(),
-        Weekday.FRIDAY.getRepresentation(),
-        Weekday.SATURDAY.getRepresentation());
+            DayOfWeek.SUNDAY.name(),
+            DayOfWeek.MONDAY.name(),
+            DayOfWeek.TUESDAY.name(),
+            DayOfWeek.WEDNESDAY.name(),
+            DayOfWeek.THURSDAY.name(),
+            DayOfWeek.FRIDAY.name(),
+            DayOfWeek.SATURDAY.name());
   }
 
-  public Weekday getSelectedWeekDay() {
+  public DayOfWeek getSelectedWeekDay() {
     if (!validateAnswer()) {
       return null;
     }
-    return Weekday.valueOf(this.getValue().toString().toUpperCase());
+    return DayOfWeek.valueOf(this.getValue().toString().toUpperCase());
   }
 
   private boolean validateAnswer() {
-    if (this.getValue() == null) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    return this.getValue() != null;
   }
 
-  public void setDefault(Weekday day) {
-    this.getSelectionModel().select(day.getRepresentation());
+  public void setDefault(DayOfWeek day) {
+    this.getSelectionModel().select(day.name());
   }
 }
