@@ -50,6 +50,7 @@ public class WeekdaysModel implements Model {
 
     dayActivities.remove(toRemove);
   }
+
   /**
    * private method to remove an activity if exist
    *
@@ -112,25 +113,26 @@ public class WeekdaysModel implements Model {
   /**
    * iterate through the current activities and see if user exceed any limit
    *
-   * @return true if user exceeds the limit
+   * @return weekdays that exceeds the commitment working.
    */
-  public boolean shouldDisplayCommitmentWarning() {
+  public List<DayOfWeek> shouldDisplayCommitmentWarning() {
+    List<DayOfWeek> ret = new ArrayList<>();
     int maxTask = Settings.getInstance().getTaskMax();
     int maxEvent = Settings.getInstance().getEventMax();
-    int curTask = 0;
-    int curEvent = 0;
     for (DayOfWeek weekday : DayOfWeek.values()) {
+      int curTask = 0;
+      int curEvent = 0;
       for (Activity activity : this.activities.get(weekday)) {
         if (activity.getType() == ActivityType.EVENT) {
           curEvent += 1;
         } else {
           curTask += 1;
         }
-        if (curTask > maxTask || curEvent > maxEvent) {
-          return true;
-        }
+      }
+      if (curTask > maxTask || curEvent > maxEvent) {
+        ret.add(weekday);
       }
     }
-    return false;
+    return ret;
   }
 }

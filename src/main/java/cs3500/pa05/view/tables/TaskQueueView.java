@@ -1,5 +1,6 @@
 package cs3500.pa05.view.tables;
 
+import cs3500.pa05.Utils;
 import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
@@ -34,7 +35,7 @@ public class TaskQueueView extends GridPane implements TableView {
 
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
-    BorderStroke borderStroke = new BorderStroke(Color.valueOf( "228B22"), BorderStrokeStyle.SOLID,
+    BorderStroke borderStroke = new BorderStroke(Utils.BUJO_THEME_COLOR, BorderStrokeStyle.SOLID,
             cornerRadii, new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
@@ -58,7 +59,7 @@ public class TaskQueueView extends GridPane implements TableView {
   public void reloadAll() {
     this.getChildren().clear();
     Text title = new Text(this.delegate.titleForColumn(this, 0));
-    title.setFill(Color.valueOf("228B22"));
+    title.setFill(Utils.BUJO_THEME_COLOR);
     title.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
     this.add(title,0, 0);
     for (int i = 0; i < this.delegate.numberOfRowFor(this, 0); i++) {

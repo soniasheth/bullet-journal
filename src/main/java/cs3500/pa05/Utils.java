@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 
 public class Utils {
 
+  public static Color BUJO_THEME_COLOR = Color.valueOf("228B22");
+
   public static void showAlert(String title, String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);
