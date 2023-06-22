@@ -19,3 +19,4 @@
 
 ## Section 5: Extra Credit
 - Visual Flourish
+- Splashscreen: Welcome view 
