@@ -13,16 +13,16 @@ import javafx.scene.paint.Color;
  */
 public class Settings {
 
+  private static Settings instance;
+  private final List<Category> categories;
   //fields
   private String name;
   private String email;
   private int eventMax;
   private int taskMax;
-  private final List<Category> categories;
   private String dateString;
   private LocalDate localDate;
   private DayOfWeek startDay;
-
 
   /**
    * Constructor
@@ -30,10 +30,13 @@ public class Settings {
   private Settings() {
     this.categories = new ArrayList<>();
     this.categories.add(new Category("None", Color.WHITE));
+    this.categories.add(new Category("School", Color.WHITE));
+    this.categories.add(new Category("Work", Color.WHITE));
+    this.categories.add(new Category("Fun", Color.WHITE));
+
+
     this.startDay = DayOfWeek.SUNDAY; //default
   }
-
-  private static Settings instance;
 
   /**
    * getter for the only instance of Settings
@@ -55,55 +58,6 @@ public class Settings {
   }
 
   /**
-   * setter for name
-   *
-   * @param name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * setter for email
-   *
-   * @param email
-   */
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  /**
-   * setter for maximum event
-   *
-   * @param eventMax
-   */
-  public void setEventMax(int eventMax) {
-    this.eventMax = eventMax;
-  }
-
-  /**
-   * setter for maximum task
-   *
-   * @param taskMax
-   */
-  public void setTaskMax(int taskMax) {
-    this.taskMax = taskMax;
-  }
-
-  /**
-   * Sets the local date of the settings
-   *
-   * @param localDate given local date to set to
-   */
-  public void setLocalDate(LocalDate localDate) {
-    this.localDate = localDate;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    this.dateString = this.localDate.format(formatter);
-    this.startDay = this.localDate.getDayOfWeek();
-  }
-
-
-  /**
    * Gets all the days of the week
    *
    * @return list of the days of the week
@@ -111,7 +65,7 @@ public class Settings {
   public List<DayOfWeek> getDaysOfWeek() {
     List<DayOfWeek> daysOfWeek = new ArrayList<>();
 
-    for (int i = 0; i < DayOfWeek.values().length; i ++) {
+    for (int i = 0; i < DayOfWeek.values().length; i++) {
       DayOfWeek day = this.startDay.plus(i);
       daysOfWeek.add(day);
     }
@@ -123,7 +77,9 @@ public class Settings {
    *
    * @return String
    */
-  public String getDateString() {return dateString;}
+  public String getDateString() {
+    return dateString;
+  }
 
   /**
    * getter for name
@@ -132,6 +88,15 @@ public class Settings {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * setter for name
+   *
+   * @param name name of user
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -144,6 +109,15 @@ public class Settings {
   }
 
   /**
+   * setter for email
+   *
+   * @param email email of user
+   */
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  /**
    * getter for max event
    *
    * @return max event
@@ -153,12 +127,30 @@ public class Settings {
   }
 
   /**
+   * setter for maximum event
+   *
+   * @param eventMax max number of events
+   */
+  public void setEventMax(int eventMax) {
+    this.eventMax = eventMax;
+  }
+
+  /**
    * getter for max task
    *
    * @return max task
    */
   public int getTaskMax() {
     return taskMax;
+  }
+
+  /**
+   * setter for maximum task
+   *
+   * @param taskMax max number of tasks
+   */
+  public void setTaskMax(int taskMax) {
+    this.taskMax = taskMax;
   }
 
   /**
@@ -177,5 +169,17 @@ public class Settings {
    */
   public LocalDate getLocalDate() {
     return this.localDate;
+  }
+
+  /**
+   * Sets the local date of the settings
+   *
+   * @param localDate given local date to set to
+   */
+  public void setLocalDate(LocalDate localDate) {
+    this.localDate = localDate;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    this.dateString = this.localDate.format(formatter);
+    this.startDay = this.localDate.getDayOfWeek();
   }
 }

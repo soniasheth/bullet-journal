@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
  * Represents an activity: Event or Task
  */
 public abstract class Activity implements Comparable<Activity> {
+
   //fields
   protected String name;
   protected String description;
@@ -56,44 +57,21 @@ public abstract class Activity implements Comparable<Activity> {
   }
 
   /**
+   * Sets the weekday field
+   *
+   * @param weekday given description to set to
+   */
+  public void setWeekday(DayOfWeek weekday) {
+    this.weekday = weekday;
+  }
+
+  /**
    * getter for name
+   *
    * @return name
    */
   public String getName() {
     return name;
-  }
-
-  /**
-   * getter for description
-   * @return description
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * getter for category
-   * @return category
-   */
-  public Category getCategory() {
-    return category;
-  }
-
-  /**
-   * getter for type
-   * @return type
-   */
-  abstract public ActivityType getType();
-
-  /**
-   * compare the current activity to given activity based on priority
-   *
-   * @param that the object to be compared.
-   * @return difference
-   */
-  @Override
-  public int compareTo(Activity that) {
-    return this.getPriority() - that.getPriority();
   }
 
   /**
@@ -106,21 +84,30 @@ public abstract class Activity implements Comparable<Activity> {
   }
 
   /**
+   * getter for description
+   *
+   * @return description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
    * Sets the description field
    *
    * @param description given description to set to
    */
-  public void setDescription (String description) {
+  public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * Sets the weekday field
+   * getter for category
    *
-   * @param weekday given description to set to
+   * @return category
    */
-  public void setWeekday (DayOfWeek weekday) {
-    this.weekday = weekday;
+  public Category getCategory() {
+    return category;
   }
 
   /**
@@ -128,8 +115,26 @@ public abstract class Activity implements Comparable<Activity> {
    *
    * @param category given category to set to
    */
-  public void setCategory (Category category) {
+  public void setCategory(Category category) {
     this.category = category;
+  }
+
+  /**
+   * getter for type
+   *
+   * @return type
+   */
+  public abstract ActivityType getType();
+
+  /**
+   * compare the current activity to given activity based on priority
+   *
+   * @param that the object to be compared.
+   * @return difference
+   */
+  @Override
+  public int compareTo(Activity that) {
+    return this.getPriority() - that.getPriority();
   }
 
 }

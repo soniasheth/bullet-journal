@@ -46,6 +46,6 @@ public class Utils {
    * @return true / false
    */
   public static boolean isValidEmail(String input) {
-    return input.endsWith(".com") && input.contains("@");
+    return (input.endsWith(".com") || input.endsWith(".edu")) && input.contains("@");
   }
 }

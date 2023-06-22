@@ -4,9 +4,8 @@ import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.view.tables.TableView;
 
 /**
- * represent a delegate interface for TableView
- * the delegator ask for data of each activity
- * the delegatee provides data
+ * represent a delegate interface for TableView the delegator ask for data of each activity the
+ * delegatee provides data
  */
 public interface TableViewDelegate {
 
@@ -39,11 +38,12 @@ public interface TableViewDelegate {
   Activity getActivityForCellAt(TableView tableView, int columnIndex, int rowIndex);
 
   /**
-   * delegator calls the method when user clicks a cell at a specific index.
-   * delegatee handles the user action
-   * @param tableView reference to the delegator
+   * delegator calls the method when user clicks a cell at a specific index. delegatee handles the
+   * user action
+   *
+   * @param tableView   reference to the delegator
    * @param columnIndex column index of the cell
-   * @param rowIndex row index of the cell
+   * @param rowIndex    row index of the cell
    */
   void didClickOn(TableView tableView, int columnIndex, int rowIndex);
 }

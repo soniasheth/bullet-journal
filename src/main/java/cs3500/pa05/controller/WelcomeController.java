@@ -10,7 +10,6 @@ import cs3500.pa05.view.SettingsView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.delegates.FormDelegate;
 import java.io.File;
-import cs3500.pa05.view.tables.TableView;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -30,12 +29,12 @@ import javafx.stage.Stage;
 public class WelcomeController implements Controller, FormDelegate {
 
   //fields
-  private WeekdaysModel model;
-  private WelcomeView welcome;
-  private Stage stage;
-  private BujoView bujo;
-  private BujoController bujoController;
-  private HBox weekOfLabel;
+  private final WeekdaysModel model;
+  private final WelcomeView welcome;
+  private final Stage stage;
+  private final BujoView bujo;
+  private final BujoController bujoController;
+  private final HBox weekOfLabel;
 
 
   /**
@@ -63,14 +62,15 @@ public class WelcomeController implements Controller, FormDelegate {
    * Sets up the event handler for the Create New journal button
    */
   private void handleCreateNewJournal() {
-    //when create new is pressed, prompt user to enter settings and then it will switch the scene to a new journal
+    //when create new is pressed, prompt user to enter settings
+    // and then it will switch the scene to a new journal
     welcome.setOnActionCreate(event -> {
       //let the user create a new bullet journal
-      Stage settingsPopUP = new Stage();
-      VBox settingsView = new SettingsView(Settings.getInstance(), this, settingsPopUP, true);
+      Stage settingspopup = new Stage();
+      VBox settingsView = new SettingsView(Settings.getInstance(), this, settingspopup, true);
       ClosingHandler closing = new ClosingHandler(); //if the user closes the pop up
-      settingsPopUP.setOnCloseRequest(closing);
-      showPopup(stage, settingsPopUP, settingsView, "New Bullet Journal");
+      settingspopup.setOnCloseRequest(closing);
+      showPopup(stage, settingspopup, settingsView, "New Bullet Journal");
       //only show the bullet journal if the user pressed submit and not the closed button
       if (!closing.getPressed()) {
         //set the bullet journal screen
@@ -103,6 +103,9 @@ public class WelcomeController implements Controller, FormDelegate {
     });
   }
 
+  /**
+   * setting the Week Of label in the top left corner of the bullet journal
+   */
   private void setupWeekOfLabel() {
     Text weekOf = new Text("Week of " + Settings.getInstance().getDateString());
     weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
@@ -110,6 +113,12 @@ public class WelcomeController implements Controller, FormDelegate {
     this.weekOfLabel.getChildren().add(weekOf);
   }
 
+  /**
+   * submit welcome settings
+   *
+   * @param formView reference to the formView
+   * @param object   the newly created object
+   */
   @Override
   public void submit(FormView formView, Object object) {
     this.setupWeekOfLabel();
@@ -119,7 +128,7 @@ public class WelcomeController implements Controller, FormDelegate {
   /**
    * Class that represents an event handler for when closing a button
    */
-  private class ClosingHandler implements EventHandler {
+  private static class ClosingHandler implements EventHandler {
 
     boolean pressed = false;
 

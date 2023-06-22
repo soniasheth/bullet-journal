@@ -3,6 +3,7 @@ package cs3500.pa05.view;
 import cs3500.pa05.Utils;
 import cs3500.pa05.model.Settings;
 import cs3500.pa05.view.delegates.FormDelegate;
+import java.time.LocalDate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,12 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.time.LocalDate;
+
 
 /**
  * Represents the view for the Settings Pop up
  */
 public class SettingsView extends VBox implements FormView {
+
+  private final DatePicker datePicker;
+  private final boolean welcome;
+  private final Stage stage;
   //fields
   TextField nameInput;
   TextField emailInput;
@@ -26,18 +31,18 @@ public class SettingsView extends VBox implements FormView {
   Button submitButton;
   Settings settings;
   FormDelegate submitDelegate;
-  private DatePicker datePicker;
-  private boolean welcome;
-  private Stage stage;
+
   /**
    * Constructor - creates the view
    *
-   * @param setting current settings data
-   * @param delegate controller delegate
+   * @param setting      current settings data
+   * @param delegate     controller delegate
    * @param primaryStage stage to view on
-   * @param welcome true / false representing if upon opening program OR within the bullet journal
+   * @param welcome      true / false representing if upon opening program OR within the bullet
+   *                     journal
    */
-  public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage, boolean welcome) {
+  public SettingsView(Settings setting, FormDelegate delegate, Stage primaryStage,
+      boolean welcome) {
     this.nameInput = new TextField();
     this.emailInput = new TextField();
     this.eventInput = new TextField();
@@ -80,14 +85,14 @@ public class SettingsView extends VBox implements FormView {
     this.getChildren().addAll(submitButton);
 
     //set an on action event
-    setOnActionSubmit();
+    submitHandling();
   }
 
 
   /**
    * Sets the on action for the submit button
    */
-  private void setOnActionSubmit() {
+  public void submitHandling() {
     submitButton.setOnAction(event -> {
       try {
         getUserInput();
