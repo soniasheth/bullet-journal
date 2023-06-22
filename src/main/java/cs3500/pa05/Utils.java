@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
  */
 public class Utils {
 
+  public static Color BUJO_THEME_COLOR = Color.valueOf("228B22");
+
   /**
    * Shows a warning / alert pop up
    *

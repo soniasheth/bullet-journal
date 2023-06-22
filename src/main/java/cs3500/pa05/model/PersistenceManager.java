@@ -27,19 +27,21 @@ import java.util.Set;
 import javafx.scene.paint.Color;
 
 /**
- * Represents saving and writing to files
+ * represents a utility class of persistence manager responsible for saving and reading json files
  */
 public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
   /**
+
    * Load data from file to model
    *
    * @param f     File
    * @param model weekdays model
    */
   public static void loadDataFrom(File f, Model model) {
+
     Set<Category> categories = new HashSet<>(Settings.getInstance().getCategories());
     Settings.getInstance().getCategories().clear();
     List<MessageJson> messages;
@@ -70,6 +72,7 @@ public abstract class PersistenceManager {
    */
   public static void saveDataTo(File f, Model model) {
 
+
     List<MessageJson> messageList = new ArrayList<>();
     messageList.add(new MessageJson("setting", getSettingsJsonNode(Settings.getInstance())));
     Map<DayOfWeek, List<Activity>> activities = model.getActivities(null);
@@ -87,10 +90,11 @@ public abstract class PersistenceManager {
   }
 
   /**
-   * parse an activity
+
+   * helper method to parse a JsonNode into either Task or Event
    *
-   * @param arguments JSON Node
-   * @return Activity
+   * @param arguments JsonNode argument
+   * @return an Activity instance
    */
   private static Activity parseActivity(JsonNode arguments) {
     Activity activity;
@@ -113,9 +117,10 @@ public abstract class PersistenceManager {
   }
 
   /**
-   * get activity node
+
+   * helper method to convert a Task or Event to JsonNode
    *
-   * @param activity Activity
+   * @param activity activity to serialize
    * @return JsonNode
    */
   private static JsonNode getActivityJsonNode(Activity activity) {
@@ -140,9 +145,10 @@ public abstract class PersistenceManager {
   }
 
   /**
-   * parse settings
+
+   * helper method to parse JsonNode into Settings singleton
    *
-   * @param arguments JsonNode
+   * @param arguments JsonNode to parse
    */
   private static void parseSetting(JsonNode arguments) {
     SettingsJson settingsJson = mapper.convertValue(arguments, SettingsJson.class);
@@ -156,9 +162,9 @@ public abstract class PersistenceManager {
   }
 
   /**
-   * get settings JsonNode
+   * helper method to convert a Setting instance to JsonNode
    *
-   * @param settings Setting class
+   * @param settings setting instance to convert
    * @return JsonNode
    */
   private static JsonNode getSettingsJsonNode(Settings settings) {

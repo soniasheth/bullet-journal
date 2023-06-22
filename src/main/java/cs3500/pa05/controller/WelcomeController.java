@@ -1,5 +1,6 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.Utils;
 import cs3500.pa05.model.PersistenceManager;
 import cs3500.pa05.model.Settings;
 import cs3500.pa05.model.WeekdaysModel;
@@ -108,7 +109,7 @@ public class WelcomeController implements Controller, FormDelegate {
   private void setupWeekOfLabel() {
     Text weekOf = new Text("Week of " + Settings.getInstance().getDateString());
     weekOf.setFont(Font.font("Bradley Hand", FontWeight.EXTRA_BOLD, 35));
-    weekOf.setFill(Color.valueOf("228B22"));
+    weekOf.setFill(Utils.BUJO_THEME_COLOR);
     this.weekOfLabel.getChildren().add(weekOf);
   }
 

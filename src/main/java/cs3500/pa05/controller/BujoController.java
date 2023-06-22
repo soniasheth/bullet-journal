@@ -278,8 +278,16 @@ public class BujoController implements Controller, TableViewDelegate, FormDelega
    * Shows a commitment warning when user trys to add an event / task that exceeds the set max
    */
   private void showCommitmentWarning() {
-    if (this.model.shouldDisplayCommitmentWarning()) {
-      Utils.showAlert("Commitment Warning!", "You are overbooked for the week!");
+    List<DayOfWeek> weeks = this.model.shouldDisplayCommitmentWarning();
+    if (!weeks.isEmpty()) {
+      StringBuilder builder = new StringBuilder();
+      for (DayOfWeek week : weeks) {
+        builder.append(week.toString().charAt(0))
+            .append(week.toString().substring(1).toLowerCase()).append(", ");
+      }
+      String s = builder.toString();
+      Utils.showAlert("Commitment Warning!",
+          String.format("You are overbooked on %s!", s.substring(0, s.length() - 2)));
     }
   }
 }
