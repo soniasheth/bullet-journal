@@ -57,8 +57,8 @@ public class WeekdaysView extends GridPane implements TableView {
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
 
-    BorderStroke borderStroke = new BorderStroke(Utils.BUJO_THEME_COLOR, BorderStrokeStyle.SOLID, cornerRadii,
-        new BorderWidths(2));
+    BorderStroke borderStroke = new BorderStroke(Utils.BUJO_THEME_COLOR,
+            BorderStrokeStyle.SOLID, cornerRadii, new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }
