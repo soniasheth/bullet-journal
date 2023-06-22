@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 /**
  * represents a weekday model class for bullet journal - Holds all important information
  */

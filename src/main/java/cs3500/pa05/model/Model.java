@@ -41,11 +41,12 @@ public interface Model {
    */
   List<Task> getTaskQueue(Category category);
 
+
   /**
-   * whether to display commitment warning
+   * iterate through the current activities and see if user exceed any limit
    *
-   * @return boolean
+   * @return weekdays that exceeds the commitment working.
    */
-  boolean shouldDisplayCommitmentWarning();
+  List<DayOfWeek> shouldDisplayCommitmentWarning();
 
 }
