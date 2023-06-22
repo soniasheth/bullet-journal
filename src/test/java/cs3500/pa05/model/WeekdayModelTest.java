@@ -1,8 +1,6 @@
 package cs3500.pa05.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Event;
@@ -28,7 +26,6 @@ public class WeekdayModelTest {
   private Task task3;
   private Task task4;
   private Event event1;
-  private Event event2;
 
   /**
    * helper methods to set up fields before each test
@@ -36,24 +33,24 @@ public class WeekdayModelTest {
   @BeforeEach
   public void setUp() {
     this.model = new WeekdaysModel();
-    this.task1 = new Task("shower", "very important", DayOfWeek.FRIDAY,
-        new Category("lol", null), CompletionStatus.NOT_STARTED);
-    this.task2 = new Task("sleep", "sleeping now", DayOfWeek.FRIDAY,
-        new Category("haha", null), CompletionStatus.IN_PROGRESS);
+    this.task1 = new Task("shower", "very important", DayOfWeek.FRIDAY, new Category("lol", null),
+      CompletionStatus.NOT_STARTED);
+    this.task2 = new Task("sleep", "sleeping now", DayOfWeek.FRIDAY, new Category("haha", null),
+      CompletionStatus.IN_PROGRESS);
     this.task3 = new Task("essay", "don't wanna write", DayOfWeek.MONDAY,
         new Category("haha", null), CompletionStatus.COMPLETED);
-    this.task4 = new Task("prep exam", "no", DayOfWeek.MONDAY,
-        new Category("haha", null), CompletionStatus.IN_PROGRESS);
-    this.event1 = new Event("date night", "yeah", DayOfWeek.TUESDAY,
-        new Category("haha", null), LocalTime.of(20, 0), LocalTime.of(22, 0));
-    this.event2 = new Event("IRS audit", "crap", DayOfWeek.SATURDAY,
-        new Category("haha", null), LocalTime.of(8, 0), LocalTime.of(8, 30));
+    this.task4 = new Task("prep exam", "no", DayOfWeek.MONDAY, new Category("haha", null),
+      CompletionStatus.IN_PROGRESS);
+    this.event1 = new Event("date night", "yeah", DayOfWeek.TUESDAY, new Category("haha", null),
+      LocalTime.of(20, 0), LocalTime.of(22, 0));
+    Event event2 = new Event("IRS audit", "crap", DayOfWeek.SATURDAY, new Category("haha", null),
+        LocalTime.of(8, 0), LocalTime.of(8, 30));
     this.model.addActivity(this.task1);
     this.model.addActivity(this.task2);
     this.model.addActivity(this.task3);
     this.model.addActivity(this.task4);
     this.model.addActivity(this.event1);
-    this.model.addActivity(this.event2);
+    this.model.addActivity(event2);
     Settings.reset();
   }
 
@@ -88,8 +85,13 @@ public class WeekdayModelTest {
     this.model.addActivity(this.event1);
     assertEquals(this.model.getActivities(null).get(DayOfWeek.TUESDAY).size(), size);
     size = this.model.getActivities(null).get(DayOfWeek.MONDAY).size();
-    this.model.addActivity(new Task("lol", "", DayOfWeek.MONDAY, null, null));
+
+    Task task = new Task("lol", "", DayOfWeek.MONDAY, null, null);
+    this.model.addActivity(task);
     assertEquals(this.model.getActivities(null).get(DayOfWeek.MONDAY).size(), size + 1);
+
+    this.model.removeActivity(task);
+    assertEquals(this.model.getActivities(null).get(DayOfWeek.MONDAY).size(), size);
   }
 
   /**

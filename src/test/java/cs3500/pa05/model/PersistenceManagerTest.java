@@ -33,6 +33,12 @@ public class PersistenceManagerTest {
 
   private WeekdaysModel model;
 
+  /**
+   * read from file helper
+   *
+   * @param f File
+   * @return String
+   */
   private String readFrom(File f) {
     StringBuilder builder = new StringBuilder();
     try {
@@ -50,12 +56,18 @@ public class PersistenceManagerTest {
     return builder.toString();
   }
 
+  /**
+   * set up settings and WeekdaysModel
+   */
   @BeforeEach
   public void setUp() {
     Settings.reset();
     this.model = new WeekdaysModel();
   }
 
+  /**
+   * test read from
+   */
   @Test
   public void testReadFrom() {
     PersistenceManager.loadDataFrom(new File(SETTING_ONLY + "expected.bujo"), this.model);
@@ -89,6 +101,9 @@ public class PersistenceManagerTest {
     assertEquals(Settings.getInstance().getTaskMax(), 0);
   }
 
+  /**
+   * test write to
+   */
   @Test
   public void testWriteTo() {
     Settings.getInstance().setName("Ben Lerner");
@@ -101,11 +116,10 @@ public class PersistenceManagerTest {
         this.readFrom(new File(SETTING_ONLY + "expected.bujo")));
 
     this.model.addActivity(new Task("laundry", "do laundry is important", DayOfWeek.MONDAY,
-        new Category("chores", Color.WHITE),
-        CompletionStatus.NOT_STARTED));
+        new Category("chores", Color.WHITE), CompletionStatus.NOT_STARTED));
     this.model.addActivity(
-        new Event("date night", "fun", DayOfWeek.FRIDAY, new Category("personal", Color.WHITE),
-            LocalTime.of(20, 30), LocalTime.of(23, 30)));
+      new Event("date night", "fun", DayOfWeek.FRIDAY, new Category("personal", Color.WHITE),
+        LocalTime.of(20, 30), LocalTime.of(23, 30)));
     PersistenceManager.saveDataTo(new File(COMPREHENSIVE + "actual.bujo"), this.model);
     assertEquals(this.readFrom(new File(COMPREHENSIVE + "actual.bujo")),
         this.readFrom(new File(COMPREHENSIVE + "expected.bujo")));

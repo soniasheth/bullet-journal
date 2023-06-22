@@ -40,18 +40,18 @@ public class WeeklyStatsTest {
     fun = categoryList.get(3);
 
     Model model = new WeekdaysModel();
-    Activity oodhw = new Task("ood hw", "very hard", DayOfWeek.MONDAY,
-            school, CompletionStatus.IN_PROGRESS);
+    Activity oodhw = new Task("ood hw", "very hard", DayOfWeek.MONDAY, school,
+        CompletionStatus.IN_PROGRESS);
     Activity cyberhw = new Task("cyber hw", "not hard", DayOfWeek.FRIDAY, school,
-            CompletionStatus.COMPLETED);
-    Activity taGrading = new Task("TA grading", "grading homework 7", DayOfWeek.THURSDAY,
-            work, CompletionStatus.NOT_STARTED);
+        CompletionStatus.COMPLETED);
+    Activity taGrading = new Task("TA grading", "grading homework 7", DayOfWeek.THURSDAY, work,
+        CompletionStatus.NOT_STARTED);
     Activity applyToCoOp = new Task("Apply to Co-op", "apply to co-ops on NUWorks",
-            DayOfWeek.MONDAY, fun, CompletionStatus.COMPLETED);
-    Activity dinner = new Event("dinner", "dinner with susan", DayOfWeek.SUNDAY,
-            fun, LocalTime.of(18, 00), LocalTime.of(19, 00));
+        DayOfWeek.MONDAY, fun, CompletionStatus.COMPLETED);
+    Activity dinner = new Event("dinner", "dinner with susan", DayOfWeek.SUNDAY, fun,
+        LocalTime.of(18, 00), LocalTime.of(19, 00));
     Activity taMeeting = new Event("TA meeting", "TA meeting at Kariotis 110", DayOfWeek.THURSDAY,
-            work, LocalTime.of(17, 15), LocalTime.of(18, 00));
+        work, LocalTime.of(17, 15), LocalTime.of(18, 00));
 
     model.addActivity(oodhw);
     model.addActivity(cyberhw);
@@ -63,6 +63,9 @@ public class WeeklyStatsTest {
     this.stats = new WeeklyStats(model);
   }
 
+  /**
+   * test the event and task hashmap of category values
+   */
   @Test
   void testCategoryValues() {
     Map<Category, Integer> expectedEvents = new HashMap<>();
@@ -87,12 +90,18 @@ public class WeeklyStatsTest {
 
   }
 
+  /**
+   * testing the total amount of events and tasks
+   */
   @Test
   void testTotals() {
     assertEquals(2, this.stats.getTotalEvents());
     assertEquals(4, this.stats.getTotalTasks());
   }
 
+  /**
+   * testing the percentage tasks done
+   */
   @Test
   void testGetPercent() {
     assertEquals(0.5, this.stats.getPercentDone());
