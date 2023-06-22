@@ -4,9 +4,7 @@ package cs3500.pa05.model.enums;
  * represents an enumeration of task completion status
  */
 public enum CompletionStatus {
-  NOT_STARTED(0, "Not Started"),
-  IN_PROGRESS(10, "In Progress"),
-  COMPLETED(20, "Completed");
+  NOT_STARTED(0, "Not Started"), IN_PROGRESS(10, "In Progress"), COMPLETED(20, "Completed");
 
   private final int priority;
   private final String name;

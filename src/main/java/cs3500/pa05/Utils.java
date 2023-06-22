@@ -11,7 +11,7 @@ public class Utils {
   /**
    * Shows a warning / alert pop up
    *
-   * @param title title of the pop up
+   * @param title   title of the pop up
    * @param message message in the pop up
    */
   public static void showAlert(String title, String message) {
@@ -41,10 +41,9 @@ public class Utils {
    * checks if the given email is valid
    *
    * @param input string
-   *
    * @return true / false
    */
   public static boolean isValidEmail(String input) {
-    return input.endsWith(".com") && input.contains("@");
+    return (input.endsWith(".com") || input.endsWith(".edu")) && input.contains("@");
   }
 }

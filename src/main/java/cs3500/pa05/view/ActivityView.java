@@ -6,19 +6,24 @@ import cs3500.pa05.model.enums.ActivityType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.util.List;
 
 /**
  * Represents the view for a single event or task in the bullet journal
  */
 public class ActivityView extends VBox {
+
   Label title;
   Label category;
 
@@ -27,7 +32,7 @@ public class ActivityView extends VBox {
    *
    * @param activity activity to create a view for
    */
-  public ActivityView (Activity activity) {
+  public ActivityView(Activity activity) {
     this.setSpacing(2);
     this.setPadding(new Insets(10));
     this.setAlignment(Pos.CENTER);
@@ -46,7 +51,7 @@ public class ActivityView extends VBox {
     this.getChildren().addAll(this.title, this.category);
 
     //if a task add the completion status
-    if(activity.getType().equals(ActivityType.TASK)) {
+    if (activity.getType().equals(ActivityType.TASK)) {
       Task e = (Task) activity;
       Text completionStatus = new Text(e.getStatus().getName());
       completionStatus.setFont(Font.font("Verdana", FontPosture.ITALIC, 12));
@@ -55,7 +60,7 @@ public class ActivityView extends VBox {
     //set a border
     CornerRadii cornerRadii = new CornerRadii(7);
     BorderStroke borderStroke = new BorderStroke(Color.valueOf("8FBC8F"), BorderStrokeStyle.SOLID,
-            cornerRadii, new BorderWidths(1));
+        cornerRadii, new BorderWidths(1));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }

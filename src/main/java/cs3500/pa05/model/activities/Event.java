@@ -2,7 +2,6 @@ package cs3500.pa05.model.activities;
 
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
@@ -10,6 +9,7 @@ import java.time.LocalTime;
  * Represents an event
  */
 public class Event extends Activity {
+
   //fields
   private LocalTime startTime;
   private LocalTime endTime;
@@ -26,7 +26,7 @@ public class Event extends Activity {
    * @param endTime     event end time
    */
   public Event(String name, String description, DayOfWeek weekday, Category category,
-               LocalTime startTime, LocalTime endTime) {
+      LocalTime startTime, LocalTime endTime) {
     super(name, description, weekday, category);
     this.startTime = startTime;
     this.endTime = endTime;
@@ -61,21 +61,21 @@ public class Event extends Activity {
   }
 
   /**
-   * Gets the end time of this event
-   *
-   * @return LocalTime end time
-   */
-  public LocalTime getEndTime() {
-    return this.endTime;
-  }
-
-  /**
    * Sets the start time of this event to the given start time
    *
    * @param startTime given start time
    */
   public void setStartTime(LocalTime startTime) {
     this.startTime = startTime;
+  }
+
+  /**
+   * Gets the end time of this event
+   *
+   * @return LocalTime end time
+   */
+  public LocalTime getEndTime() {
+    return this.endTime;
   }
 
   /**
@@ -104,11 +104,9 @@ public class Event extends Activity {
    */
   @Override
   public String toString() {
-    return "Name: " + this.name + "\n"
-            + "Category" + this.category.getName() + "\n"
-            //+ "Weekday:" + this.weekday.getRepresentation() + "\n"
-            + "Description:" + this.description + "\n"
-            + "Start Time" + this.startTime.toString() + "\n"
-            + "End Time" + this.endTime.toString();
+    return "Name: " + this.name + "\n" + "Category" + this.category.getName() + "\n"
+      //+ "Weekday:" + this.weekday.getRepresentation() + "\n"
+      + "Description:" + this.description + "\n" + "Start Time" + this.startTime.toString() + "\n"
+      + "End Time" + this.endTime.toString();
   }
 }

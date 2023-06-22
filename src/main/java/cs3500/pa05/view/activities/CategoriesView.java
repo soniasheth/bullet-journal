@@ -3,18 +3,15 @@ package cs3500.pa05.view.activities;
 import cs3500.pa05.model.Category;
 import java.util.List;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
- * Represents the drop down for the Category section in the event / task pop up to
- *     edit
+ * Represents the dropdown for the Category section in the event / task pop up to edit
  */
 public class CategoriesView extends ComboBox {
+
   //fields
-  private List<Category> existingCategories;
+  private final List<Category> existingCategories;
 
   /**
    * Constructor
@@ -45,7 +42,7 @@ public class CategoriesView extends ComboBox {
       String category = this.getValue().toString();
       Category userChoice = null;
       boolean found = false;
-      // see if its an existing category
+      // see if it's an existing category
       for (Category existingCategory : existingCategories) {
         if (category.equals(existingCategory)) {
           userChoice = new Category(existingCategory.getName(), existingCategory.getColor());
@@ -55,7 +52,7 @@ public class CategoriesView extends ComboBox {
       // not an existing cat-> create one
       //default color is red for now
       if (!found) {
-        userChoice = new Category(category, Color.RED);
+        userChoice = new Category(category, Color.WHITE);
       }
       return userChoice;
     }

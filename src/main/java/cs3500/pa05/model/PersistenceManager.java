@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.paint.Color;
-import javafx.util.converter.LocalDateStringConverter;
 
 /**
  * Represents saving and writing to files
@@ -34,7 +33,13 @@ public abstract class PersistenceManager {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
-  public static void loadDataFrom(File f, WeekdaysModel model) {
+  /**
+   * Load data from file to model
+   *
+   * @param f     File
+   * @param model weekdays model
+   */
+  public static void loadDataFrom(File f, Model model) {
     Set<Category> categories = new HashSet<>(Settings.getInstance().getCategories());
     Settings.getInstance().getCategories().clear();
     List<MessageJson> messages;
@@ -57,7 +62,13 @@ public abstract class PersistenceManager {
     Settings.getInstance().getCategories().addAll(categories);
   }
 
-  public static void saveDataTo(File f, WeekdaysModel model) {
+  /**
+   * save data to file
+   *
+   * @param f     File
+   * @param model Weekdays model
+   */
+  public static void saveDataTo(File f, Model model) {
 
     List<MessageJson> messageList = new ArrayList<>();
     messageList.add(new MessageJson("setting", getSettingsJsonNode(Settings.getInstance())));
@@ -75,6 +86,12 @@ public abstract class PersistenceManager {
     }
   }
 
+  /**
+   * parse an activity
+   *
+   * @param arguments JSON Node
+   * @return Activity
+   */
   private static Activity parseActivity(JsonNode arguments) {
     Activity activity;
     ActivityJson activityJson = mapper.convertValue(arguments, ActivityJson.class);
@@ -86,15 +103,21 @@ public abstract class PersistenceManager {
       LocalTime startTime = LocalTime.of(startTimeJson.hour(), startTimeJson.minute());
       LocalTime endTime = LocalTime.of(endTimeJson.hour(), endTimeJson.minute());
       activity = new Event(activityJson.name(), activityJson.description(),
-          DayOfWeek.valueOf(activityJson.weekdayString()), category, startTime, endTime);
+        DayOfWeek.valueOf(activityJson.weekdayString()), category, startTime, endTime);
     } else {
       activity = new Task(activityJson.name(), activityJson.description(),
-          DayOfWeek.valueOf(activityJson.weekdayString()), category,
-          CompletionStatus.valueOf(activityJson.completionStatusString()));
+        DayOfWeek.valueOf(activityJson.weekdayString()), category,
+        CompletionStatus.valueOf(activityJson.completionStatusString()));
     }
     return activity;
   }
 
+  /**
+   * get activity node
+   *
+   * @param activity Activity
+   * @return JsonNode
+   */
   private static JsonNode getActivityJsonNode(Activity activity) {
     CategoryJson categoryJson = new CategoryJson(activity.getCategory().getName());
     TimeJson startTime = new TimeJson(-1, -1);
@@ -110,11 +133,17 @@ public abstract class PersistenceManager {
     }
 
     ActivityJson activityJson = new ActivityJson(activity.getName(), activity.getDescription(),
-        activity.getWeekday().name(), categoryJson, activity.getType().name(), cs.name(),
-        startTime, endTime);
+        activity.getWeekday().name(), categoryJson, activity.getType().name(), cs.name(), startTime,
+        endTime);
+
     return serializedRecord(activityJson);
   }
 
+  /**
+   * parse settings
+   *
+   * @param arguments JsonNode
+   */
   private static void parseSetting(JsonNode arguments) {
     SettingsJson settingsJson = mapper.convertValue(arguments, SettingsJson.class);
     Settings settings = Settings.getInstance();
@@ -122,10 +151,16 @@ public abstract class PersistenceManager {
     settings.setEmail(settingsJson.email());
     settings.setTaskMax(settingsJson.taskMax());
     settings.setEventMax(settingsJson.eventMax());
-    settings.setLocalDate(LocalDate.parse(settingsJson.startDateString(),
-        DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+    settings.setLocalDate(
+        LocalDate.parse(settingsJson.startDateString(), DateTimeFormatter.ofPattern("MM/dd/yyyy")));
   }
 
+  /**
+   * get settings JsonNode
+   *
+   * @param settings Setting class
+   * @return JsonNode
+   */
   private static JsonNode getSettingsJsonNode(Settings settings) {
     SettingsJson settingsJson = new SettingsJson(settings.getName(), settings.getEmail(),
         settings.getEventMax(), settings.getTaskMax(), settings.getDateString());

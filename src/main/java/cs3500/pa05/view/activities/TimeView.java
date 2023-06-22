@@ -1,8 +1,9 @@
 package cs3500.pa05.view.activities;
+
+import java.time.LocalTime;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
-import java.time.LocalTime;
 
 /**
  * Represents the Time selector (hours, minutes, am / pm)
@@ -10,9 +11,9 @@ import java.time.LocalTime;
 public class TimeView extends HBox {
 
   //fields
-  private ComboBox hour;
-  private ComboBox minute;
-  private ComboBox amPm;
+  private final ComboBox hour;
+  private final ComboBox minute;
+  private final ComboBox amPm;
 
   /**
    * Constructor
@@ -59,12 +60,8 @@ public class TimeView extends HBox {
    * @return true if valid, false if not
    */
   private boolean validateAnswer() {
-    if (this.hour.getValue() == null || this.minute.getValue() == null || this.amPm.getValue() == null) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    return this.hour.getValue() != null && this.minute.getValue() != null
+      && this.amPm.getValue() != null;
   }
 
   /**
@@ -88,8 +85,7 @@ public class TimeView extends HBox {
     //handle the minutes
     if (time.getMinute() == 0) {
       this.minute.getSelectionModel().select("00");
-    }
-    else {
+    } else {
       this.minute.getSelectionModel().select(Integer.toString(time.getMinute()));
     }
 

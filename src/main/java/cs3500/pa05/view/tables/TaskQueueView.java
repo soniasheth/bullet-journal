@@ -4,23 +4,28 @@ import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+
 
 /**
  * represents the task queue view
  */
 public class TaskQueueView extends GridPane implements TableView {
 
+  private final int width = 200;
   /**
    * delegate for this task queue
    */
   private TableViewDelegate delegate;
-  private final int width = 200;
 
   /**
    * default constructor
@@ -34,8 +39,8 @@ public class TaskQueueView extends GridPane implements TableView {
 
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
-    BorderStroke borderStroke = new BorderStroke(Color.valueOf( "228B22"), BorderStrokeStyle.SOLID,
-            cornerRadii, new BorderWidths(2));
+    BorderStroke borderStroke = new BorderStroke(Color.valueOf("228B22"), BorderStrokeStyle.SOLID,
+        cornerRadii, new BorderWidths(2));
     Border border = new Border(borderStroke);
     this.setBorder(border);
   }
@@ -60,7 +65,7 @@ public class TaskQueueView extends GridPane implements TableView {
     Text title = new Text(this.delegate.titleForColumn(this, 0));
     title.setFill(Color.valueOf("228B22"));
     title.setFont(Font.font("Bradley Hand", FontWeight.BOLD, 20));
-    this.add(title,0, 0);
+    this.add(title, 0, 0);
     for (int i = 0; i < this.delegate.numberOfRowFor(this, 0); i++) {
       this.add(new ActivityView(this.delegate.getActivityForCellAt(this, 0, i)), 0, i + 1);
     }
