@@ -34,12 +34,14 @@ public abstract class PersistenceManager {
   private static final ObjectMapper mapper = new ObjectMapper();
 
   /**
-   * load json data from a file and update the model
+
+   * Load data from file to model
    *
-   * @param f     file to read from
-   * @param model model to save to
+   * @param f     File
+   * @param model weekdays model
    */
-  public static void loadDataFrom(File f, WeekdaysModel model) {
+  public static void loadDataFrom(File f, Model model) {
+
     Set<Category> categories = new HashSet<>(Settings.getInstance().getCategories());
     Settings.getInstance().getCategories().clear();
     List<MessageJson> messages;
@@ -63,12 +65,13 @@ public abstract class PersistenceManager {
   }
 
   /**
-   * save data in the given model to the given file
+   * save data to file
    *
-   * @param f     file to save
-   * @param model model to save
+   * @param f     File
+   * @param model Weekdays model
    */
-  public static void saveDataTo(File f, WeekdaysModel model) {
+  public static void saveDataTo(File f, Model model) {
+
 
     List<MessageJson> messageList = new ArrayList<>();
     messageList.add(new MessageJson("setting", getSettingsJsonNode(Settings.getInstance())));
@@ -87,6 +90,7 @@ public abstract class PersistenceManager {
   }
 
   /**
+
    * helper method to parse a JsonNode into either Task or Event
    *
    * @param arguments JsonNode argument
@@ -103,16 +107,17 @@ public abstract class PersistenceManager {
       LocalTime startTime = LocalTime.of(startTimeJson.hour(), startTimeJson.minute());
       LocalTime endTime = LocalTime.of(endTimeJson.hour(), endTimeJson.minute());
       activity = new Event(activityJson.name(), activityJson.description(),
-          DayOfWeek.valueOf(activityJson.weekdayString()), category, startTime, endTime);
+        DayOfWeek.valueOf(activityJson.weekdayString()), category, startTime, endTime);
     } else {
       activity = new Task(activityJson.name(), activityJson.description(),
-          DayOfWeek.valueOf(activityJson.weekdayString()), category,
-          CompletionStatus.valueOf(activityJson.completionStatusString()));
+        DayOfWeek.valueOf(activityJson.weekdayString()), category,
+        CompletionStatus.valueOf(activityJson.completionStatusString()));
     }
     return activity;
   }
 
   /**
+
    * helper method to convert a Task or Event to JsonNode
    *
    * @param activity activity to serialize
@@ -133,12 +138,14 @@ public abstract class PersistenceManager {
     }
 
     ActivityJson activityJson = new ActivityJson(activity.getName(), activity.getDescription(),
-        activity.getWeekday().name(), categoryJson, activity.getType().name(), cs.name(),
-        startTime, endTime);
+        activity.getWeekday().name(), categoryJson, activity.getType().name(), cs.name(), startTime,
+        endTime);
+
     return serializedRecord(activityJson);
   }
 
   /**
+
    * helper method to parse JsonNode into Settings singleton
    *
    * @param arguments JsonNode to parse
@@ -150,8 +157,8 @@ public abstract class PersistenceManager {
     settings.setEmail(settingsJson.email());
     settings.setTaskMax(settingsJson.taskMax());
     settings.setEventMax(settingsJson.eventMax());
-    settings.setLocalDate(LocalDate.parse(settingsJson.startDateString(),
-        DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+    settings.setLocalDate(
+        LocalDate.parse(settingsJson.startDateString(), DateTimeFormatter.ofPattern("MM/dd/yyyy")));
   }
 
   /**

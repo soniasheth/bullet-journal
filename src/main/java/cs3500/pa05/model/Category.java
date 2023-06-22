@@ -1,7 +1,5 @@
 package cs3500.pa05.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.paint.Color;
 
 /**
@@ -9,8 +7,8 @@ import javafx.scene.paint.Color;
  */
 public class Category {
 
-  private String name;
-  private Color color;
+  private final String name;
+  private final Color color;
 
   /**
    * default constructor for category
@@ -50,7 +48,7 @@ public class Category {
    */
   @Override
   public boolean equals(Object other) {
-    if(other instanceof Category that){
+    if (other instanceof Category that) {
       return that.name.equals(this.name);
     }
     return false;

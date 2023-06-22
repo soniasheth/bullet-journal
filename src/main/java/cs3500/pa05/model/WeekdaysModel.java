@@ -3,12 +3,12 @@ package cs3500.pa05.model;
 import cs3500.pa05.model.activities.Activity;
 import cs3500.pa05.model.activities.Task;
 import cs3500.pa05.model.enums.ActivityType;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.time.DayOfWeek;
 
 
 /**

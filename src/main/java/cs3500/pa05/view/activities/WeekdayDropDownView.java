@@ -1,8 +1,8 @@
 package cs3500.pa05.view.activities;
 
+import java.time.DayOfWeek;
 import javafx.scene.control.ComboBox;
 
-import java.time.DayOfWeek;
 
 /**
  * Represents the Weekday drop down when adding an event / task
@@ -13,14 +13,10 @@ public class WeekdayDropDownView extends ComboBox {
    * Constructor
    */
   public WeekdayDropDownView() {
-    this.getItems().addAll(
-            DayOfWeek.SUNDAY.name(),
-            DayOfWeek.MONDAY.name(),
-            DayOfWeek.TUESDAY.name(),
-            DayOfWeek.WEDNESDAY.name(),
-            DayOfWeek.THURSDAY.name(),
-            DayOfWeek.FRIDAY.name(),
-            DayOfWeek.SATURDAY.name());
+    this.getItems()
+        .addAll(DayOfWeek.SUNDAY.name(), DayOfWeek.MONDAY.name(), DayOfWeek.TUESDAY.name(),
+        DayOfWeek.WEDNESDAY.name(), DayOfWeek.THURSDAY.name(), DayOfWeek.FRIDAY.name(),
+        DayOfWeek.SATURDAY.name());
   }
 
   /**

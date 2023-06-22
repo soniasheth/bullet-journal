@@ -2,7 +2,7 @@ package cs3500.pa05;
 
 import cs3500.pa05.controller.BujoController;
 import cs3500.pa05.controller.WelcomeController;
-import cs3500.pa05.model.*;
+import cs3500.pa05.model.WeekdaysModel;
 import cs3500.pa05.view.BujoView;
 import cs3500.pa05.view.WelcomeView;
 import cs3500.pa05.view.activities.ActivitiesButtons;
@@ -11,37 +11,27 @@ import cs3500.pa05.view.tables.WeekdaysView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.scene.image.ImageView;
 
-import java.util.List;
 
 /**
  * MainStage for Bullet Journal
  */
 public class BujoMainStage extends Application {
-  private int height = 1000;
-  private int width = 2000;
+
+  private final int height = 1000;
+  private final int width = 2000;
 
   @Override
   public void start(Stage primaryStage) {
     try {
-      WeekdaysModel model = new WeekdaysModel();
-
-      //init views needed for the bujo
-      WelcomeView welcomeView = new WelcomeView();
-      ActivitiesButtons addActivities = new ActivitiesButtons();
-      WeekdaysView weekdaysView = new WeekdaysView();
-      TaskQueueView taskQueueView = new TaskQueueView();
-
       Button settings = new Button();
       Button save = new Button();
 
       setButtonIcon(settings, "settings.png");
       setButtonIcon(save, "save.png");
-
-      HBox weekOfLabel = new HBox();
 
       //buttons
       Button eventStats = new Button("Event Stats");
@@ -51,9 +41,16 @@ public class BujoMainStage extends Application {
       eventStats.setPrefSize(200, 50);
       taskStats.setPrefSize(200, 50);
 
+      ActivitiesButtons addActivities = new ActivitiesButtons();
+      WeekdaysView weekdaysView = new WeekdaysView();
+      TaskQueueView taskQueueView = new TaskQueueView();
+
+      HBox weekOfLabel = new HBox();
       BujoView bujo = new BujoView(addActivities, settings, save, weekdaysView, taskQueueView,
           eventStats, taskStats, weekOfLabel);
 
+      WeekdaysModel model = new WeekdaysModel();
+      WelcomeView welcomeView = new WelcomeView();
       //init the controller
       BujoController controllerBujo = new BujoController(primaryStage, model, weekdaysView,
           taskQueueView, addActivities, settings, eventStats, taskStats, save);

@@ -4,17 +4,29 @@ import cs3500.pa05.Utils;
 import cs3500.pa05.model.Settings;
 import cs3500.pa05.view.ActivityView;
 import cs3500.pa05.view.delegates.TableViewDelegate;
+import java.time.DayOfWeek;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.time.DayOfWeek;
-import java.util.List;
+
+
+
 
 /**
  * represents a weekday view class
@@ -44,6 +56,7 @@ public class WeekdaysView extends GridPane implements TableView {
 
     //add a border
     CornerRadii cornerRadii = new CornerRadii(7);
+
     BorderStroke borderStroke = new BorderStroke(Utils.BUJO_THEME_COLOR, BorderStrokeStyle.SOLID, cornerRadii,
         new BorderWidths(2));
     Border border = new Border(borderStroke);
@@ -68,8 +81,7 @@ public class WeekdaysView extends GridPane implements TableView {
    * @param rowIndex row index of the cell
    */
   private void renderCell(int colIndex, int rowIndex) {
-    VBox v = new ActivityView(this.delegate.getActivityForCellAt(this,
-        colIndex, rowIndex));
+
     Button invisible = new Button();
     invisible.setOpacity(0.0);
     invisible.setBackground(null);
@@ -77,9 +89,9 @@ public class WeekdaysView extends GridPane implements TableView {
     //invisible.setPrefHeight(100);
     //set on action
     invisible.setPrefHeight(80);
-    invisible.setOnAction(event -> {
-      this.delegate.didClickOn(this, colIndex, rowIndex);
-    });
+    invisible.setOnAction(event -> this.delegate.didClickOn(this, colIndex, rowIndex));
+
+    VBox v = new ActivityView(this.delegate.getActivityForCellAt(this, colIndex, rowIndex));
     this.add(new StackPane(v, invisible), colIndex, rowIndex + 1);
   }
 

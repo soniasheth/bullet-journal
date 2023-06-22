@@ -3,8 +3,6 @@ package cs3500.pa05.model.activities;
 import cs3500.pa05.model.Category;
 import cs3500.pa05.model.enums.ActivityType;
 import cs3500.pa05.model.enums.CompletionStatus;
-
-
 import java.time.DayOfWeek;
 
 /**
@@ -25,7 +23,7 @@ public class Task extends Activity {
    * @param status      task status
    */
   public Task(String name, String description, DayOfWeek weekday, Category category,
-              CompletionStatus status) {
+      CompletionStatus status) {
     super(name, description, weekday, category);
     this.status = status;
   }
