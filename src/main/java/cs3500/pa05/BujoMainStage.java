@@ -55,9 +55,10 @@ public class BujoMainStage extends Application {
           eventStats, taskStats, weekOfLabel);
 
       //init the controller
-      BujoController controller = new BujoController(primaryStage, model, weekdaysView,
+      BujoController controllerBujo = new BujoController(primaryStage, model, weekdaysView,
           taskQueueView, addActivities, settings, eventStats, taskStats, save);
-      WelcomeController c = new WelcomeController(model, welcomeView, primaryStage, bujo, controller, weekOfLabel);
+      WelcomeController controllerWelcome =
+              new WelcomeController(model, welcomeView, primaryStage, bujo, controllerBujo, weekOfLabel);
 
       //show the welcome scene
       Scene scene = new Scene(welcomeView);
