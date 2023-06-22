@@ -26,10 +26,10 @@ Download the app today!
 GUI + Features: 
 
 (Please see Preview for image)
-Welcome: 
-![WelcomeView.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2FDesktop%2FWelcomeView.png)
-Journal: 
-![JournalView.png](..%2F..%2F..%2F..%2F..%2F..%2F..%2FDesktop%2FJournalView.png)
+Welcome:
+https://github.com/CS-3500-OOD/pa05-t-checkexpect/blob/4bc89db3d2f9a4e92045e215a14189fd9098c75e/WelcomeView.png
+Journal:
+https://github.com/CS-3500-OOD/pa05-t-checkexpect/blob/4bc89db3d2f9a4e92045e215a14189fd9098c75e/JournalView.png
 
 SOLID Principles:
 
